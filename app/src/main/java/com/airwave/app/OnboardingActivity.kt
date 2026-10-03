@@ -52,8 +52,11 @@ class OnboardingActivity : BaseActivity() {
         b.langButton.setOnClickListener { chooseLanguage() }
         b.themeButton.setOnClickListener { chooseTheme() }
         // Restore page after a recreate (e.g. language change on page 4).
+        // updateNav() must re-run so the lang/theme icons, Next/Skip and dots
+        // match the restored page, not the default page 1.
         savedInstanceState?.getInt("page", 0)?.let {
             b.pageFlipper.displayedChild = it.coerceIn(0, 3)
+            updateNav()
         }
     }
 
