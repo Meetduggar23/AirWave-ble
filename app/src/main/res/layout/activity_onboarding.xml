@@ -7,44 +7,113 @@
     android:orientation="vertical"
     android:padding="32dp">
 
+    <!-- Top bar: language/theme picker chips + skip, right-aligned.
+         Chips are GONE by default; OnboardingActivity shows them on the name page. -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="end"
         android:orientation="horizontal">
 
-        <!-- v3.2.6: quick language + theme access on the name page -->
-        <ImageButton
-            android:id="@+id/langButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/language"
-            android:src="@drawable/ic_language"
-            android:tint="#5C6F82"
-            android:visibility="gone" />
-
-        <ImageButton
-            android:id="@+id/themeButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/theme"
-            android:src="@drawable/ic_palette"
-            android:tint="#5C6F82"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/skipButton"
+        <LinearLayout
+            android:id="@+id/pickerChips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="8dp"
-            android:text="@string/skip"
-            android:textColor="#5C6F82"
-            android:textSize="14sp" />
+            android:gravity="center_vertical|end"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/langButton"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:background="@drawable/bg_chip_white"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="10dp"
+                android:paddingEnd="8dp">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="@string/language"
+                    android:src="@drawable/ic_language"
+                    android:tint="#5C6F82" />
+
+                <TextView
+                    android:id="@+id/langValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="English"
+                    android:textColor="#152A3D"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="4dp"
+                    android:contentDescription="@string/language"
+                    android:src="@drawable/ic_chevron"
+                    android:tint="#5C6F82" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/themeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_chip_white"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="10dp"
+                android:paddingEnd="8dp">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="@string/theme"
+                    android:src="@drawable/ic_palette"
+                    android:tint="#5C6F82" />
+
+                <TextView
+                    android:id="@+id/themeValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/theme"
+                    android:textColor="#152A3D"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="4dp"
+                    android:contentDescription="@string/theme"
+                    android:src="@drawable/ic_chevron"
+                    android:tint="#5C6F82" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/skipButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp"
+                android:text="@string/skip"
+                android:textColor="#5C6F82"
+                android:textSize="14sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <ViewFlipper
@@ -71,6 +140,7 @@
                 android:tint="?attr/colorPrimary" />
 
             <TextView
+                android:id="@+id/tutorialTitle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
@@ -119,6 +189,7 @@
             </FrameLayout>
 
             <TextView
+                android:id="@+id/tutorialTitle2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
@@ -154,6 +225,7 @@
                 android:tint="?attr/colorPrimary" />
 
             <TextView
+                android:id="@+id/tutorialTitle3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
@@ -182,6 +254,7 @@
 
             <!-- v3.2.6: single logo here — the stacked app icon duplicated the wordmark -->
             <ImageView
+                android:id="@+id/brandIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:adjustViewBounds="true"
@@ -189,6 +262,7 @@
                 android:src="@drawable/topleftcorner" />
 
             <TextView
+                android:id="@+id/nameTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"

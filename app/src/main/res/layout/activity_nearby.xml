@@ -5,34 +5,29 @@
     android:orientation="vertical"
     android:padding="20dp">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="48dp">
 
         <ImageButton
             android:id="@+id/backButton"
             android:layout_width="44dp"
             android:layout_height="44dp"
+            android:layout_gravity="start|center_vertical"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/cancel"
-            android:src="@drawable/ic_back" />          <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal">
+            android:src="@drawable/ic_back" />
 
-            <!-- v3.2.6: single logo in the header — the app icon duplicated the wordmark -->
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/topleftcorner" />
-        </LinearLayout>
-    </LinearLayout>
+        <!-- v3.2.6: single logo, truly centered between the edges (it sat inside
+             a weighted LinearLayout, so it was slightly left of center). -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/topleftcorner" />
+    </FrameLayout>
 
     <TextView
         android:layout_width="match_parent"

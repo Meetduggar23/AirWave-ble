@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- v3.2.6: white pill chip for the onboarding name page (page is white by design,
+     so the chip must not follow the app theme's surfaceVariant). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="17dp" />
+    <solid android:color="#FFFFFF" />
+    <stroke
+        android:width="1dp"
+        android:color="#E1E7ED" />
+</shape>

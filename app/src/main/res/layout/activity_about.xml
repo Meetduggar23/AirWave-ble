@@ -1,275 +1,324 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- v3.2.6: compact one-screen About — smaller header, tight cards, short
+     lists laid out two per row. ScrollView kept only as a small-screen fallback. -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:paddingStart="16dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp">
 
         <ImageButton
             android:id="@+id/backButton"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="start"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/cancel"
             android:src="@drawable/ic_back" />
 
+        <!-- v3.2.6: header block centered — logo sits above the name/version/tagline -->
         <ImageView
-            android:layout_width="88dp"
-            android:layout_height="88dp"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="4dp"
+            android:adjustViewBounds="true"
             android:contentDescription="@string/app_name"
             android:src="@drawable/topleftcorner" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="6dp"
             android:text="@string/app_name"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="28sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
-        <!-- v3.2.6: real version from BuildConfig (was hardcoded "Version 2.0") -->
+        <!-- Real version from BuildConfig (was hardcoded "Version 2.0") -->
         <TextView
             android:id="@+id/versionText"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:gravity="center"
+            android:layout_gravity="center_horizontal"
             android:text="@string/version_fmt"
             android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
             android:text="@string/about_tagline"
             android:textColor="?attr/colorPrimary"
-            android:textSize="16sp" />
+            android:textSize="13sp" />
 
-        <!-- v3.2.6: what the app is -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_card"
-            android:padding="16dp"
+            android:layout_marginTop="10dp"
+            android:lineSpacingExtra="2dp"
             android:text="@string/about_desc"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="15sp" />
+            android:textSize="13sp" />
 
+        <!-- How it works -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/bg_card"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="12dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_how_title"
                 android:textColor="?attr/colorPrimary"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="6dp"
                 android:drawableStart="@drawable/ic_check"
-                android:drawablePadding="10dp"
+                android:drawablePadding="8dp"
                 android:drawableTint="?attr/colorPrimary"
                 android:gravity="center_vertical"
                 android:text="@string/about_how_1"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:drawableStart="@drawable/ic_check"
-                android:drawablePadding="10dp"
+                android:drawablePadding="8dp"
                 android:drawableTint="?attr/colorPrimary"
                 android:gravity="center_vertical"
                 android:text="@string/about_how_2"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:drawableStart="@drawable/ic_check"
-                android:drawablePadding="10dp"
+                android:drawablePadding="8dp"
                 android:drawableTint="?attr/colorPrimary"
                 android:gravity="center_vertical"
                 android:text="@string/about_how_3"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
         </LinearLayout>
 
+        <!-- Principles: two per row to save vertical space -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/bg_card"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="12dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_principles_title"
                 android:textColor="?attr/colorPrimary"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:drawableStart="@drawable/ic_check"
-                android:drawablePadding="10dp"
-                android:drawableTint="?attr/colorPrimary"
-                android:gravity="center_vertical"
-                android:text="@string/about_p1"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="15sp" />
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:drawableStart="@drawable/ic_check"
-                android:drawablePadding="10dp"
-                android:drawableTint="?attr/colorPrimary"
-                android:gravity="center_vertical"
-                android:text="@string/about_p2"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="15sp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_check"
+                    android:drawablePadding="8dp"
+                    android:drawableTint="?attr/colorPrimary"
+                    android:gravity="center_vertical"
+                    android:text="@string/about_p1"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="13sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:drawableStart="@drawable/ic_check"
-                android:drawablePadding="10dp"
-                android:drawableTint="?attr/colorPrimary"
-                android:gravity="center_vertical"
-                android:text="@string/about_p3"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="15sp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_check"
+                    android:drawablePadding="8dp"
+                    android:drawableTint="?attr/colorPrimary"
+                    android:gravity="center_vertical"
+                    android:text="@string/about_p2"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="13sp" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:drawableStart="@drawable/ic_check"
-                android:drawablePadding="10dp"
-                android:drawableTint="?attr/colorPrimary"
-                android:gravity="center_vertical"
-                android:text="@string/about_p4"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="15sp" />
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_check"
+                    android:drawablePadding="8dp"
+                    android:drawableTint="?attr/colorPrimary"
+                    android:gravity="center_vertical"
+                    android:text="@string/about_p3"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_check"
+                    android:drawablePadding="8dp"
+                    android:drawableTint="?attr/colorPrimary"
+                    android:gravity="center_vertical"
+                    android:text="@string/about_p4"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="13sp" />
+            </LinearLayout>
         </LinearLayout>
 
-        <!-- v3.2.6: privacy summary -->
+        <!-- Privacy -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/bg_card"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="12dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_privacy_title"
                 android:textColor="?attr/colorPrimary"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="6dp"
+                android:lineSpacingExtra="2dp"
                 android:text="@string/about_privacy_body"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
         </LinearLayout>
 
+        <!-- Features: two per row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/bg_card"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="12dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_features_title"
                 android:textColor="?attr/colorPrimary"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/about_f1"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="15sp" />
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/about_f2"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="15sp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/about_f1"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="13sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/about_f3"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="15sp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/about_f2"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="13sp" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/about_f4"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="15sp" />
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/about_f3"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/about_f4"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/about_f5"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="15sp" />
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/about_f5"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="13sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="12dp" />
+            android:layout_height="4dp" />
     </LinearLayout>
 </ScrollView>

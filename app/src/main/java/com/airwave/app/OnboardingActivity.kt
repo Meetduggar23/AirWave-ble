@@ -1,6 +1,7 @@
 package com.airwave.app
 
 import android.animation.Animator
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Intent
@@ -8,6 +9,8 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.view.animation.DecelerateInterpolator
+import android.view.animation.OvershootInterpolator
 import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -35,11 +38,13 @@ class OnboardingActivity : BaseActivity() {
             if (b.pageFlipper.displayedChild < 3) {
                 b.pageFlipper.showNext()
                 updateNav()
+                popCenterIcon()
             }
         }
         b.skipButton.setOnClickListener {
             b.pageFlipper.displayedChild = 3
             updateNav()
+            popCenterIcon()
         }
         b.continueButton.setOnClickListener { submit() }
         b.nameInput.setOnEditorActionListener { _, actionId, _ ->
@@ -51,12 +56,16 @@ class OnboardingActivity : BaseActivity() {
         // v3.2.6: language + theme shortcuts on the name page.
         b.langButton.setOnClickListener { chooseLanguage() }
         b.themeButton.setOnClickListener { chooseTheme() }
+        // v3.2.6: entrance pop when arriving from the splash (first open only).
+        if (savedInstanceState == null) popCenterIcon()
+
         // Restore page after a recreate (e.g. language change on page 4).
         // updateNav() must re-run so the lang/theme icons, Next/Skip and dots
         // match the restored page, not the default page 1.
         savedInstanceState?.getInt("page", 0)?.let {
             b.pageFlipper.displayedChild = it.coerceIn(0, 3)
             updateNav()
+            popCenterIcon()
         }
     }
 
@@ -106,10 +115,72 @@ class OnboardingActivity : BaseActivity() {
         val last = b.pageFlipper.displayedChild == 3
         b.nextButton.visibility = if (last) View.GONE else View.VISIBLE
         b.skipButton.visibility = if (last) View.INVISIBLE else View.VISIBLE
-        // v3.2.6: language + theme icons only on the name page.
+        // v3.2.6: language + theme picker chips only on the name page.
         b.langButton.visibility = if (last) View.VISIBLE else View.GONE
         b.themeButton.visibility = if (last) View.VISIBLE else View.GONE
+        // Chips show the current selections.
+        b.langValue.text = when (Prefs.language) {
+            "hi" -> "हिन्दी"
+            "bn" -> "বাংলা"
+            "mr" -> "मराठी"
+            "te" -> "తెలుగు"
+            "ta" -> "தமிழ்"
+            "gu" -> "ગુજરાતી"
+            else -> "English"
+        }
+        b.themeValue.text = ThemeRepo.nameFor(Prefs.themeMode)
         updateDots()
+    }    /** v3.2.6: splash-style entrance for the centered icon of the current page
+     *  (plus its title). Runs on first open, on Next, on Skip and after recreate().
+     *  Pages 2–3 run idle scale loops on their icons, so those pages get a
+     *  rise+fade instead of a scale-pop to avoid fighting the loop. */
+    private fun popCenterIcon() {
+        val page = b.pageFlipper.displayedChild
+        val icon = when (page) {
+            0 -> b.animIcon1
+            1 -> b.animIcon2
+            2 -> b.animIcon3
+            else -> b.brandIcon
+        }
+        val title = when (page) {
+            0 -> findViewById<View>(R.id.tutorialTitle1)
+            1 -> findViewById<View>(R.id.tutorialTitle2)
+            2 -> findViewById<View>(R.id.tutorialTitle3)
+            else -> findViewById<View>(R.id.nameTitle)
+        }
+        val usesScale = page == 0 || page == 3
+        val anims = mutableListOf<Animator>()
+        listOf(icon, title).forEach { v ->
+            if (usesScale) {
+                anims += ObjectAnimator.ofFloat(v, "scaleX", 0.55f, 1f)
+                anims += ObjectAnimator.ofFloat(v, "scaleY", 0.55f, 1f)
+                anims += ObjectAnimator.ofFloat(v, "alpha", 0f, 1f)
+            } else {
+                anims += ObjectAnimator.ofFloat(v, "translationY", 40f, 0f)
+                anims += ObjectAnimator.ofFloat(v, "alpha", 0f, 1f)
+            }
+        }
+        AnimatorSet().apply {
+            playTogether(anims)
+            duration = 420
+            interpolator = if (usesScale) OvershootInterpolator(1.4f) else DecelerateInterpolator()
+            addListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(a: Animator) {}
+                override fun onAnimationEnd(a: Animator) {
+                    animators.removeAll { it === a }
+                }
+                override fun onAnimationCancel(a: Animator) {
+                    // Never leave a view half-popped (e.g. user navigates mid-animation).
+                    icon.scaleX = 1f; icon.scaleY = 1f; icon.alpha = 1f
+                    icon.translationY = 0f
+                    title.scaleX = 1f; title.scaleY = 1f; title.alpha = 1f
+                    title.translationY = 0f
+                }
+                override fun onAnimationRepeat(a: Animator) {}
+            })
+            start()
+            animators.add(this)
+        }
     }
 
     private fun loop(animator: ObjectAnimator, durationMs: Long, reverse: Boolean = true): ObjectAnimator {
