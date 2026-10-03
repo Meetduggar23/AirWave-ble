@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- v3.0 FileProvider paths: shared images + exported chat text files -->
+<paths>
+    <files-path name="images" path="images/" />
+    <cache-path name="exports" path="exports/" />
+</paths>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AirWave</string>
+    <string name="hello_user">হ্যালো, %1$s</string>
+    <string name="bluetooth">ব্লুটুথ</string>
+    <string name="ready">প্রস্তুত</string>
+    <string name="off">বন্ধ</string>
+    <string name="offline">অফলাইন</string>
+    <string name="connection">সংযোগ</string>
+    <string name="not_connected">সংযুক্ত নয়</string>
+    <string name="connected_to">%1$s-এর সাথে সংযুক্ত</string>
+    <string name="hosting_group">হোস্টিং গ্রুপ %1$s · %2$d</string>
+    <string name="in_group">%1$s গ্রুপে</string>
+    <string name="connecting">সংযোগ হচ্ছে…</string>
+    <string name="ready_to_chat">চ্যাট করতে প্রস্তুত</string>
+    <string name="find_nearby">কাছাকাছি ব্যবহারকারী খুঁজুন</string>
+    <string name="your_identity">আপনার AirWave পরিচয়</string>
+    <string name="tap_to_set_name">নাম সেট করতে ট্যাপ করুন</string>
+    <string name="settings">সেটিংস</string>
+    <string name="nearby_users">কাছাকাছি ব্যবহারকারী</string>
+    <string name="create_group">গ্রুপ তৈরি করুন</string>
+    <string name="tap_to_connect">সংযোগ করতে কোনো ব্যবহারকারীকে ট্যাপ করুন</string>
+    <string name="no_peers">এখনও কাছাকাছি কেউ নেই।\nঅন্য ফোনে ব্লুটুথ চালু আছে কিনা দেখুন।</string>
+    <string name="group_badge">গ্রুপ %1$s</string>
+    <string name="enable_discoverable_to_host">গ্রুপ হোস্ট করতে সেটিংসে “অন্যদের কাছে দৃশ্যমান” চালু করুন</string>
+    <string name="type_message">বার্তা লিখুন</string>
+    <string name="send">পাঠান</string>
+    <string name="disconnect">সংযোগ বিচ্ছিন্ন করুন</string>
+    <string name="disconnect_confirm">%1$s থেকে সংযোগ বিচ্ছিন্ন করবেন?</string>
+    <string name="peer_disconnected">সংযোগ বিচ্ছিন্ন হয়েছে</string>
+    <string name="cancel">বাতিল</string>
+    <string name="ok">ঠিক আছে</string>
+    <string name="save">সংরক্ষণ</string>
+    <string name="clear">মুছুন</string>
+    <string name="leave_group">গ্রুপ ছাড়ুন</string>
+    <string name="leave_confirm">এই গ্রুপ ছেড়ে যাবেন?</string>
+    <string name="group_title">গ্রুপ %1$s</string>
+    <string name="you_are_host">আপনি হোস্ট করছেন · কোডটি শেয়ার করুন</string>
+    <string name="you_are_member">আপনি এই গ্রুপে যোগ দিয়েছেন</string>
+    <string name="members_count">%1$d জন সদস্য</string>
+    <string name="joined_group">গ্রুপে যোগ দিয়েছেন</string>
+    <string name="left_group">গ্রুপ ছেড়ে গেছেন</string>
+    <string name="identity_title">আপনার AirWave পরিচয়</string>
+    <string name="available_nearby">কাছাকাছি উপলব্ধ</string>
+    <string name="session_identity">সেশন পরিচয়</string>
+    <string name="session_identity_text">AirWave-এর জন্য কোনো অ্যাকাউন্ট লাগে না। ইমেইল, পাসওয়ার্ড বা অনলাইন প্রোফাইল নেই — শুধু এই সেশনের জন্য আপনার বেছে নেওয়া নাম। চ্যাটগুলো অস্থায়ী এবং সংরক্ষিত হয় না।</string>
+    <string name="change_name">নাম পরিবর্তন করুন</string>
+    <string name="unnamed">নামহীন</string>
+    <string name="enter_name">আপনার নাম লিখুন</string>
+    <string name="welcome_title">AirWave-এ স্বাগতম</string>
+    <string name="welcome_message">এই সেশনের জন্য একটি নাম বেছে নিন। কোনো অ্যাকাউন্ট লাগে না — চ্যাট আপনার ফোনেই থাকবে এবং সেশন শেষে মুছে যাবে।</string>
+    <string name="appearance">চেহারা</string>
+    <string name="theme">থিম</string>
+    <string name="theme_system">সিস্টেম ডিফল্ট</string>
+    <string name="theme_light">হালকা</string>
+    <string name="theme_dark">গাঢ়</string>
+    <string name="language">ভাষা</string>
+    <string name="notifications">বিজ্ঞপ্তি</string>
+    <string name="enable_notifications">বিজ্ঞপ্তি চালু করুন</string>
+    <string name="privacy">গোপনীয়তা</string>
+    <string name="discoverable">অন্যদের কাছে দৃশ্যমান</string>
+    <string name="discoverable_on">আপনি কাছাকাছি ব্যবহারকারীদের কাছে দৃশ্যমান</string>
+    <string name="discoverable_off">আপনি কাছাকাছি ব্যবহারকারীদের থেকে লুকানো</string>
+    <string name="session_only">শুধু সেশনের চ্যাট</string>
+    <string name="session_only_summary">চ্যাট অস্থায়ী এবং কখনো সংরক্ষিত হয় না</string>
+    <string name="clear_data">সেশনের ডেটা মুছুন</string>
+    <string name="clear_confirm">এই সেশনের সব চ্যাট ও খোঁজা ব্যবহারকারী মুছে যাবে?</string>
+    <string name="session_cleared">সেশনের ডেটা মুছে ফেলা হয়েছে</string>
+    <string name="about">সম্পর্কে</string>
+    <string name="about_airwave">AirWave সম্পর্কে</string>
+    <string name="about_text">AirWave একটি ছোট, ব্যক্তিগত, অফলাইন চ্যাট অ্যাপ যা Bluetooth Low Energy ব্যবহার করে কাছাকাছি Android ডিভাইসের জন্য।\n\n• কোনো ইন্টারনেট, সার্ভার বা ক্লাউড নেই\n• ১-টু-১ এবং গ্রুপ চ্যাট\n• অস্থায়ী সেশন চ্যাট — কিছুই সংরক্ষিত হয় না\n\nসংস্করণ 1.0</string>
+    <string name="my_qr">আমার AirWave QR</string>
+    <string name="qr_note">এই কোড দিয়ে অন্যরা আপনাকে চিনতে পারবে। কোনো অ্যাকাউন্ট নেই, শুধু আপনার সেশনের নাম।</string>
+    <string name="turn_bluetooth_on_first">আগে ব্লুটুথ চালু করুন</string>
+    <string name="grant_permissions">ব্লুটুথ অনুমতি প্রয়োজন</string>
+    <string name="not_connected_yet">এখনও সংযুক্ত হননি</string>
+
+    <!-- v2.0: drawer -->
+    <string name="drawer_home">হোম</string>
+    <string name="drawer_nearby">কাছাকাছি</string>
+    <string name="drawer_scan_qr">QR স্ক্যান</string>
+    <string name="drawer_identity">পরিচয়</string>
+    <string name="drawer_my_qr">আমার QR</string>
+    <string name="drawer_settings">সেটিংস</string>
+    <string name="drawer_about">সম্পর্কে</string>
+    <string name="session_offline">সেশন · অফলাইন</string>
+
+    <!-- v2.0: chats list -->
+    <string name="chats">চ্যাট</string>
+    <string name="no_chats">এখনও কোনো চ্যাট নেই</string>
+    <string name="no_chats_sub">চ্যাট শুরু করতে কাছাকাছি কারো সাথে সংযোগ করুন</string>
+
+    <!-- v2.0: nearby -->
+    <string name="rescan">আবার স্ক্যান করুন</string>
+    <string name="scanning">স্ক্যান হচ্ছে…</string>
+    <string name="scan_qr">QR স্ক্যান করুন</string>
+    <string name="scan_qr_title">QR স্ক্যান</string>
+    <string name="scan_qr_prompt">AirWave QR কোডের দিকে ক্যামেরা ধরুন</string>
+    <string name="qr_invalid">এটি AirWave QR কোড নয়</string>
+    <string name="peer_not_found">%1$s এখন কাছাকাছি নেই</string>
+    <string name="choose_peer">কাউকে বেছে নিন</string>
+    <string name="scan_qr_instead">বরং QR স্ক্যান করুন</string>
+    <string name="no_peers_title">এখনও কাছাকাছি কেউ নেই</string>
+    <string name="no_peers_sub">অন্য ফোনে ব্লুটুথ চালু এবং দৃশ্যমান আছে কিনা দেখুন</string>
+    <string name="camera_needed">QR কোড স্ক্যান করতে ক্যামেরার অনুমতি দরকার</string>
+
+    <!-- v2.0: chat -->
+    <string name="no_messages">এখনও কোনো বার্তা নেই</string>
+    <string name="reply">উত্তর</string>
+    <string name="copy">কপি</string>
+    <string name="delete">মুছুন</string>
+    <string name="clear_chat">চ্যাট মুছুন</string>
+    <string name="clear_chat_confirm">এই চ্যাটের সব বার্তা মুছে যাবে?</string>
+    <string name="block_user">ব্যবহারকারী ব্লক করুন</string>
+    <string name="unblock_user">আনব্লক করুন</string>
+    <string name="blocked_toast">%1$s ব্লক করা হয়েছে</string>
+    <string name="unblocked_toast">%1$s-এর ব্লক তুলে নেওয়া হয়েছে</string>
+    <string name="typing">লিখছেন…</string>
+    <string name="is_typing">%1$s লিখছেন…</string>
+    <string name="copied">কপি করা হয়েছে</string>
+    <string name="message_deleted">বার্তা মুছে ফেলা হয়েছে</string>
+    <string name="more_options">আরও বিকল্প</string>
+
+    <!-- v2.0: groups -->
+    <string name="group_qr_title">গ্রুপ QR</string>
+    <string name="group_qr_note">গ্রুপে যোগ দিতে অন্যরা এই কোড স্ক্যান করতে পারবে</string>
+
+    <!-- v2.0: identity -->
+    <string name="choose_avatar_color">আপনার রঙ বেছে নিন</string>
+    <string name="show_my_qr">আমার QR দেখুন</string>
+
+    <!-- v2.0: about -->
+    <string name="version_2">সংস্করণ 2.0</string>
+    <string name="about_tagline">কাছাকাছি মানুষের জন্য অফলাইন চ্যাট</string>
+    <string name="about_principles_title">নীতিমালা</string>
+    <string name="about_p1">লগইন নেই</string>
+    <string name="about_p2">সার্ভার নেই</string>
+    <string name="about_p3">ক্লাউড নেই</string>
+    <string name="about_p4">শুধু সেশনের চ্যাট</string>
+    <string name="about_features_title">বৈশিষ্ট্য</string>
+    <string name="about_f1">১-টু-১ এবং গ্রুপ চ্যাট</string>
+    <string name="about_f2">QR সংযোগ</string>
+    <string name="about_f3">টাইপিং সূচক ও ডেলিভারি টিক</string>
+    <string name="about_f4">অপঠিত ব্যাজ</string>
+    <string name="about_f5">ব্লক ও চ্যাট মোছা</string>
+
+    <!-- v3.0: drawer -->
+    <string name="drawer_history">ইতিহাস</string>
+    <string name="history_title">সংযোগ ইতিহাস</string>
+    <string name="history_empty">এই সেশনে এখনও কোনো ঘটনা নেই</string>
+
+    <!-- v3.0: images -->
+    <string name="send_image">ছবি পাঠান</string>
+    <string name="image_too_large">ছবিটি পাঠানোর জন্য খুব বড়</string>
+    <string name="caption_hint">ক্যাপশন যোগ করুন (ঐচ্ছিক)</string>
+    <string name="photo">ছবি</string>
+    <string name="image_failed">ছবি লোড করা যায়নি</string>
+    <string name="tap_to_retry">আবার চেষ্টা করতে ট্যাপ করুন</string>
+    <string name="resend_failed">এখনও সংযুক্ত নয়</string>
+
+    <!-- v3.0: reactions & pins -->
+    <string name="react">রিঅ্যাক্ট</string>
+    <string name="pin">পিন</string>
+    <string name="unpin">আনপিন</string>
+    <string name="pinned_messages">পিন করা বার্তা</string>
+    <string name="no_pinned">পিন করা কোনো বার্তা নেই</string>
+
+    <!-- v3.0: search -->
+    <string name="search">খুঁজুন</string>
+    <string name="search_hint">বার্তা খুঁজুন</string>
+
+    <!-- v3.0: mute & export -->
+    <string name="mute_chat">বিজ্ঞপ্তি নিঃশব্দ করুন</string>
+    <string name="unmute_chat">বিজ্ঞপ্তি চালু করুন</string>
+    <string name="muted_toast">এই চ্যাটের বিজ্ঞপ্তি নিঃশব্দ করা হয়েছে</string>
+    <string name="unmuted_toast">বিজ্ঞপ্তি চালু করা হয়েছে</string>
+    <string name="export_chat">চ্যাট এক্সপোর্ট করুন</string>
+    <string name="export_saved">%1$s সংরক্ষণ করা হয়েছে</string>
+    <string name="share_chat">চ্যাট শেয়ার করুন</string>
+
+    <!-- v3.0: groups -->
+    <string name="make_admin">অ্যাডমিন বানান</string>
+    <string name="remove_from_group">গ্রুপ থেকে সরান</string>
+    <string name="admin_badge">অ্যাডমিন</string>
+    <string name="rename_group">গ্রুপের নাম বদলান</string>
+    <string name="rename_group_hint">গ্রুপের নাম</string>
+    <string name="group_color">গ্রুপের রঙ</string>
+    <string name="kicked_toast">আপনাকে গ্রুপ থেকে সরানো হয়েছে</string>
+    <string name="member_removed">%1$s-কে সরানো হয়েছে</string>
+    <string name="group_renamed">%1$s গ্রুপের নাম বদলেছেন</string>
+    <string name="promoted_admin">%1$s এখন অ্যাডমিন</string>
+
+    <!-- v3.0: presence -->
+    <string name="active_now">এখন সক্রিয়</string>
+    <string name="last_seen">শেষ দেখা %1$s</string>
+    <string name="yesterday">গতকাল</string>
+
+    <!-- v3.0: group invites -->
+    <string name="group_invite_title">গ্রুপ আমন্ত্রণ</string>
+    <string name="group_invite_text">%1$s আপনাকে %2$s গ্রুপে আমন্ত্রণ জানিয়েছেন</string>
+
+    <!-- v3.0: onboarding -->
+    <string name="ob1_title">ইন্টারনেট ছাড়াই</string>
+    <string name="ob1_text">AirWave ব্লুটুথে চ্যাট করে — সার্ভার, ক্লাউড বা অ্যাকাউন্ট নেই।</string>
+    <string name="ob2_title">দৃশ্যমান থাকুন</string>
+    <string name="ob2_text">ব্লুটুথ চালু রাখুন এবং দৃশ্যমান থাকুন যাতে কাছাকাছি বন্ধুরা আপনাকে খুঁজে পায়।</string>
+    <string name="ob3_title">বন্ধু খুঁজুন ও চ্যাট করুন</string>
+    <string name="ob3_text">কাছাকাছি কারা আছে দেখুন, QR কোড স্ক্যান করুন, আর চ্যাট শুরু করুন।</string>
+    <string name="next">পরেরটি</string>
+    <string name="skip">এড়িয়ে যান</string>
+    <string name="get_started">শুরু করুন</string>
+    <string name="version_3">সংস্করণ 3.0</string>
+
+    <!-- v3.0: names used by the v3.0 chat screens -->
+    <string name="history">ইতিহাস</string>
+    <string name="no_history">এই সেশনে এখনও কোনো ঘটনা নেই</string>
+    <string name="share_image">ছবি শেয়ার করুন</string>
+    <string name="save_image">ছবি সংরক্ষণ করুন</string>
+    <string name="search_messages">বার্তা খুঁজুন</string>
+    <string name="matches_found">%1$dটি মিল পাওয়া গেছে</string>
+    <string name="retry_send">আবার পাঠান</string>
+    <string name="receiving_image">ছবি পাওয়া যাচ্ছে %1$dটি (মোট %2$dটি)</string>
+    <string name="remove_reaction">রিঅ্যাকশন তুলে নিন</string>
+    <string name="pin_message">বার্তা পিন করুন</string>
+    <string name="unpin_message">বার্তার পিন তুলুন</string>
+    <string name="pinned">পিন করা হয়েছে</string>
+    <string name="unpinned">পিন তুলে নেওয়া হয়েছে</string>
+    <string name="muted">এই চ্যাটের বিজ্ঞপ্তি নিঃশব্দ করা হয়েছে</string>
+    <string name="unmuted">বিজ্ঞপ্তি চালু করা হয়েছে</string>
+    <string name="export_failed">এক্সপোর্ট ব্যর্থ হয়েছে</string>
+    <string name="demote_admin">সদস্যে ফিরিয়ে দিন</string>
+    <string name="remove_member">গ্রুপ থেকে সরান</string>
+    <string name="remove_member_confirm">%1$s-কে গ্রুপ থেকে সরাবেন?</string>
+    <string name="group_avatar_color">গ্রুপ অবতার রঙ</string>
+    <string name="kicked_from_group">আপনাকে গ্রুপ থেকে সরানো হয়েছে</string>
+    <string name="role_admin">অ্যাডমিন</string>
+    <string name="role_member">সদস্য</string>
+    <string name="onboard_title_1">কাছাকাছি ফোন সংযোগ করুন</string>
+    <string name="onboard_text_1">ব্লুটুথ চালু করুন এবং দৃশ্যমান থাকুন — ইন্টারনেট লাগে না।</string>
+    <string name="onboard_title_2">চ্যাট ও শেয়ার করুন</string>
+    <string name="onboard_text_2">টেক্সট, ছবি, রিঅ্যাকশন ও উত্তর পাঠান — সব অফলাইনে।</string>
+    <string name="onboard_title_3">গ্রুপ তৈরি করুন</string>
+    <string name="onboard_text_3">একটি গ্রুপ হোস্ট করুন, বন্ধুদের স্ক্যান করে যোগ দিতে দিন, আর অ্যাডমিন হিসেবে সদস্য পরিচালনা করুন।</string>
+    <string name="onboard_next">পরেরটি</string>
+    <string name="onboard_skip">এড়িয়ে যান</string>
+    <string name="onboard_start">শুরু করুন</string>
+
+    <!-- v3.2.6: tutorial + richer about page -->
+    <string name="tutorial_title_1">ইন্টারনেট ছাড়াই চ্যাট করুন</string>
+    <string name="tutorial_sub_1">মেসেজ ব্লুটুথের মাধ্যমে সরাসরি ফোন থেকে ফোনে যায়। কোনো অ্যাকাউন্ট বা সার্ভার নেই।</string>
+    <string name="tutorial_title_2">কাছের বন্ধুদের খুঁজুন</string>
+    <string name="tutorial_sub_2">ডিসকভারেবল চালু করুন, আশপাশে কে আছে দেখুন এবং ট্যাপ করে সংযোগ করুন।</string>
+    <string name="tutorial_title_3">সহজে গ্রুপ তৈরি</string>
+    <string name="tutorial_sub_3">একটি গ্রুপ শুরু করুন, কাছের বন্ধুরা এক ট্যাপে যোগ দেবে।</string>
+    <string name="name_title">আপনার নাম লিখুন</string>
+    <string name="name_subtitle">কাছের বন্ধুরা আপনাকে এই নামে দেখবে</string>
+    <string name="name_required">অনুগ্রহ করে আপনার নাম লিখুন</string>
+    <string name="continue_btn">এগিয়ে যান</string>
+    <string name="about_desc">AirWave দিয়ে আপনি ইন্টারনেট, অ্যাকাউন্ট বা সার্ভার ছাড়াই আশপাশের মানুষের সাথে চ্যাট করতে পারেন। সবকিছু ব্লুটুথে ফোন থেকে ফোনে সরাসরি যায় — কোথাও কিছু আপলোড হয় না।</string>
+    <string name="about_how_title">এটি কীভাবে কাজ করে</string>
+    <string name="about_how_1">ব্লুটুথ চালু করুন এবং বন্ধুদের আপনাকে খুঁজে নিতে দিন</string>
+    <string name="about_how_2">কাছের কারও উপর ট্যাপ করুন বা তাদের QR কোড স্ক্যান করুন</string>
+    <string name="about_how_3">একে একে বা গ্রুপ বানিয়ে চ্যাট করুন — গ্রুপ হোস্ট মেসেজ পৌঁছে দেয় যাতে সবাই সিঙ্কে থাকে</string>
+    <string name="about_privacy_title">প্রাইভেসি</string>
+    <string name="about_privacy_body">কোনো অ্যাকাউন্ট নেই, ফোন নম্বর নেই, অ্যানালিটিক্স নেই। চ্যাট শুধু সেশন পর্যন্ত মেমোরিতে থাকে এবং চলে গেলে মুছে যায়।</string>
+    <string name="version_fmt">ভার্সন %1$s</string>
+</resources>

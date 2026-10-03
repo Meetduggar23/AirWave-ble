@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AirWave</string>
+    <string name="hello_user">Hello, %1$s</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="ready">Ready</string>
+    <string name="off">Off</string>
+    <string name="offline">Offline</string>
+    <string name="connection">Connection</string>
+    <string name="not_connected">Not connected</string>
+    <string name="connected_to">Connected to %1$s</string>
+    <string name="hosting_group">Hosting group %1$s · %2$d</string>
+    <string name="in_group">In group %1$s</string>
+    <string name="connecting">Connecting…</string>
+    <string name="ready_to_chat">Ready to chat</string>
+    <string name="find_nearby">Find Nearby Users</string>
+    <string name="your_identity">Your AirWave identity</string>
+    <string name="tap_to_set_name">Tap to set your name</string>
+    <string name="settings">Settings</string>
+    <string name="nearby_users">Nearby Users</string>
+    <string name="create_group">Create Group</string>
+    <string name="tap_to_connect">Tap a user to connect</string>
+    <string name="no_peers">No nearby users yet.\nMake sure the other phone has Bluetooth on.</string>
+    <string name="group_badge">GROUP %1$s</string>
+    <string name="enable_discoverable_to_host">Turn on “Discoverable to Others” in Settings to host a group</string>
+    <string name="type_message">Type a message</string>
+    <string name="send">Send</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="disconnect_confirm">Disconnect from %1$s?</string>
+    <string name="peer_disconnected">Peer disconnected</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="save">Save</string>
+    <string name="clear">Clear</string>
+    <string name="leave_group">Leave Group</string>
+    <string name="leave_confirm">Leave this group?</string>
+    <string name="group_title">Group %1$s</string>
+    <string name="you_are_host">You are hosting · share the code</string>
+    <string name="you_are_member">You joined this group</string>
+    <string name="members_count">%1$d members</string>
+    <string name="joined_group">joined the group</string>
+    <string name="left_group">left the group</string>
+    <string name="identity_title">Your AirWave Identity</string>
+    <string name="available_nearby">Available nearby</string>
+    <string name="session_identity">Session identity</string>
+    <string name="session_identity_text">AirWave does not require an account. There is no email, password or online profile — just the name you chose for this session. Chats are temporary and are not saved.</string>
+    <string name="change_name">Change Name</string>
+    <string name="unnamed">Unnamed</string>
+    <string name="enter_name">Enter your name</string>
+    <string name="welcome_title">Welcome to AirWave</string>
+    <string name="welcome_message">Choose a name for this session. No account needed — chats stay on your phones and disappear when the session ends.</string>
+    <string name="appearance">Appearance</string>
+    <string name="theme">Theme</string>
+    <string name="theme_system">System Default</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="language">Language</string>
+    <string name="notifications">Notifications</string>
+    <string name="enable_notifications">Enable Notifications</string>
+    <string name="privacy">Privacy</string>
+    <string name="discoverable">Discoverable to Others</string>
+    <string name="discoverable_on">You are discoverable to nearby users</string>
+    <string name="discoverable_off">You are hidden from nearby users</string>
+    <string name="session_only">Session-only chat</string>
+    <string name="session_only_summary">Chats are temporary and are never saved</string>
+    <string name="clear_data">Clear Session Data</string>
+    <string name="clear_confirm">Delete all chats and discovered users from this session?</string>
+    <string name="session_cleared">Session data cleared</string>
+    <string name="about">About</string>
+    <string name="about_airwave">About AirWave</string>
+    <string name="about_text">AirWave is a small, private, offline chat app for nearby Android devices using Bluetooth Low Energy.\n\n• No internet, server or cloud\n• 1-to-1 and group chats\n• Temporary session chats — nothing is saved\n\nVersion 1.0</string>
+    <string name="my_qr">My AirWave QR</string>
+    <string name="qr_note">Others can identify you with this code. No account, just your session name.</string>
+    <string name="turn_bluetooth_on_first">Turn Bluetooth on first</string>
+    <string name="grant_permissions">Bluetooth permissions are required</string>
+    <string name="not_connected_yet">Not connected yet</string>
+
+    <!-- v2.0: drawer -->
+    <string name="drawer_home">Home</string>
+    <string name="drawer_nearby">Nearby</string>
+    <string name="drawer_scan_qr">Scan QR</string>
+    <string name="drawer_identity">Identity</string>
+    <string name="drawer_my_qr">My QR</string>
+    <string name="drawer_settings">Settings</string>
+    <string name="drawer_about">About</string>
+    <string name="session_offline">Session · Offline</string>
+
+    <!-- v2.0: chats list -->
+    <string name="chats">Chats</string>
+    <string name="no_chats">No chats yet</string>
+    <string name="no_chats_sub">Connect with someone nearby to start chatting</string>
+
+    <!-- v2.0: nearby -->
+    <string name="rescan">Rescan</string>
+    <string name="scanning">Scanning…</string>
+    <string name="scan_qr">Scan QR</string>
+    <string name="scan_qr_title">Scan QR</string>
+    <string name="scan_qr_prompt">Point at an AirWave QR code</string>
+    <string name="qr_invalid">Not an AirWave QR code</string>
+    <string name="peer_not_found">%1$s is not nearby right now</string>
+    <string name="choose_peer">Choose a person</string>
+    <string name="scan_qr_instead">Scan QR instead</string>
+    <string name="no_peers_title">No nearby users yet</string>
+    <string name="no_peers_sub">Make sure the other phone has Bluetooth on and is discoverable</string>
+    <string name="camera_needed">Camera permission is needed to scan QR codes</string>
+
+    <!-- v2.0: chat -->
+    <string name="no_messages">No messages yet</string>
+    <string name="reply">Reply</string>
+    <string name="copy">Copy</string>
+    <string name="delete">Delete</string>
+    <string name="clear_chat">Clear chat</string>
+    <string name="clear_chat_confirm">Delete all messages in this chat?</string>
+    <string name="block_user">Block user</string>
+    <string name="unblock_user">Unblock user</string>
+    <string name="blocked_toast">%1$s blocked</string>
+    <string name="unblocked_toast">%1$s unblocked</string>
+    <string name="typing">typing…</string>
+    <string name="is_typing">%1$s is typing…</string>
+    <string name="copied">Copied</string>
+    <string name="message_deleted">Message deleted</string>
+    <string name="more_options">More options</string>
+
+    <!-- v2.0: groups -->
+    <string name="group_qr_title">Group QR</string>
+    <string name="group_qr_note">Others can scan this code to join the group</string>
+
+    <!-- v2.0: identity -->
+    <string name="choose_avatar_color">Choose your color</string>
+    <string name="show_my_qr">Show My QR</string>
+
+    <!-- v2.0: about -->
+    <string name="version_2">Version 2.0</string>
+    <string name="about_tagline">Offline chat for people nearby</string>
+    <string name="about_principles_title">Principles</string>
+    <string name="about_p1">No login</string>
+    <string name="about_p2">No server</string>
+    <string name="about_p3">No cloud</string>
+    <string name="about_p4">Session-only chats</string>
+    <string name="about_features_title">Features</string>
+    <string name="about_f1">1-to-1 and group chat</string>
+    <string name="about_f2">QR connect</string>
+    <string name="about_f3">Typing indicators and delivery ticks</string>
+    <string name="about_f4">Unread badges</string>
+    <string name="about_f5">Block and clear chats</string>
+
+    <!-- v3.0: drawer -->
+    <string name="drawer_history">History</string>
+    <string name="history_title">Connection History</string>
+    <string name="history_empty">No events yet this session</string>
+
+    <!-- v3.0: images -->
+    <string name="send_image">Send image</string>
+    <string name="image_too_large">Image is too large to send</string>
+    <string name="caption_hint">Add a caption (optional)</string>
+    <string name="photo">Photo</string>
+    <string name="image_failed">Couldn\'t load image</string>
+    <string name="tap_to_retry">Tap to retry</string>
+    <string name="resend_failed">Still not connected</string>
+
+    <!-- v3.0: reactions & pins -->
+    <string name="react">React</string>
+    <string name="pin">Pin</string>
+    <string name="unpin">Unpin</string>
+    <string name="pinned_messages">Pinned messages</string>
+    <string name="no_pinned">No pinned messages</string>
+
+    <!-- v3.0: search -->
+    <string name="search">Search</string>
+    <string name="search_hint">Search messages</string>
+
+    <!-- v3.0: mute & export -->
+    <string name="mute_chat">Mute notifications</string>
+    <string name="unmute_chat">Unmute notifications</string>
+    <string name="muted_toast">Notifications muted for this chat</string>
+    <string name="unmuted_toast">Notifications unmuted</string>
+    <string name="export_chat">Export chat</string>
+    <string name="export_saved">Saved %1$s</string>
+    <string name="share_chat">Share chat</string>
+
+    <!-- v3.0: groups -->
+    <string name="make_admin">Make admin</string>
+    <string name="remove_from_group">Remove from group</string>
+    <string name="admin_badge">Admin</string>
+    <string name="rename_group">Rename group</string>
+    <string name="rename_group_hint">Group name</string>
+    <string name="group_color">Group color</string>
+    <string name="kicked_toast">You were removed from the group</string>
+    <string name="member_removed">%1$s was removed</string>
+    <string name="group_renamed">%1$s renamed the group</string>
+    <string name="promoted_admin">%1$s is now an admin</string>
+
+    <!-- v3.0: presence -->
+    <string name="active_now">Active now</string>
+    <string name="last_seen">Last seen %1$s</string>
+    <string name="yesterday">yesterday</string>
+
+    <!-- v3.0: group invites -->
+    <string name="group_invite_title">Group invite</string>
+    <string name="group_invite_text">%1$s invited you to group %2$s</string>
+
+    <!-- v3.0: onboarding -->
+    <string name="ob1_title">No internet needed</string>
+    <string name="ob1_text">AirWave chats over Bluetooth — no servers, no cloud, no accounts.</string>
+    <string name="ob2_title">Stay discoverable</string>
+    <string name="ob2_text">Turn on Bluetooth and stay discoverable so nearby friends can find you.</string>
+    <string name="ob3_title">Find friends &amp; chat</string>
+    <string name="ob3_text">See who\'s nearby, scan a QR code, and start chatting.</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="get_started">Get started</string>
+    <string name="version_3">Version 3.0</string>
+
+    <!-- v3.0: names used by the v3.0 chat screens -->
+    <string name="history">History</string>
+    <string name="no_history">No events yet this session</string>
+    <string name="share_image">Share image</string>
+    <string name="save_image">Save image</string>
+    <string name="search_messages">Search messages</string>
+    <string name="matches_found">%1$d matches</string>
+    <string name="retry_send">Retry send</string>
+    <string name="receiving_image">Receiving image %1$d of %2$d</string>
+    <string name="remove_reaction">Remove reaction</string>
+    <string name="pin_message">Pin message</string>
+    <string name="unpin_message">Unpin message</string>
+    <string name="pinned">Pinned</string>
+    <string name="unpinned">Unpinned</string>
+    <string name="muted">Notifications muted for this chat</string>
+    <string name="unmuted">Notifications unmuted</string>
+    <string name="export_failed">Export failed</string>
+    <string name="demote_admin">Demote to member</string>
+    <string name="remove_member">Remove from group</string>
+    <string name="remove_member_confirm">Remove %1$s from the group?</string>
+    <string name="group_avatar_color">Group avatar color</string>
+    <string name="kicked_from_group">You were removed from the group</string>
+    <string name="role_admin">Admin</string>
+    <string name="role_member">Member</string>
+    <string name="onboard_title_1">Connect nearby phones</string>
+    <string name="onboard_text_1">Turn on Bluetooth and stay discoverable — no internet needed.</string>
+    <string name="onboard_title_2">Chat &amp; share</string>
+    <string name="onboard_text_2">Send texts, photos, reactions and replies — all offline.</string>
+    <string name="onboard_title_3">Create groups</string>
+    <string name="onboard_text_3">Host a group, let friends scan to join, and manage members as admin.</string>
+    <string name="onboard_next">Next</string>
+    <string name="onboard_skip">Skip</string>
+    <string name="onboard_start">Get started</string>
+    <string name="name_title">Write your name</string>
+    <string name="name_subtitle">This is how nearby friends will see you</string>
+    <string name="continue_btn">Continue</string>
+    <string name="name_required">Please enter your name</string>
+    <string name="tutorial_title_1">Chat without internet</string>
+    <string name="tutorial_sub_1">Messages travel straight between phones over Bluetooth. No accounts, no servers.</string>
+    <string name="tutorial_title_2">Find nearby friends</string>
+    <string name="tutorial_sub_2">Turn on discoverable, see who is around you, and tap to connect.</string>
+    <string name="tutorial_title_3">Groups made simple</string>
+    <string name="tutorial_sub_3">Start a group and nearby friends join with one tap.</string>
+
+    <!-- v3.2.6: richer about page -->
+    <string name="about_desc">AirWave lets you chat with people around you without internet, accounts, or servers. Everything travels directly between phones over Bluetooth — nothing is ever uploaded anywhere.</string>
+    <string name="about_how_title">How it works</string>
+    <string name="about_how_1">Turn on Bluetooth and let friends discover you</string>
+    <string name="about_how_2">Tap a nearby person or scan their QR code to connect</string>
+    <string name="about_how_3">Chat one-to-one or create a group — the group host relays messages so everyone stays in sync</string>
+    <string name="about_privacy_title">Privacy</string>
+    <string name="about_privacy_body">No accounts, no phone number, no analytics. Chats live only in memory for the session and disappear when you leave.</string>
+    <string name="version_fmt">Version %1$s</string>
+</resources>

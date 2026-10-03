@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AirWave palette (light theme) -->
+    <color name="accent">#FF4C29</color>
+    <color name="bg">#F2F4F7</color>
+    <color name="card">#FFFFFF</color>
+    <color name="card2">#E8EDF3</color>
+    <color name="text_primary">#152A3D</color>
+    <color name="text_secondary">#5C6F82</color>
+    <color name="success">#34C759</color>
+    <color name="danger">#FF3B30</color>
+</resources>
