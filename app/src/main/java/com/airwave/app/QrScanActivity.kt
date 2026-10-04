@@ -34,6 +34,8 @@ class QrScanActivity : BaseActivity() {
             .setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
             .setPrompt(getString(R.string.scan_qr_prompt))
             .setBeepEnabled(false)
+            // v3.2.6: portrait scanner (default CaptureActivity is landscape).
+            .setCaptureActivity(PortraitScannerActivity::class.java)
             .initiateScan()
     }
 

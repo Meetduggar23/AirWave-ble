@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- v3.2.6: dropdown caret for the onboarding picker chips (points down when
+     closed; the activity rotates it 180° to point up while the dialog is open). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <path
+        android:strokeColor="?attr/colorOnSurfaceVariant"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M6,9.5 L12,15.5 L18,9.5" />
+</vector>

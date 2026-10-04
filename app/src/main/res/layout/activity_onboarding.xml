@@ -22,82 +22,62 @@
             android:gravity="center_vertical|end"
             android:orientation="horizontal">
 
+            <!-- v3.2.6: icon-only picker chips; caret points down when closed and
+                 rotates to up while the picker dialog is open. -->
             <LinearLayout
                 android:id="@+id/langButton"
-                android:layout_width="wrap_content"
-                android:layout_height="34dp"
+                android:layout_width="40dp"
+                android:layout_height="36dp"
                 android:background="@drawable/bg_chip_white"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="10dp"
-                android:paddingEnd="8dp">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:contentDescription="@string/language"
                     android:src="@drawable/ic_language"
                     android:tint="#5C6F82" />
 
-                <TextView
-                    android:id="@+id/langValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="English"
-                    android:textColor="#152A3D"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
                 <ImageView
+                    android:id="@+id/langCaret"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="3dp"
                     android:contentDescription="@string/language"
-                    android:src="@drawable/ic_chevron"
+                    android:src="@drawable/ic_caret_down"
                     android:tint="#5C6F82" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/themeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="34dp"
+                android:layout_width="40dp"
+                android:layout_height="36dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/bg_chip_white"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="10dp"
-                android:paddingEnd="8dp">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:contentDescription="@string/theme"
                     android:src="@drawable/ic_palette"
                     android:tint="#5C6F82" />
 
-                <TextView
-                    android:id="@+id/themeValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="@string/theme"
-                    android:textColor="#152A3D"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
                 <ImageView
+                    android:id="@+id/themeCaret"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="3dp"
                     android:contentDescription="@string/theme"
-                    android:src="@drawable/ic_chevron"
+                    android:src="@drawable/ic_caret_down"
                     android:tint="#5C6F82" />
             </LinearLayout>
 
@@ -295,6 +275,24 @@
                 android:textColor="#152A3D"
                 android:textColorHint="#8A94A0"
                 android:textSize="16sp" />
+
+            <!-- v3.2.6: choose your avatar color here, swatches added in code -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/choose_avatar_color"
+                android:textColor="#152A3D"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/colorRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/continueButton"

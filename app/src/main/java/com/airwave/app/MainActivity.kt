@@ -74,6 +74,10 @@ class MainActivity : BaseActivity(), AirWaveBle.Listener {
         binding.qrButton.setOnClickListener {
             startActivity(Intent(this, QrActivity::class.java))
         }
+        // v3.2.6: scanner shortcut in the top-right corner.
+        binding.scanButton.setOnClickListener {
+            startActivity(Intent(this, QrScanActivity::class.java))
+        }
 
         // Drawer
         binding.menuButton.setOnClickListener {
@@ -159,6 +163,10 @@ class MainActivity : BaseActivity(), AirWaveBle.Listener {
 
     override fun onResume() {
         super.onResume()
+        // First-run onboarding redirect: onCreate called finish() before binding
+        // was inflated, but the system still delivers onResume. Bail out so the
+        // lateinit binding is never touched (UninitializedPropertyAccessException).
+        if (!::binding.isInitialized) return
         AirWaveBle.listener = this
         AirWaveBle.setName(Prefs.name)
         binding.greeting.text = getString(R.string.hello_user, Prefs.name.ifBlank { "AirWave" })

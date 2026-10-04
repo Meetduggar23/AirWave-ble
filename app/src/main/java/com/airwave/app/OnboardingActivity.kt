@@ -9,7 +9,6 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.view.animation.DecelerateInterpolator
 import android.view.animation.OvershootInterpolator
 import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
@@ -56,6 +55,7 @@ class OnboardingActivity : BaseActivity() {
         // v3.2.6: language + theme shortcuts on the name page.
         b.langButton.setOnClickListener { chooseLanguage() }
         b.themeButton.setOnClickListener { chooseTheme() }
+        buildColorRow()
         // v3.2.6: entrance pop when arriving from the splash (first open only).
         if (savedInstanceState == null) popCenterIcon()
 
@@ -83,6 +83,38 @@ class OnboardingActivity : BaseActivity() {
         animators.forEach { it.cancel() }
         animators.clear()
         super.onPause()
+    }
+
+    /** v3.2.6: "Choose your colour" swatches on the name page (same 8 colors
+     *  and selection behavior as the Identity screen). */
+    private fun buildColorRow() {
+        AvatarUtil.AVATAR_COLORS.forEachIndexed { index, color ->
+            val dot = View(this).apply {
+                background = ContextCompat.getDrawable(context, R.drawable.bg_badge)
+                backgroundTintList = ColorStateList.valueOf(color)
+                tag = index
+                setOnClickListener {
+                    Prefs.avatarColor = index
+                    highlightSelectedColor()
+                }
+            }
+            val lp = LinearLayout.LayoutParams(
+                (34 * resources.displayMetrics.density).toInt(),
+                (34 * resources.displayMetrics.density).toInt()
+            ).apply { setMargins(6, 0, 6, 0) }
+            b.colorRow.addView(dot, lp)
+        }
+        highlightSelectedColor()
+    }
+
+    private fun highlightSelectedColor() {
+        for (i in 0 until b.colorRow.childCount) {
+            val dot = b.colorRow.getChildAt(i)
+            val selected = (dot.tag as? Int) == Prefs.avatarColor
+            dot.alpha = if (selected) 1f else 0.45f
+            dot.scaleX = if (selected) 1.15f else 1f
+            dot.scaleY = if (selected) 1.15f else 1f
+        }
     }
 
     private fun setupDots() {
@@ -115,25 +147,20 @@ class OnboardingActivity : BaseActivity() {
         val last = b.pageFlipper.displayedChild == 3
         b.nextButton.visibility = if (last) View.GONE else View.VISIBLE
         b.skipButton.visibility = if (last) View.INVISIBLE else View.VISIBLE
-        // v3.2.6: language + theme picker chips only on the name page.
+        // v3.2.6: icon-only picker chips only on the name page.
         b.langButton.visibility = if (last) View.VISIBLE else View.GONE
         b.themeButton.visibility = if (last) View.VISIBLE else View.GONE
-        // Chips show the current selections.
-        b.langValue.text = when (Prefs.language) {
-            "hi" -> "हिन्दी"
-            "bn" -> "বাংলা"
-            "mr" -> "मराठी"
-            "te" -> "తెలుగు"
-            "ta" -> "தமிழ்"
-            "gu" -> "ગુજરાતી"
-            else -> "English"
-        }
-        b.themeValue.text = ThemeRepo.nameFor(Prefs.themeMode)
         updateDots()
-    }    /** v3.2.6: splash-style entrance for the centered icon of the current page
+    }
+
+    /** v3.2.6: caret flips up while a picker dialog is open, back down on dismiss. */
+    private fun caretOpen(caret: View, open: Boolean) {
+        caret.animate().rotation(if (open) 180f else 0f).setDuration(150).start()
+    }
+
+    /** v3.2.7: splash-style entrance pop for the centered icon of the current page
      *  (plus its title). Runs on first open, on Next, on Skip and after recreate().
-     *  Pages 2–3 run idle scale loops on their icons, so those pages get a
-     *  rise+fade instead of a scale-pop to avoid fighting the loop. */
+     *  Icons stay fixed in place afterwards — no idle hover/float/pulse loops. */
     private fun popCenterIcon() {
         val page = b.pageFlipper.displayedChild
         val icon = when (page) {
@@ -148,22 +175,16 @@ class OnboardingActivity : BaseActivity() {
             2 -> findViewById<View>(R.id.tutorialTitle3)
             else -> findViewById<View>(R.id.nameTitle)
         }
-        val usesScale = page == 0 || page == 3
         val anims = mutableListOf<Animator>()
         listOf(icon, title).forEach { v ->
-            if (usesScale) {
-                anims += ObjectAnimator.ofFloat(v, "scaleX", 0.55f, 1f)
-                anims += ObjectAnimator.ofFloat(v, "scaleY", 0.55f, 1f)
-                anims += ObjectAnimator.ofFloat(v, "alpha", 0f, 1f)
-            } else {
-                anims += ObjectAnimator.ofFloat(v, "translationY", 40f, 0f)
-                anims += ObjectAnimator.ofFloat(v, "alpha", 0f, 1f)
-            }
+            anims += ObjectAnimator.ofFloat(v, "scaleX", 0.55f, 1f)
+            anims += ObjectAnimator.ofFloat(v, "scaleY", 0.55f, 1f)
+            anims += ObjectAnimator.ofFloat(v, "alpha", 0f, 1f)
         }
         AnimatorSet().apply {
             playTogether(anims)
             duration = 420
-            interpolator = if (usesScale) OvershootInterpolator(1.4f) else DecelerateInterpolator()
+            interpolator = OvershootInterpolator(1.4f)
             addListener(object : Animator.AnimatorListener {
                 override fun onAnimationStart(a: Animator) {}
                 override fun onAnimationEnd(a: Animator) {
@@ -172,9 +193,7 @@ class OnboardingActivity : BaseActivity() {
                 override fun onAnimationCancel(a: Animator) {
                     // Never leave a view half-popped (e.g. user navigates mid-animation).
                     icon.scaleX = 1f; icon.scaleY = 1f; icon.alpha = 1f
-                    icon.translationY = 0f
                     title.scaleX = 1f; title.scaleY = 1f; title.alpha = 1f
-                    title.translationY = 0f
                 }
                 override fun onAnimationRepeat(a: Animator) {}
             })
@@ -193,21 +212,12 @@ class OnboardingActivity : BaseActivity() {
     }
 
     private fun startAnims() {
-        // Page 1: chat icon floats up and down.
-        loop(ObjectAnimator.ofFloat(b.animIcon1, "translationY", 0f, -28f), 1500)
-
-        // Page 2: radar icon gently pulses.
-        loop(ObjectAnimator.ofFloat(b.animIcon2, "scaleX", 1f, 1.15f), 1200)
-        loop(ObjectAnimator.ofFloat(b.animIcon2, "scaleY", 1f, 1.15f), 1200)
-
-        // Page 2: ring expands and fades out, repeatedly.
+        // v3.2.7: tutorial icons pop in once via popCenterIcon() and stay fixed —
+        // the old hover (translationY float) and idle pulse loops are removed.
+        // Page 2: ring keeps its soft expanding pulse behind the icon.
         loop(ObjectAnimator.ofFloat(b.pulseRing, "scaleX", 1f, 1.9f), 1700, reverse = false)
         loop(ObjectAnimator.ofFloat(b.pulseRing, "scaleY", 1f, 1.9f), 1700, reverse = false)
         loop(ObjectAnimator.ofFloat(b.pulseRing, "alpha", 0.7f, 0f), 1700, reverse = false)
-
-        // Page 3: group icon gently pulses.
-        loop(ObjectAnimator.ofFloat(b.animIcon3, "scaleX", 1f, 1.1f), 1400)
-        loop(ObjectAnimator.ofFloat(b.animIcon3, "scaleY", 1f, 1.1f), 1400)
     }
 
     private fun submit() {
@@ -228,7 +238,8 @@ class OnboardingActivity : BaseActivity() {
         val codes = arrayOf("en", "hi", "bn", "mr", "te", "ta", "gu")
         val items = arrayOf("English", "हिन्दी", "বাংলা", "मराठी", "తెలుగు", "தமிழ்", "ગુજરાતી")
         val current = codes.indexOf(Prefs.language).coerceAtLeast(0)
-        AlertDialog.Builder(this)
+        caretOpen(b.langCaret, open = true)
+        val dialog = AlertDialog.Builder(this)
             .setTitle(getString(R.string.language))
             .setSingleChoiceItems(items, current) { dialog, which ->
                 dialog.dismiss()
@@ -239,12 +250,14 @@ class OnboardingActivity : BaseActivity() {
             }
             .setNegativeButton(getString(R.string.cancel), null)
             .show()
+        dialog.setOnDismissListener { caretOpen(b.langCaret, open = false) }
     }
 
     /** v3.2.6: theme picker on the name page. */
     private fun chooseTheme() {
         val items = Array(ThemeRepo.themes.size + 1) { i -> ThemeRepo.nameFor(i) }
-        AlertDialog.Builder(this)
+        caretOpen(b.themeCaret, open = true)
+        val dialog = AlertDialog.Builder(this)
             .setTitle(getString(R.string.theme))
             .setSingleChoiceItems(
                 items,
@@ -257,5 +270,6 @@ class OnboardingActivity : BaseActivity() {
             }
             .setNegativeButton(getString(R.string.cancel), null)
             .show()
+        dialog.setOnDismissListener { caretOpen(b.themeCaret, open = false) }
     }
 }

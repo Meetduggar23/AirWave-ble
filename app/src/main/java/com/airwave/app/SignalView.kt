@@ -29,11 +29,15 @@ class SignalView @JvmOverloads constructor(
     }
 
     private val onPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0xFFFF4C29.toInt()
+        // v3.2.6: follow the selected theme (was hardcoded accent orange in every theme).
+        color = context.attrColor(com.google.android.material.R.attr.colorPrimary)
         style = Paint.Style.FILL
     }
     private val offPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0x44FFFFFF
+        val c = context.attrColor(com.google.android.material.R.attr.colorOnSurfaceVariant)
+        color = android.graphics.Color.argb(64,
+            android.graphics.Color.red(c), android.graphics.Color.green(c),
+            android.graphics.Color.blue(c))
         style = Paint.Style.FILL
     }
 

@@ -46,7 +46,17 @@
         <activity android:name=".SettingsActivity" android:exported="false" />
         <activity android:name=".QrActivity" android:exported="false" />
         <activity android:name=".AboutActivity" android:exported="false" />
-        <activity android:name=".QrScanActivity" android:exported="false" />
+        <!-- v3.2.6: scanner locked to portrait via PortraitScannerActivity
+             (zxing's own CaptureActivity is sensor-landscape). -->
+        <activity
+            android:name=".QrScanActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PortraitScannerActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:stateNotNeeded="true" />
         <!-- v3.0 new screens -->
         <activity android:name=".ImageViewerActivity" android:exported="false" />
         <activity android:name=".OnboardingActivity" android:exported="false" />
