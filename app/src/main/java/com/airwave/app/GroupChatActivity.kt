@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,6 +11,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -45,9 +45,11 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
     private val pickImage =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             if (uri == null) return@registerForActivityResult
-            try {
-                contentResolver.openInputStream(uri)?.use { stream ->
-                    val bmp = BitmapFactory.decodeStream(stream)
+            // v3.2.7 (A3): decode off the UI thread with sampling — decoding
+            // full-size gallery photos here caused OOM on low-RAM devices.
+            Thread {
+                val bmp = ImageUtils.decodeSampledUri(contentResolver, uri)
+                runOnUiThread {
                     if (bmp != null) {
                         AirWaveBle.sendImage(convId, bmp, "")
                         render()
@@ -55,9 +57,7 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
                         Toast.makeText(this, R.string.image_failed, Toast.LENGTH_SHORT).show()
                     }
                 }
-            } catch (_: Exception) {
-                Toast.makeText(this, R.string.image_failed, Toast.LENGTH_SHORT).show()
-            }
+            }.start()
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,6 +111,16 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
 
         binding.messageEdit.addTextChangedListener(typingWatcher)
         binding.sendButton.setOnClickListener { send() }
+        // v3.2.7 (A6): the keyboard's "Send" action now actually sends — the
+        // input declares imeOptions=actionSend but nothing handled it.
+        binding.messageEdit.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                send()
+                true
+            } else {
+                false
+            }
+        }
     }
 
     /** v3.0: renamable group title + tinted avatar + my role. */
@@ -442,12 +452,19 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
         binding.memberCount.text = getString(R.string.members_count, members.size)
         for (name in members) {
             // v3.0: admins get a crown; long-press opens admin actions (admins only).
+            // v3.2.7 (A9/B10): density-scaled dp values instead of raw pixels;
+            // 12/6 padding, 8dp gap, 32dp min height per the shape spec.
             val admin = AirWaveBle.groupRoleOf(groupId, name) == "admin"
+            val density = resources.displayMetrics.density
             val chip = TextView(this).apply {
                 text = if (admin) "\uD83D\uDC51 $name" else name
                 setTextColor(context.attrColor(com.google.android.material.R.attr.colorOnSurface))
                 textSize = 12f
-                setPadding(20, 10, 20, 10)
+                setPadding(
+                    (12 * density).toInt(), (6 * density).toInt(),
+                    (12 * density).toInt(), (6 * density).toInt()
+                )
+                minHeight = (32 * density).toInt()
                 background = ContextCompat.getDrawable(context, R.drawable.bg_chip)
                 gravity = Gravity.CENTER
             }
@@ -457,7 +474,7 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
             val lp = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply { setMargins(0, 0, 12, 0) }
+            ).apply { setMargins(0, 0, (8 * density).toInt(), 0) }
             binding.membersRow.addView(chip, lp)
         }
     }

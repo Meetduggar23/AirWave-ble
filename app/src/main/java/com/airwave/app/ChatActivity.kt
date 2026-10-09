@@ -4,13 +4,13 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -40,9 +40,11 @@ class ChatActivity : BaseActivity(), AirWaveBle.Listener {
     private val pickImage =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             if (uri == null) return@registerForActivityResult
-            try {
-                contentResolver.openInputStream(uri)?.use { stream ->
-                    val bmp = BitmapFactory.decodeStream(stream)
+            // v3.2.7 (A3): decode off the UI thread with sampling — decoding
+            // full-size gallery photos here caused OOM on low-RAM devices.
+            Thread {
+                val bmp = ImageUtils.decodeSampledUri(contentResolver, uri)
+                runOnUiThread {
                     if (bmp != null) {
                         AirWaveBle.sendImage(convId, bmp, "")
                         render()
@@ -50,9 +52,7 @@ class ChatActivity : BaseActivity(), AirWaveBle.Listener {
                         Toast.makeText(this, R.string.image_failed, Toast.LENGTH_SHORT).show()
                     }
                 }
-            } catch (_: Exception) {
-                Toast.makeText(this, R.string.image_failed, Toast.LENGTH_SHORT).show()
-            }
+            }.start()
         }
     private val rssiRunnable = object : Runnable {
         override fun run() {
@@ -110,6 +110,16 @@ class ChatActivity : BaseActivity(), AirWaveBle.Listener {
 
         binding.messageEdit.addTextChangedListener(typingWatcher)
         binding.sendButton.setOnClickListener { send() }
+        // v3.2.7 (A6): the keyboard's "Send" action now actually sends — the
+        // input declares imeOptions=actionSend but nothing handled it.
+        binding.messageEdit.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                send()
+                true
+            } else {
+                false
+            }
+        }
         handler.post(rssiRunnable)
     }
 

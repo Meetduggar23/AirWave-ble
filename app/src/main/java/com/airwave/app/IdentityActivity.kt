@@ -53,9 +53,12 @@ class IdentityActivity : BaseActivity() {
                     highlightSelected()
                 }
             }
-            val lp = LinearLayout.LayoutParams(96, 96).apply {
-                setMargins(12, 0, 12, 0)
-            }
+            // v3.2.7 (A9): density-scaled — matches the onboarding swatches
+            // instead of raw 96px that shrank on high-density screens.
+            val d = resources.displayMetrics.density
+            val lp = LinearLayout.LayoutParams(
+                (34 * d).toInt(), (34 * d).toInt()
+            ).apply { setMargins((6 * d).toInt(), 0, (6 * d).toInt(), 0) }
             binding.colorRow.addView(dot, lp)
         }
     }
@@ -75,7 +78,9 @@ class IdentityActivity : BaseActivity() {
             inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS
             setText(Prefs.name)
             hint = getString(R.string.enter_name)
-            setPadding(48, 32, 48, 32)
+            // v3.2.7 (A9): density-scaled instead of raw pixels.
+            val d = resources.displayMetrics.density
+            setPadding((16 * d).toInt(), (10 * d).toInt(), (16 * d).toInt(), (10 * d).toInt())
         }
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.change_name))

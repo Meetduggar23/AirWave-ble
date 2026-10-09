@@ -72,7 +72,9 @@ class SettingsActivity : BaseActivity() {
                 Prefs.themeMode = which
                 AirWaveApp.applyTheme()
                 dialog.dismiss()
-                recreate()
+                // v3.2.7 (A7): restart the whole task like language changes
+                // do — recreate() alone left the back stack in the old theme.
+                restartApp()
             }
             .setNegativeButton(getString(R.string.cancel), null)
             .show()

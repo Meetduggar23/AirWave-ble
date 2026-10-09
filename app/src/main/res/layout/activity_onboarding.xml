@@ -26,8 +26,8 @@
                  rotates to up while the picker dialog is open. -->
             <LinearLayout
                 android:id="@+id/langButton"
-                android:layout_width="40dp"
-                android:layout_height="36dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:background="@drawable/bg_chip_white"
                 android:clickable="true"
                 android:focusable="true"
@@ -54,8 +54,8 @@
 
             <LinearLayout
                 android:id="@+id/themeButton"
-                android:layout_width="40dp"
-                android:layout_height="36dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/bg_chip_white"
                 android:clickable="true"
@@ -297,14 +297,14 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/continueButton"
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
+                android:layout_height="52dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/continue_btn"
                 android:textAllCaps="false"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp"
                 app:backgroundTint="?attr/colorPrimary"
-                app:cornerRadius="12dp" />
+                app:cornerRadius="16dp" />
         </LinearLayout>
     </ViewFlipper>
 
@@ -319,7 +319,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/nextButton"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="52dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/next"
@@ -327,6 +327,6 @@
         android:textColor="?attr/colorOnPrimary"
         android:textSize="16sp"
         app:backgroundTint="?attr/colorPrimary"
-        app:cornerRadius="12dp" />
+        app:cornerRadius="16dp" />
 
 </LinearLayout>

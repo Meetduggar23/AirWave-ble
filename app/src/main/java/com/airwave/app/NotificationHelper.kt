@@ -30,10 +30,6 @@ object NotificationHelper {
         }
     }
 
-    fun show(ctx: Context, sender: String, text: String) {
-        showCustom(ctx, sender, text, MainActivity::class.java, sender.hashCode())
-    }
-
     /** v3.2.5: message notification carrying its conversation for deep-linking. */
     fun show(ctx: Context, sender: String, text: String, convId: String, isGroup: Boolean) {
         ensureChannel(ctx)

@@ -231,7 +231,9 @@ class MainActivity : BaseActivity(), AirWaveBle.Listener {
         val input = EditText(this).apply {
             inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS
             hint = getString(R.string.enter_name)
-            setPadding(48, 32, 48, 32)
+            // v3.2.7 (A27): density-scaled instead of raw pixels.
+            val d = resources.displayMetrics.density
+            setPadding((16 * d).toInt(), (10 * d).toInt(), (16 * d).toInt(), (10 * d).toInt())
         }
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.welcome_title))

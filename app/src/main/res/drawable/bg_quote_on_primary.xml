@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- v3.2.7 (A2): quote chip for use INSIDE my colored bubble. Translucent
+     white keeps quoted text readable on every theme's colorPrimary, unlike
+     the light-grey bg_quote. Corners match bg_quote (16dp). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#33FFFFFF" />
+    <corners android:radius="16dp" />
+</shape>

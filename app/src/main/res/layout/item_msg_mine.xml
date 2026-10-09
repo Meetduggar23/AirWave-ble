@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- v3.0: added msgImage + imgProgress + imgProgressText + imgCaption (image sharing),
-     reactionsText (reactions), pinIcon (pinned), retryIcon (failed retry) -->
+     reactionsText (reactions), pinIcon (pinned), retryIcon (failed retry)
+     v3.2.7 (A1): hardcoded white text replaced with ?attr/colorOnPrimary —
+     white was unreadable on DarkHC/Monokai/TomorrowNightBlue primary colors.
+     v3.2.7 (A2): quote chip uses bg_quote_on_primary (translucent white)
+     because the light-grey bg_quote is illegible under white text here. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,7 +15,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bubble_mine"
-        android:maxWidth="280dp"
         android:orientation="vertical"
         android:paddingStart="14dp"
         android:paddingTop="10dp"
@@ -23,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
-            android:background="@drawable/bg_quote"
+            android:background="@drawable/bg_quote_on_primary"
             android:orientation="vertical"
             android:padding="8dp"
             android:visibility="gone">
@@ -32,7 +35,7 @@
                 android:id="@+id/quoteSender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="11sp"
                 android:textStyle="bold" />
 
@@ -43,7 +46,8 @@
                 android:layout_marginTop="2dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textColor="#D9FFFFFF"
+                android:textColor="?attr/colorOnPrimary"
+                android:alpha="0.85"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -66,7 +70,8 @@
             android:id="@+id/imgProgressText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#D9FFFFFF"
+            android:textColor="?attr/colorOnPrimary"
+            android:alpha="0.85"
             android:textSize="11sp"
             android:visibility="gone" />
 
@@ -75,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textColor="@android:color/white"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="14sp"
             android:visibility="gone" />
 
@@ -83,7 +88,7 @@
             android:id="@+id/msgText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="16sp" />
 
         <TextView
@@ -91,7 +96,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:textColor="#D9FFFFFF"
+            android:textColor="?attr/colorOnPrimary"
+            android:alpha="0.85"
             android:textSize="13sp"
             android:visibility="gone" />
 
@@ -109,14 +115,16 @@
                 android:layout_height="12dp"
                 android:layout_marginEnd="4dp"
                 android:src="@drawable/ic_pin"
-                android:tint="#D9FFFFFF"
+                android:tint="?attr/colorOnPrimary"
+                android:alpha="0.85"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/msgTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#D9FFFFFF"
+                android:textColor="?attr/colorOnPrimary"
+                android:alpha="0.85"
                 android:textSize="11sp" />
 
             <TextView
@@ -124,7 +132,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:textColor="#D9FFFFFF"
+                android:textColor="?attr/colorOnPrimary"
+                android:alpha="0.85"
                 android:textSize="11sp" />
 
             <ImageView
@@ -134,7 +143,7 @@
                 android:layout_marginStart="6dp"
                 android:contentDescription="@string/retry_send"
                 android:src="@drawable/ic_retry"
-                android:tint="@android:color/white"
+                android:tint="?attr/colorOnPrimary"
                 android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>

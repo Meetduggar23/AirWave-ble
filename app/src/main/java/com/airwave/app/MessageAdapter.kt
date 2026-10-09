@@ -1,7 +1,8 @@
 package com.airwave.app
 
 import android.content.Context
-import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.util.LruCache
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextPaint
@@ -28,6 +29,23 @@ class MessageAdapter(private val context: Context) : BaseAdapter() {
     private var shown: List<AirWaveBle.ChatMessage> = emptyList()
     private val timeFmt = SimpleDateFormat("HH:mm", Locale.getDefault())
     private var query: String = ""
+
+    // v3.2.7 (A3): decoded-image cache — ListView rebinds used to re-read and
+    // re-decode the same file on every scroll pass.
+    private val bmpCache = object : LruCache<String, Bitmap>(
+        maxOf(4 * 1024, (Runtime.getRuntime().maxMemory() / 1024 / 16).toInt())
+    ) {
+        override fun sizeOf(key: String, value: Bitmap) = value.byteCount / 1024
+    }
+
+    /** v3.2.7 (B10): bubbles cap at ~78% of screen width instead of 280dp.
+     *  (LinearLayout ignores android:maxWidth — the old XML attr never worked,
+     *  so the cap is applied to the stretchable TextViews inside the bubble.) */
+    private val bubbleTextMaxWidth: Int
+        get() = (context.resources.displayMetrics.widthPixels * 0.78).toInt() -
+            (28 * density).toInt()
+
+    private val density = context.resources.displayMetrics.density
 
     /** Show single/double delivery ticks on outgoing messages. */
     var showTicks: Boolean = true
@@ -161,15 +179,22 @@ class MessageAdapter(private val context: Context) : BaseAdapter() {
             return
         }
         val bmp = msg.imagePath?.let { p ->
-            try {
-                BitmapFactory.decodeFile(p)
-            } catch (_: Exception) {
-                null
-            }
+            // v3.2.7 (A3): sampled decode + LruCache instead of a full-size
+            // decodeFile() on every getView.
+            bmpCache.get(p)
+                ?: ImageUtils.decodeSampledFile(p)?.also { bmpCache.put(p, it) }
         }
         if (bmp != null) {
             img.visibility = View.VISIBLE
             img.setImageBitmap(bmp)
+            // v3.2.7 (B10): width fixed at 220dp, height follows the image's
+            // aspect ratio (clamped to 120–240dp) instead of a fixed 220x160 crop.
+            val targetW = (220 * density).toInt()
+            val lp = img.layoutParams
+            lp.width = targetW
+            lp.height = (targetW * bmp.height / maxOf(1, bmp.width))
+                .coerceIn((120 * density).toInt(), (240 * density).toInt())
+            img.layoutParams = lp
             progress.visibility = View.GONE
             progText.visibility = View.GONE
             img.setOnClickListener { onImageClick?.invoke(msg) }
@@ -212,6 +237,8 @@ class MessageAdapter(private val context: Context) : BaseAdapter() {
                 val b = (convertView?.tag as? ItemMsgMineBinding)
                     ?: ItemMsgMineBinding.inflate(LayoutInflater.from(context), parent, false)
                         .also { it.root.tag = it }
+                b.msgText.maxWidth = bubbleTextMaxWidth
+                b.imgCaption.maxWidth = bubbleTextMaxWidth
                 setHighlighted(b.msgText, msg.text)
                 b.msgText.visibility = if (msg.isImage) View.GONE else View.VISIBLE
                 b.msgTime.text = time
@@ -241,6 +268,8 @@ class MessageAdapter(private val context: Context) : BaseAdapter() {
                 val b = (convertView?.tag as? ItemMsgTheirsBinding)
                     ?: ItemMsgTheirsBinding.inflate(LayoutInflater.from(context), parent, false)
                         .also { it.root.tag = it }
+                b.msgText.maxWidth = bubbleTextMaxWidth
+                b.imgCaption.maxWidth = bubbleTextMaxWidth
                 b.senderName.text = msg.sender
                 b.senderName.visibility = if (msg.sender.isBlank()) View.GONE else View.VISIBLE
                 b.senderName.setTextColor(AvatarUtil.colorFor(msg.sender))

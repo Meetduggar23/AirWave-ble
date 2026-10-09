@@ -101,7 +101,11 @@ class OnboardingActivity : BaseActivity() {
             val lp = LinearLayout.LayoutParams(
                 (34 * resources.displayMetrics.density).toInt(),
                 (34 * resources.displayMetrics.density).toInt()
-            ).apply { setMargins(6, 0, 6, 0) }
+            ).apply {
+                // v3.2.7 (A9): density-scaled margin instead of raw pixels.
+                val d = resources.displayMetrics.density
+                setMargins((6 * d).toInt(), 0, (6 * d).toInt(), 0)
+            }
             b.colorRow.addView(dot, lp)
         }
         highlightSelectedColor()

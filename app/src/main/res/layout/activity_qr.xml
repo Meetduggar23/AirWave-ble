@@ -12,7 +12,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -25,15 +25,23 @@
                 android:src="@drawable/ic_back" />
 
             <TextView
-            android:id="@+id/qrTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/my_qr"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+                android:id="@+id/qrTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@string/my_qr"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
+
+        <!-- v3.2.7 (B5): every sub-page header carries the same 1dp divider.
+             Inset (content-width) here because the header sits inside the
+             page's 20dp padding; History/Chat keep full-bleed hairlines. -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/colorSurfaceVariant" />
 
         <LinearLayout
             android:layout_width="wrap_content"

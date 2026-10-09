@@ -191,6 +191,41 @@ Chat with nearby people over Bluetooth. No internet, no servers, no accounts, no
   and Next navigation included.
 - Version 3.2 (versionCode 6). No BLE/protocol changes.
 
+## v3.2.7 — stability + UI shape pass (no connectivity changes)
+
+- **Readability fixes in chat.** Text on your own message bubbles and on
+  badges used hardcoded white, which was unreadable on themes whose primary
+  color is light (Dark HC, Monokai Dimmed, Tomorrow Night Blue). Everything
+  sitting on a primary-colored surface now uses the theme's on-primary color.
+  Quoted messages inside your own bubble got a translucent-white chip — the
+  old grey quote box was illegible under white text.
+- **Image sharing hardening.** Gallery photos are decoded off the UI thread
+  and downsampled before being queued for BLE transfer, and chat thumbnails
+  are decoded once into a memory cache instead of re-decoding the full file
+  on every scroll. Fixes out-of-memory crashes on low-RAM phones and lag
+  while scrolling image-heavy chats.
+- **Keyboard "Send" works.** The message field advertised the keyboard's
+  Send action but nothing handled it — now it sends. The theme picker also
+  restarts the whole app so no back-stack screen is left in the old theme,
+  and the Nearby screen no longer leaks its BLE listener after closing.
+- **Consistent UI shapes (B1–B10 pass).** One corner-radius scale: 16dp cards
+  and inputs, pill-shaped chips/badges/buttons, 18dp bubbles with an
+  asymmetric 6dp tail. Outline buttons use a single 1.5dp stroke; primary
+  buttons are uniformly 52dp tall; every icon-only control is at least 44dp;
+  sub-page headers share one 48dp template with a consistent hairline
+  divider; typography collapses to a 6-step scale; empty states share one
+  template (64dp icon, bold title, secondary subtitle); all cards use 14dp
+  internal padding. Message bubbles now cap at ~78% of screen width — the
+  old 280dp limit sat on a view that ignores `maxWidth`, so it never worked.
+  Image previews keep their aspect ratio instead of a fixed crop, member
+  chips are density-correct, and the fall-down animation was removed from
+  chat lists for a calmer feel.
+- **Dead code removed.** 11 unused icons, 1 unused animation, a dead
+  notification helper overload and 53 unused string keys across all 7
+  languages (228 → 175 keys, full translation parity kept).
+- AirWaveBle.kt (connectivity logic) is untouched in this release.
+- Version 3.2.7 (versionCode 13).
+
 ## v3.2.6 — UI polish pass (no connectivity changes)
 
 - **Fixed: two logos shown in the same spot.** The Nearby header showed the app

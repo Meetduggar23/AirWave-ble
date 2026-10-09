@@ -141,8 +141,8 @@
 
         <ImageButton
             android:id="@+id/searchClose"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/cancel"
             android:src="@drawable/ic_close" />
@@ -185,8 +185,8 @@
 
         <ImageButton
             android:id="@+id/replyClose"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/cancel"
             android:src="@drawable/ic_close" />
@@ -201,7 +201,6 @@
             android:id="@+id/messagesList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layoutAnimation="@anim/layout_fall_down"
             android:clipToPadding="false"
             android:divider="@null"
             android:dividerHeight="10dp"
@@ -228,8 +227,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/no_messages"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="15sp" />
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </FrameLayout>
 

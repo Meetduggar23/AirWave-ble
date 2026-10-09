@@ -17,10 +17,8 @@
     <string name="your_identity">તમારી AirWave ઓળખ</string>
     <string name="tap_to_set_name">તમારું નામ સેટ કરવા ટેપ કરો</string>
     <string name="settings">સેટિંગ્સ</string>
-    <string name="nearby_users">નજીકના વપરાશકર્તાઓ</string>
     <string name="create_group">જૂથ બનાવો</string>
     <string name="tap_to_connect">કનેક્ટ કરવા માટે વપરાશકર્તાને ટેપ કરો</string>
-    <string name="no_peers">હજુ કોઈ નજીકના વપરાશકર્તા નથી.\nખાતરી કરો કે બીજા ફોનમાં બ્લૂટૂથ ચાલુ છે.</string>
     <string name="group_badge">જૂથ %1$s</string>
     <string name="enable_discoverable_to_host">જૂથ હોસ્ટ કરવા માટે સેટિંગ્સમાં “અન્ય લોકોને દેખાઓ” ચાલુ કરો</string>
     <string name="type_message">સંદેશ લખો</string>
@@ -29,14 +27,11 @@
     <string name="disconnect_confirm">%1$s થી ડિસ્કનેક્ટ કરવું છે?</string>
     <string name="peer_disconnected">સાથી વપરાશકર્તા ડિસ્કનેક્ટ થયો</string>
     <string name="cancel">રદ કરો</string>
-    <string name="ok">ઓકે</string>
     <string name="save">સાચવો</string>
     <string name="clear">સાફ કરો</string>
     <string name="leave_group">જૂથ છોડો</string>
     <string name="leave_confirm">આ જૂથ છોડવું છે?</string>
     <string name="group_title">જૂથ %1$s</string>
-    <string name="you_are_host">તમે હોસ્ટ કરી રહ્યા છો · કોડ શેર કરો</string>
-    <string name="you_are_member">તમે આ જૂથમાં જોડાયા છો</string>
     <string name="members_count">%1$d સભ્યો</string>
     <string name="joined_group">જૂથમાં જોડાયા</string>
     <string name="left_group">જૂથ છોડ્યું</string>
@@ -51,9 +46,6 @@
     <string name="welcome_message">આ સત્ર માટે એક નામ પસંદ કરો. કોઈ એકાઉન્ટની જરૂર નથી — ચેટ્સ તમારા ફોનમાં જ રહે છે અને સત્ર પૂરું થતાં ગાયબ થઈ જાય છે.</string>
     <string name="appearance">દેખાવ</string>
     <string name="theme">થીમ</string>
-    <string name="theme_system">સિસ્ટમ ડિફોલ્ટ</string>
-    <string name="theme_light">લાઇટ</string>
-    <string name="theme_dark">ડાર્ક</string>
     <string name="language">ભાષા</string>
     <string name="notifications">સૂચનાઓ</string>
     <string name="enable_notifications">સૂચનાઓ ચાલુ કરો</string>
@@ -67,8 +59,6 @@
     <string name="clear_confirm">આ સત્રની બધી ચેટ્સ અને શોધાયેલા વપરાશકર્તાઓ કાઢી નાખવા છે?</string>
     <string name="session_cleared">સત્ર ડેટા સાફ થયો</string>
     <string name="about">વિશે</string>
-    <string name="about_airwave">AirWave વિશે</string>
-    <string name="about_text">AirWave એ Bluetooth Low Energy નો ઉપયોગ કરતા નજીકના Android ઉપકરણો માટે એક નાની, ખાનગી, ઑફલાઇન ચેટ એપ છે.\n\n• કોઈ ઇન્ટરનેટ, સર્વર કે ક્લાઉડ નથી\n• 1-તો-1 અને જૂથ ચેટ્સ\n• અસ્થાયી સત્ર ચેટ્સ — કંઈ સાચવવામાં આવતું નથી\n\nસંસ્કરણ 1.0</string>
     <string name="my_qr">મારો AirWave QR</string>
     <string name="qr_note">બીજાઓ આ કોડ વડે તમને ઓળખી શકે છે. કોઈ એકાઉન્ટ નથી, માત્ર તમારું સત્ર નામ.</string>
     <string name="turn_bluetooth_on_first">પહેલા બ્લૂટૂથ ચાલુ કરો</string>
@@ -94,7 +84,6 @@
     <string name="rescan">ફરી સ્કેન કરો</string>
     <string name="scanning">સ્કેન કરી રહ્યા છીએ…</string>
     <string name="scan_qr">QR સ્કેન કરો</string>
-    <string name="scan_qr_title">QR સ્કેન કરો</string>
     <string name="scan_qr_prompt">AirWave QR કોડ પર કૅમેરો ધરો</string>
     <string name="qr_invalid">આ AirWave QR કોડ નથી</string>
     <string name="peer_not_found">%1$s અત્યારે નજીકમાં નથી</string>
@@ -130,7 +119,6 @@
     <string name="show_my_qr">મારો QR બતાવો</string>
 
     <!-- v2.0: about -->
-    <string name="version_2">સંસ્કરણ 2.0</string>
     <string name="about_tagline">નજીકના લોકો માટે ઑફલાઇન ચેટ</string>
     <string name="about_principles_title">સિદ્ધાંતો</string>
     <string name="about_p1">કોઈ લૉગિન નથી</string>
@@ -145,50 +133,26 @@
     <string name="about_f5">ચેટ્સ બ્લૉક કરો અને સાફ કરો</string>
 
     <!-- v3.0: drawer -->
-    <string name="drawer_history">ઇતિહાસ</string>
-    <string name="history_title">કનેક્શન ઇતિહાસ</string>
-    <string name="history_empty">આ સત્રમાં હજુ કોઈ ઘટના નથી</string>
 
     <!-- v3.0: images -->
-    <string name="send_image">છબી મોકલો</string>
-    <string name="image_too_large">છબી મોકલવા માટે ઘણી મોટી છે</string>
-    <string name="caption_hint">કૅપ્શન ઉમેરો (વૈકલ્પિક)</string>
-    <string name="photo">ફોટો</string>
     <string name="image_failed">છબી લોડ થઈ શકી નથી</string>
-    <string name="tap_to_retry">ફરી પ્રયાસ કરવા ટેપ કરો</string>
-    <string name="resend_failed">હજુ કનેક્ટ થયું નથી</string>
 
     <!-- v3.0: reactions & pins -->
     <string name="react">પ્રતિક્રિયા આપો</string>
-    <string name="pin">પિન કરો</string>
-    <string name="unpin">અનપિન કરો</string>
     <string name="pinned_messages">પિન કરેલા સંદેશા</string>
     <string name="no_pinned">કોઈ પિન કરેલા સંદેશા નથી</string>
 
     <!-- v3.0: search -->
     <string name="search">શોધો</string>
-    <string name="search_hint">સંદેશા શોધો</string>
 
     <!-- v3.0: mute & export -->
     <string name="mute_chat">સૂચનાઓ મ્યૂટ કરો</string>
     <string name="unmute_chat">સૂચનાઓ અનમ્યૂટ કરો</string>
-    <string name="muted_toast">આ ચેટ માટે સૂચનાઓ મ્યૂટ થઈ</string>
-    <string name="unmuted_toast">સૂચનાઓ અનમ્યૂટ થઈ</string>
     <string name="export_chat">ચેટ નિકાસ કરો</string>
-    <string name="export_saved">%1$s સાચવવામાં આવ્યું</string>
-    <string name="share_chat">ચેટ શેર કરો</string>
 
     <!-- v3.0: groups -->
     <string name="make_admin">એડમિન બનાવો</string>
-    <string name="remove_from_group">જૂથમાંથી દૂર કરો</string>
-    <string name="admin_badge">એડમિન</string>
     <string name="rename_group">જૂથનું નામ બદલો</string>
-    <string name="rename_group_hint">જૂથનું નામ</string>
-    <string name="group_color">જૂથનો રંગ</string>
-    <string name="kicked_toast">તમને જૂથમાંથી દૂર કરવામાં આવ્યા</string>
-    <string name="member_removed">%1$s દૂર કરવામાં આવ્યા</string>
-    <string name="group_renamed">%1$s એ જૂથનું નામ બદલ્યું</string>
-    <string name="promoted_admin">%1$s હવે એડમિન છે</string>
 
     <!-- v3.0: presence -->
     <string name="active_now">અત્યારે સક્રિય</string>
@@ -200,16 +164,8 @@
     <string name="group_invite_text">%1$s એ તમને જૂથ %2$s માં આમંત્રણ આપ્યું</string>
 
     <!-- v3.0: onboarding -->
-    <string name="ob1_title">ઇન્ટરનેટની જરૂર નથી</string>
-    <string name="ob1_text">AirWave બ્લૂટૂથ પર ચેટ કરે છે — કોઈ સર્વર, કોઈ ક્લાઉડ, કોઈ એકાઉન્ટ નથી.</string>
-    <string name="ob2_title">શોધી શકાય તેવા રહો</string>
-    <string name="ob2_text">બ્લૂટૂથ ચાલુ કરો અને શોધી શકાય તેવા રહો જેથી નજીકના મિત્રો તમને શોધી શકે.</string>
-    <string name="ob3_title">મિત્રો શોધો &amp; ચેટ કરો</string>
-    <string name="ob3_text">નજીકમાં કોણ છે તે જુઓ, QR કોડ સ્કેન કરો અને ચેટ શરૂ કરો.</string>
     <string name="next">આગળ</string>
     <string name="skip">છોડો</string>
-    <string name="get_started">શરૂ કરો</string>
-    <string name="version_3">સંસ્કરણ 3.0</string>
 
     <!-- v3.0: names used by the v3.0 chat screens -->
     <string name="history">ઇતિહાસ</string>
@@ -235,15 +191,6 @@
     <string name="kicked_from_group">તમને જૂથમાંથી દૂર કરવામાં આવ્યા</string>
     <string name="role_admin">એડમિન</string>
     <string name="role_member">સભ્ય</string>
-    <string name="onboard_title_1">નજીકના ફોન કનેક્ટ કરો</string>
-    <string name="onboard_text_1">બ્લૂટૂથ ચાલુ કરો અને શોધી શકાય તેવા રહો — ઇન્ટરનેટની જરૂર નથી.</string>
-    <string name="onboard_title_2">ચેટ કરો &amp; શેર કરો</string>
-    <string name="onboard_text_2">ટેક્સ્ટ, ફોટો, પ્રતિક્રિયાઓ અને જવાબો મોકલો — બધું ઑફલાઇન.</string>
-    <string name="onboard_title_3">જૂથો બનાવો</string>
-    <string name="onboard_text_3">જૂથ હોસ્ટ કરો, મિત્રોને સ્કેન કરીને જોડાવા દો, અને એડમિન તરીકે સભ્યોનું સંચાલન કરો.</string>
-    <string name="onboard_next">આગળ</string>
-    <string name="onboard_skip">છોડો</string>
-    <string name="onboard_start">શરૂ કરો</string>
 
     <!-- v3.2.6: tutorial + richer about page -->
     <string name="tutorial_title_1">ઇન્ટરનેટ વગર ચેટ કરો</string>

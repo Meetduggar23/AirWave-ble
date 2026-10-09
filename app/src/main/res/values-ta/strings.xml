@@ -17,10 +17,8 @@
     <string name="your_identity">உங்கள் AirWave அடையாளம்</string>
     <string name="tap_to_set_name">உங்கள் பெயரை அமைக்கத் தட்டவும்</string>
     <string name="settings">அமைப்புகள்</string>
-    <string name="nearby_users">அருகிலுள்ள பயனர்கள்</string>
     <string name="create_group">குழுவை உருவாக்கு</string>
     <string name="tap_to_connect">இணைய ஒரு பயனரைத் தட்டவும்</string>
-    <string name="no_peers">இன்னும் அருகிலுள்ள பயனர்கள் யாரும் இல்லை.\nமற்ற ஃபோனில் புளூடூத் ஆன் செய்யப்பட்டுள்ளதை உறுதி செய்யவும்.</string>
     <string name="group_badge">குழு %1$s</string>
     <string name="enable_discoverable_to_host">குழுவை ஹோஸ்ட் செய்ய அமைப்புகளில் “மற்றவர்களுக்குத் தெரியும்” என்பதை ஆன் செய்யவும்</string>
     <string name="type_message">செய்தியை உள்ளிடவும்</string>
@@ -29,14 +27,11 @@
     <string name="disconnect_confirm">%1$s-இடமிருந்து துண்டிக்கவா?</string>
     <string name="peer_disconnected">சக பயனர் துண்டிக்கப்பட்டார்</string>
     <string name="cancel">ரத்து</string>
-    <string name="ok">சரி</string>
     <string name="save">சேமி</string>
     <string name="clear">அழி</string>
     <string name="leave_group">குழுவிலிருந்து வெளியேறு</string>
     <string name="leave_confirm">இந்தக் குழுவிலிருந்து வெளியேறவா?</string>
     <string name="group_title">குழு %1$s</string>
-    <string name="you_are_host">நீங்கள் ஹோஸ்ட் செய்கிறீர்கள் · குறியீட்டைப் பகிரவும்</string>
-    <string name="you_are_member">நீங்கள் இந்தக் குழுவில் சேர்ந்துள்ளீர்கள்</string>
     <string name="members_count">%1$d உறுப்பினர்கள்</string>
     <string name="joined_group">குழுவில் சேர்ந்தார்</string>
     <string name="left_group">குழுவிலிருந்து வெளியேறினார்</string>
@@ -51,9 +46,6 @@
     <string name="welcome_message">இந்த அமர்வுக்கு ஒரு பெயரைத் தேர்வு செய்யவும். கணக்கு தேவையில்லை — அரட்டைகள் உங்கள் ஃபோன்களிலேயே இருக்கும், அமர்வு முடிந்ததும் மறைந்துவிடும்.</string>
     <string name="appearance">தோற்றம்</string>
     <string name="theme">தீம்</string>
-    <string name="theme_system">கணினி இயல்புநிலை</string>
-    <string name="theme_light">வெளிர்</string>
-    <string name="theme_dark">இருள்</string>
     <string name="language">மொழி</string>
     <string name="notifications">அறிவிப்புகள்</string>
     <string name="enable_notifications">அறிவிப்புகளை இயக்கு</string>
@@ -67,8 +59,6 @@
     <string name="clear_confirm">இந்த அமர்வின் அனைத்து அரட்டைகளையும் கண்டறியப்பட்ட பயனர்களையும் நீக்கவா?</string>
     <string name="session_cleared">அமர்வு தரவு அழிக்கப்பட்டது</string>
     <string name="about">பற்றி</string>
-    <string name="about_airwave">AirWave பற்றி</string>
-    <string name="about_text">AirWave என்பது புளூடூத் லோ எனர்ஜியைப் பயன்படுத்தி அருகிலுள்ள ஆண்ட்ராய்டு சாதனங்களுக்கான சிறிய, தனியான, ஆஃப்லைன் அரட்டைச் செயலி.\n\n• இணையம், சேவையகம் அல்லது கிளவுட் இல்லை\n• 1-க்கு-1 மற்றும் குழு அரட்டைகள்\n• தற்காலிக அமர்வு அரட்டைகள் — எதுவும் சேமிக்கப்படாது\n\nபதிப்பு 1.0</string>
     <string name="my_qr">எனது AirWave QR</string>
     <string name="qr_note">இந்தக் குறியீட்டின் மூலம் மற்றவர்கள் உங்களை அடையாளம் காணலாம். கணக்கு இல்லை, உங்கள் அமர்வுப் பெயர் மட்டுமே.</string>
     <string name="turn_bluetooth_on_first">முதலில் புளூடூத்தை ஆன் செய்யவும்</string>
@@ -94,7 +84,6 @@
     <string name="rescan">மீண்டும் ஸ்கேன்</string>
     <string name="scanning">ஸ்கேன் செய்கிறது…</string>
     <string name="scan_qr">QR ஸ்கேன்</string>
-    <string name="scan_qr_title">QR ஸ்கேன்</string>
     <string name="scan_qr_prompt">ஒரு AirWave QR குறியீட்டை நோக்கிக் காட்டவும்</string>
     <string name="qr_invalid">இது AirWave QR குறியீடு அல்ல</string>
     <string name="peer_not_found">%1$s இப்போது அருகில் இல்லை</string>
@@ -130,7 +119,6 @@
     <string name="show_my_qr">எனது QR-ஐக் காட்டு</string>
 
     <!-- v2.0: about -->
-    <string name="version_2">பதிப்பு 2.0</string>
     <string name="about_tagline">அருகிலுள்ளவர்களுக்கான ஆஃப்லைன் அரட்டை</string>
     <string name="about_principles_title">கொள்கைகள்</string>
     <string name="about_p1">உள்நுழைவு இல்லை</string>
@@ -145,50 +133,26 @@
     <string name="about_f5">அரட்டைகளைத் தடுத்து அழி</string>
 
     <!-- v3.0: drawer -->
-    <string name="drawer_history">வரலாறு</string>
-    <string name="history_title">இணைப்பு வரலாறு</string>
-    <string name="history_empty">இந்த அமர்வில் இன்னும் நிகழ்வுகள் இல்லை</string>
 
     <!-- v3.0: images -->
-    <string name="send_image">படத்தை அனுப்பு</string>
-    <string name="image_too_large">படம் அனுப்ப முடியாத அளவு பெரியது</string>
-    <string name="caption_hint">தலைப்பைச் சேர்க்கவும் (விருப்பம்)</string>
-    <string name="photo">புகைப்படம்</string>
     <string name="image_failed">படத்தை ஏற்ற முடியவில்லை</string>
-    <string name="tap_to_retry">மீண்டும் முயற்சிக்கத் தட்டவும்</string>
-    <string name="resend_failed">இன்னும் இணைக்கப்படவில்லை</string>
 
     <!-- v3.0: reactions & pins -->
     <string name="react">எதிர்வினை</string>
-    <string name="pin">பின் செய்</string>
-    <string name="unpin">பின் நீக்கு</string>
     <string name="pinned_messages">பின் செய்யப்பட்ட செய்திகள்</string>
     <string name="no_pinned">பின் செய்யப்பட்ட செய்திகள் இல்லை</string>
 
     <!-- v3.0: search -->
     <string name="search">தேடு</string>
-    <string name="search_hint">செய்திகளைத் தேடு</string>
 
     <!-- v3.0: mute & export -->
     <string name="mute_chat">அறிவிப்புகளை அமைதிப்படுத்து</string>
     <string name="unmute_chat">அறிவிப்புகளின் அமைதியை நீக்கு</string>
-    <string name="muted_toast">இந்த அரட்டைக்கான அறிவிப்புகள் அமைதிப்படுத்தப்பட்டன</string>
-    <string name="unmuted_toast">அறிவிப்புகளின் அமைதி நீக்கப்பட்டது</string>
     <string name="export_chat">அரட்டையை ஏற்றுமதி செய்</string>
-    <string name="export_saved">%1$s சேமிக்கப்பட்டது</string>
-    <string name="share_chat">அரட்டையைப் பகிர்</string>
 
     <!-- v3.0: groups -->
     <string name="make_admin">நிர்வாகியாக்கு</string>
-    <string name="remove_from_group">குழுவிலிருந்து நீக்கு</string>
-    <string name="admin_badge">நிர்வாகி</string>
     <string name="rename_group">குழுவுக்குப் பெயர் மாற்று</string>
-    <string name="rename_group_hint">குழுவின் பெயர்</string>
-    <string name="group_color">குழு நிறம்</string>
-    <string name="kicked_toast">நீங்கள் குழுவிலிருந்து நீக்கப்பட்டீர்கள்</string>
-    <string name="member_removed">%1$s நீக்கப்பட்டார்</string>
-    <string name="group_renamed">%1$s குழுவின் பெயரை மாற்றினார்</string>
-    <string name="promoted_admin">%1$s இப்போது நிர்வாகி</string>
 
     <!-- v3.0: presence -->
     <string name="active_now">இப்போது செயலில்</string>
@@ -200,16 +164,8 @@
     <string name="group_invite_text">%1$s உங்களை %2$s குழுவுக்கு அழைத்தார்</string>
 
     <!-- v3.0: onboarding -->
-    <string name="ob1_title">இணையம் தேவையில்லை</string>
-    <string name="ob1_text">AirWave புளூடூத் மூலம் அரட்டையடிக்கும் — சேவையகங்கள், கிளவுட், கணக்குகள் இல்லை.</string>
-    <string name="ob2_title">தெரியும்படி இருங்கள்</string>
-    <string name="ob2_text">புளூடூத்தை ஆன் செய்து தெரியும்படி இருங்கள், அப்போதுதான் அருகிலுள்ள நண்பர்கள் உங்களைக் கண்டறிய முடியும்.</string>
-    <string name="ob3_title">நண்பர்களைக் கண்டறிந்து அரட்டையடியுங்கள்</string>
-    <string name="ob3_text">அருகில் யார் இருக்கிறார்கள் எனப் பாருங்கள், QR குறியீட்டை ஸ்கேன் செய்து அரட்டையைத் தொடங்குங்கள்.</string>
     <string name="next">அடுத்து</string>
     <string name="skip">தவிர்</string>
-    <string name="get_started">தொடங்குங்கள்</string>
-    <string name="version_3">பதிப்பு 3.0</string>
 
     <!-- v3.0: names used by the v3.0 chat screens -->
     <string name="history">வரலாறு</string>
@@ -235,15 +191,6 @@
     <string name="kicked_from_group">நீங்கள் குழுவிலிருந்து நீக்கப்பட்டீர்கள்</string>
     <string name="role_admin">நிர்வாகி</string>
     <string name="role_member">உறுப்பினர்</string>
-    <string name="onboard_title_1">அருகிலுள்ள ஃபோன்களை இணையுங்கள்</string>
-    <string name="onboard_text_1">புளூடூத்தை ஆன் செய்து தெரியும்படி இருங்கள் — இணையம் தேவையில்லை.</string>
-    <string name="onboard_title_2">அரட்டையடித்துப் பகிருங்கள்</string>
-    <string name="onboard_text_2">உரைகள், புகைப்படங்கள், எதிர்வினைகள் மற்றும் பதில்களை அனுப்புங்கள் — அனைத்தும் ஆஃப்லைன்.</string>
-    <string name="onboard_title_3">குழுக்களை உருவாக்குங்கள்</string>
-    <string name="onboard_text_3">ஒரு குழுவை ஹோஸ்ட் செய்யுங்கள், நண்பர்கள் ஸ்கேன் செய்து சேரட்டும், நிர்வாகியாக உறுப்பினர்களை நிர்வகியுங்கள்.</string>
-    <string name="onboard_next">அடுத்து</string>
-    <string name="onboard_skip">தவிர்</string>
-    <string name="onboard_start">தொடங்குங்கள்</string>
 
     <!-- v3.2.6: tutorial + richer about page -->
     <string name="tutorial_title_1">இணையம் இல்லாமல் அரட்டையடியுங்கள்</string>

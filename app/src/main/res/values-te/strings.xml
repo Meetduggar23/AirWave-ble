@@ -17,10 +17,8 @@
     <string name="your_identity">మీ AirWave గుర్తింపు</string>
     <string name="tap_to_set_name">మీ పేరును సెట్ చేయడానికి నొక్కండి</string>
     <string name="settings">సెట్టింగ్‌లు</string>
-    <string name="nearby_users">దగ్గరలోని యూజర్లు</string>
     <string name="create_group">గ్రూప్ సృష్టించండి</string>
     <string name="tap_to_connect">కనెక్ట్ అవ్వడానికి ఒక యూజర్‌ను నొక్కండి</string>
-    <string name="no_peers">దగ్గరలో యూజర్లు లేరు.\nమరో ఫోన్‌లో బ్లూటూత్ ఆన్‌లో ఉందని నిర్ధారించుకోండి.</string>
     <string name="group_badge">గ్రూప్ %1$s</string>
     <string name="enable_discoverable_to_host">గ్రూప్‌ను హోస్ట్ చేయడానికి సెట్టింగ్‌లలో “ఇతరులకు కనిపించడం” ను ఆన్ చేయండి</string>
     <string name="type_message">సందేశం టైప్ చేయండి</string>
@@ -29,14 +27,11 @@
     <string name="disconnect_confirm">%1$s నుండి డిస్కనెక్ట్ చేయాలా?</string>
     <string name="peer_disconnected">పీర్ డిస్కనెక్ట్ అయ్యింది</string>
     <string name="cancel">రద్దు చేయి</string>
-    <string name="ok">సరే</string>
     <string name="save">సేవ్</string>
     <string name="clear">క్లియర్</string>
     <string name="leave_group">గ్రూప్ నుండి బయటపడండి</string>
     <string name="leave_confirm">ఈ గ్రూప్ నుండి బయటపడాలా?</string>
     <string name="group_title">గ్రూప్ %1$s</string>
-    <string name="you_are_host">మీరు హోస్ట్ చేస్తున్నారు · కోడ్‌ను షేర్ చేయండి</string>
-    <string name="you_are_member">మీరు ఈ గ్రూప్‌లో చేరారు</string>
     <string name="members_count">%1$d సభ్యులు</string>
     <string name="joined_group">గ్రూప్‌లో చేరారు</string>
     <string name="left_group">గ్రూప్‌ను వదిలారు</string>
@@ -51,9 +46,6 @@
     <string name="welcome_message">ఈ సెషన్ కోసం ఒక పేరు ఎంచుకోండి. ఖాతా అవసరం లేదు — చాట్‌లు మీ ఫోన్‌లలోనే ఉంటాయి మరియు సెషన్ ముగిసినప్పుడు అదృశ్యమవుతాయి.</string>
     <string name="appearance">రూపం</string>
     <string name="theme">థీమ్</string>
-    <string name="theme_system">సిస్టమ్ డిఫాల్ట్</string>
-    <string name="theme_light">లైట్</string>
-    <string name="theme_dark">డార్క్</string>
     <string name="language">భాష</string>
     <string name="notifications">నోటిఫికేషన్‌లు</string>
     <string name="enable_notifications">నోటిఫికేషన్‌లను ప్రారంభించండి</string>
@@ -67,8 +59,6 @@
     <string name="clear_confirm">ఈ సెషన్ నుండి అన్ని చాట్‌లు మరియు కనుగొన్న యూజర్లను తొలగించాలా?</string>
     <string name="session_cleared">సెషన్ డేటా క్లియర్ చేయబడింది</string>
     <string name="about">గురించి</string>
-    <string name="about_airwave">AirWave గురించి</string>
-    <string name="about_text">AirWave అనేది బ్లూటూత్ లో ఎనర్జీని ఉపయోగించే దగ్గరలోని ఆండ్రాయిడ్ పరికరాల కోసం చిన్న, ప్రైవేట్, ఆఫ్‌లైన్ చాట్ యాప్.\n\n• ఇంటర్నెట్, సర్వర్ లేదా క్లౌడ్ లేదు\n• 1-టు-1 మరియు గ్రూప్ చాట్‌లు\n• తాత్కాలిక సెషన్ చాట్‌లు — ఏదీ సేవ్ చేయబడదు\n\nవెర్షన్ 1.0</string>
     <string name="my_qr">నా AirWave QR</string>
     <string name="qr_note">ఇతరులు ఈ కోడ్‌తో మిమ్మల్ని గుర్తించవచ్చు. ఖాతా లేదు, మీ సెషన్ పేరు మాత్రమే.</string>
     <string name="turn_bluetooth_on_first">ముందుగా బ్లూటూత్ ఆన్ చేయండి</string>
@@ -94,7 +84,6 @@
     <string name="rescan">మళ్లీ స్కాన్ చేయండి</string>
     <string name="scanning">స్కాన్ అవుతోంది…</string>
     <string name="scan_qr">QR స్కాన్ చేయండి</string>
-    <string name="scan_qr_title">QR స్కాన్ చేయండి</string>
     <string name="scan_qr_prompt">AirWave QR కోడ్ వైపు చూపండి</string>
     <string name="qr_invalid">ఇది AirWave QR కోడ్ కాదు</string>
     <string name="peer_not_found">%1$s ప్రస్తుతం దగ్గరలో లేరు</string>
@@ -130,7 +119,6 @@
     <string name="show_my_qr">నా QR చూపండి</string>
 
     <!-- v2.0: about -->
-    <string name="version_2">వెర్షన్ 2.0</string>
     <string name="about_tagline">దగ్గరలోని వారి కోసం ఆఫ్‌లైన్ చాట్</string>
     <string name="about_principles_title">సూత్రాలు</string>
     <string name="about_p1">లాగిన్ లేదు</string>
@@ -145,50 +133,26 @@
     <string name="about_f5">చాట్‌లను బ్లాక్ చేయండి మరియు క్లియర్ చేయండి</string>
 
     <!-- v3.0: drawer -->
-    <string name="drawer_history">చరిత్ర</string>
-    <string name="history_title">కనెక్షన్ చరిత్ర</string>
-    <string name="history_empty">ఈ సెషన్‌లో ఇంకా ఈవెంట్‌లు లేవు</string>
 
     <!-- v3.0: images -->
-    <string name="send_image">చిత్రం పంపండి</string>
-    <string name="image_too_large">పంపడానికి చిత్రం చాలా పెద్దది</string>
-    <string name="caption_hint">క్యాప్షన్ జోడించండి (ఐచ్ఛికం)</string>
-    <string name="photo">ఫోటో</string>
     <string name="image_failed">చిత్రం లోడ్ చేయలేకపోయింది</string>
-    <string name="tap_to_retry">మళ్లీ ప్రయత్నించడానికి నొక్కండి</string>
-    <string name="resend_failed">ఇంకా కనెక్ట్ కాలేదు</string>
 
     <!-- v3.0: reactions & pins -->
     <string name="react">రియాక్ట్</string>
-    <string name="pin">పిన్ చేయండి</string>
-    <string name="unpin">అన్‌పిన్ చేయండి</string>
     <string name="pinned_messages">పిన్ చేసిన సందేశాలు</string>
     <string name="no_pinned">పిన్ చేసిన సందేశాలు లేవు</string>
 
     <!-- v3.0: search -->
     <string name="search">శోధించండి</string>
-    <string name="search_hint">సందేశాలను శోధించండి</string>
 
     <!-- v3.0: mute & export -->
     <string name="mute_chat">నోటిఫికేషన్‌లను మ్యూట్ చేయండి</string>
     <string name="unmute_chat">నోటిఫికేషన్‌లను అన్‌మ్యూట్ చేయండి</string>
-    <string name="muted_toast">ఈ చాట్ కోసం నోటిఫికేషన్‌లు మ్యూట్ చేయబడ్డాయి</string>
-    <string name="unmuted_toast">నోటిఫికేషన్‌లు అన్‌మ్యూట్ చేయబడ్డాయి</string>
     <string name="export_chat">చాట్ ఎక్స్‌పోర్ట్ చేయండి</string>
-    <string name="export_saved">%1$s సేవ్ చేయబడింది</string>
-    <string name="share_chat">చాట్ షేర్ చేయండి</string>
 
     <!-- v3.0: groups -->
     <string name="make_admin">అడ్మిన్‌గా చేయండి</string>
-    <string name="remove_from_group">గ్రూప్ నుండి తొలగించండి</string>
-    <string name="admin_badge">అడ్మిన్</string>
     <string name="rename_group">గ్రూప్ పేరు మార్చండి</string>
-    <string name="rename_group_hint">గ్రూప్ పేరు</string>
-    <string name="group_color">గ్రూప్ రంగు</string>
-    <string name="kicked_toast">మిమ్మల్ని గ్రూప్ నుండి తొలగించారు</string>
-    <string name="member_removed">%1$s తొలగించబడ్డారు</string>
-    <string name="group_renamed">%1$s గ్రూప్ పేరు మార్చారు</string>
-    <string name="promoted_admin">%1$s ఇప్పుడు అడ్మిన్</string>
 
     <!-- v3.0: presence -->
     <string name="active_now">ఇప్పుడు యాక్టివ్‌గా</string>
@@ -200,16 +164,8 @@
     <string name="group_invite_text">%1$s మిమ్మల్ని %2$s గ్రూప్‌కు ఆహ్వానించారు</string>
 
     <!-- v3.0: onboarding -->
-    <string name="ob1_title">ఇంటర్నెట్ అవసరం లేదు</string>
-    <string name="ob1_text">AirWave బ్లూటూత్ ద్వారా చాట్ చేస్తుంది — సర్వర్లు లేవు, క్లౌడ్ లేదు, ఖాతాలు లేవు.</string>
-    <string name="ob2_title">కనిపించేలా ఉండండి</string>
-    <string name="ob2_text">బ్లూటూత్ ఆన్ చేసి కనిపించేలా ఉండండి, తద్వారా దగ్గరలోని స్నేహితులు మిమ్మల్ని కనుగొనవచ్చు.</string>
-    <string name="ob3_title">స్నేహితులను కనుగొనండి &amp; చాట్ చేయండి</string>
-    <string name="ob3_text">దగ్గరలో ఎవరు ఉన్నారో చూడండి, QR కోడ్ స్కాన్ చేయండి, చాటింగ్ ప్రారంభించండి.</string>
     <string name="next">తదుపరి</string>
     <string name="skip">దాటవేయండి</string>
-    <string name="get_started">ప్రారంభించండి</string>
-    <string name="version_3">వెర్షన్ 3.0</string>
 
     <!-- v3.0: names used by the v3.0 chat screens -->
     <string name="history">చరిత్ర</string>
@@ -235,15 +191,6 @@
     <string name="kicked_from_group">మిమ్మల్ని గ్రూప్ నుండి తొలగించారు</string>
     <string name="role_admin">అడ్మిన్</string>
     <string name="role_member">సభ్యుడు</string>
-    <string name="onboard_title_1">దగ్గరలోని ఫోన్‌లను కనెక్ట్ చేయండి</string>
-    <string name="onboard_text_1">బ్లూటూత్ ఆన్ చేసి కనిపించేలా ఉండండి — ఇంటర్నెట్ అవసరం లేదు.</string>
-    <string name="onboard_title_2">చాట్ &amp; షేర్ చేయండి</string>
-    <string name="onboard_text_2">టెక్స్ట్‌లు, ఫోటోలు, రియాక్షన్లు మరియు సమాధానాలు పంపండి — అన్నీ ఆఫ్‌లైన్.</string>
-    <string name="onboard_title_3">గ్రూప్‌లు సృష్టించండి</string>
-    <string name="onboard_text_3">గ్రూప్‌ను హోస్ట్ చేయండి, స్నేహితులు స్కాన్ చేసి చేరనివ్వండి, అడ్మిన్‌గా సభ్యులను నిర్వహించండి.</string>
-    <string name="onboard_next">తదుపరి</string>
-    <string name="onboard_skip">దాటవేయండి</string>
-    <string name="onboard_start">ప్రారంభించండి</string>
 
     <!-- v3.2.6: tutorial + richer about page -->
     <string name="tutorial_title_1">ఇంటర్నెట్ లేకుండా చాట్ చేయండి</string>

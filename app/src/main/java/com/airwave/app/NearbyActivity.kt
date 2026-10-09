@@ -82,6 +82,13 @@ class NearbyActivity : BaseActivity(), AirWaveBle.Listener {
         refresh()
     }
 
+    override fun onDestroy() {
+        // v3.2.7 (A5): never leave a dead activity registered as the BLE
+        // listener — every other listener activity has this guard.
+        if (AirWaveBle.listener === this) AirWaveBle.listener = null
+        super.onDestroy()
+    }
+
     private fun refresh() {
         val peers = AirWaveBle.peersList()
         adapter.setPeers(peers)
