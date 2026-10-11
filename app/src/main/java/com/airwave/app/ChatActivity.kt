@@ -292,11 +292,7 @@ class ChatActivity : BaseActivity(), AirWaveBle.Listener {
             val count = adapter.count
             if (count > 0) binding.messagesList.smoothScrollToPosition(count - 1)
         }
-        // v4.1: E2E badge + read receipt for the latest incoming message.
-        if (AirWaveBle.isE2e(convId)) {
-            binding.peerStatus.text =
-                "${binding.peerStatus.text} · ${getString(R.string.e2e_on)}"
-        }
+        // v4.1: read receipt for the latest incoming message.
         sendSeenIfNeeded()
     }
 

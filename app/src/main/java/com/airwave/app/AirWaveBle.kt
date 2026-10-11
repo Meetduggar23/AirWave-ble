@@ -777,15 +777,12 @@ object AirWaveBle {
 
     // ---------------- v4.1: end-to-end encryption (DMs only) ----------------
 
-    /** True when this DM conversation has an E2E key for the peer. */
-    fun isE2e(convId: String): Boolean =
-        !convId.startsWith("group:") && Crypto.hasKey(convId)
+    /** v4.1 E2E encryption removed — always false. */
+    fun isE2e(convId: String): Boolean = false
 
-    private fun encText(convId: String, plain: String): String {
-        if (convId.startsWith("group:")) return plain
-        val ct = Crypto.encrypt(convId, plain.toByteArray(Charsets.UTF_8)) ?: return plain
-        return "ENC:" + Base64.encodeToString(ct, Base64.NO_WRAP)
-    }
+    /** v4.1 E2E encryption removed — DMs go as plain text so every message
+     *  is always readable on the other phone. */
+    private fun encText(convId: String, plain: String): String = plain
 
     private fun decText(convId: String, field: String): String {
         if (!field.startsWith("ENC:")) return field
@@ -797,13 +794,10 @@ object AirWaveBle {
         return Crypto.decrypt(convId, blob)?.toString(Charsets.UTF_8) ?: field
     }
 
-    /** Encrypt raw media bytes when this DM has an E2E key; else return as-is. */
-    private fun encBytes(convId: String, raw: ByteArray): ByteArray =
-        if (!convId.startsWith("group:")) Crypto.encrypt(convId, raw) ?: raw else raw
+    /** v4.1 E2E encryption removed — media bytes go as-is. */
+    private fun encBytes(convId: String, raw: ByteArray): ByteArray = raw
 
-    private fun decBytes(convId: String, blob: ByteArray): ByteArray =
-        if (!convId.startsWith("group:") && Crypto.hasKey(convId))
-            Crypto.decrypt(convId, blob) ?: blob else blob
+    private fun decBytes(convId: String, blob: ByteArray): ByteArray = blob
 
     /** Send a chat message in a conversation. Returns false if nothing is connected. */
     fun sendChat(convId: String, text: String): Boolean {
@@ -2256,14 +2250,14 @@ object AirWaveBle {
                 joinedGroupId = gid
                 pendingJoinGroup = null
                 if (c != null) {
-                    writeCompat(gatt, c, frame(T_HELLO, myName, gid, Crypto.myPublicKeyB64(appContext)).toByteArray(Charsets.UTF_8))
+                    writeCompat(gatt, c, frame(T_HELLO, myName, gid, "").toByteArray(Charsets.UTF_8))
                 }
                 listener?.onStatus(appContext.getString(R.string.in_group, gid))
             } else {
                 // 1-to-1: introduce ourselves so the other side learns our real
                 // name even if the Bluetooth adapter name didn't update.
                 if (c != null) {
-                    writeCompat(gatt, c, frame(T_HELLO, myName, DM, Crypto.myPublicKeyB64(appContext)).toByteArray(Charsets.UTF_8))
+                    writeCompat(gatt, c, frame(T_HELLO, myName, DM, "").toByteArray(Charsets.UTF_8))
                 }
                 listener?.onStatus(appContext.getString(R.string.ready_to_chat))
             }
