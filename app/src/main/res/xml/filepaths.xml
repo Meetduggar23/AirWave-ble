@@ -2,5 +2,6 @@
 <!-- v3.0 FileProvider paths: shared images + exported chat text files -->
 <paths>
     <files-path name="images" path="images/" />
+    <files-path name="shared" path="files/" />
     <cache-path name="exports" path="exports/" />
 </paths>

@@ -93,6 +93,39 @@
     <string name="no_peers_sub">மற்ற ஃபோனில் புளூடூத் ஆன் செய்யப்பட்டு, தெரியும்படி இருப்பதை உறுதி செய்யவும்</string>
     <string name="camera_needed">QR குறியீடுகளை ஸ்கேன் செய்ய கேமரா அனுமதி தேவை</string>
 
+    <!-- v4.0: voice notes -->
+    <string name="voice_note">குரல் குறிப்பு</string>
+    <string name="voice_recording">பதிவு செய்யப்படுகிறது…</string>
+    <string name="voice_failed">குரல் குறிப்பு தோல்வியடைந்தது</string>
+    <string name="voice_too_short">குரல் குறிப்பு மிகவும் சிறியது</string>
+    <string name="mic_needed">குரல் குறிப்புகளை பதிவு செய்ய மைக்ரோஃபோன் அணுகல் தேவை</string>
+    <string name="receiving_voice">குரல் குறிப்பு வருகிறது (%1$d/%2$d)</string>
+    <string name="stop_recording">நிறுத்தி அனுப்பவும்</string>
+    <string name="torch">டார்ச்</string>
+
+    <!-- v4.1 -->
+    <string name="attach_photo">புகைப்படம்</string>
+    <string name="attach_file">கோப்பு</string>
+    <string name="open_file">கோப்பை திற</string>
+    <string name="file_failed">கோப்பு தோல்வி</string>
+    <string name="forward">முன்னே அனுப்பு</string>
+    <string name="forward_to">அனுப்பவும்…</string>
+    <string name="disappearing">மறையும் செய்திகள்</string>
+    <string name="disappear_off">இல்லை</string>
+    <string name="disappear_24h">24 மணி</string>
+    <string name="disappear_7d">7 நாட்கள்</string>
+    <string name="create_poll">வாக்கெடுப்பு உருவாக்கு</string>
+    <string name="poll_question">கேள்வி</string>
+    <string name="poll_options_hint">விருப்பங்கள் (ஒரு வரிக்கு ஒன்று, 2–5)</string>
+    <string name="app_lock">ஆப் லாக்</string>
+    <string name="set_pin">4 இலக்க PIN அமை</string>
+    <string name="change_pin">PIN மாற்று</string>
+    <string name="pin_4_digits">சரியாக 4 இலக்கங்கள்</string>
+    <string name="bio_on">பயோமெட்ரிக் அன்லாக் இயக்கு</string>
+    <string name="bio_off">பயோமெட்ரிக் அன்லாக் முடக்கு</string>
+    <string name="disable">முடக்கு</string>
+    <string name="e2e_on">E2E என்க்ரிப்ட்</string>
+
     <!-- v2.0: chat -->
     <string name="no_messages">இன்னும் செய்திகள் இல்லை</string>
     <string name="reply">பதில்</string>
@@ -211,4 +244,6 @@
     <string name="about_privacy_title">தனியுரிமை</string>
     <string name="about_privacy_body">கணக்கு இல்லை, தொலைபேசி எண் இல்லை, அனலிடிக்ஸ் இல்லை. அரட்டைகள் அமர்வு முடியும் வரை மட்டுமே நினைவகத்தில் இருக்கும், வெளியேறியதும் அழிந்துவிடும்.</string>
     <string name="version_fmt">பதிப்பு %1$s</string>
+    <string name="service_running">ஏர்வேவ் இயங்குகிறது</string>
+
 </resources>

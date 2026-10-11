@@ -5,6 +5,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.text.InputFilter
+import android.text.InputType
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -26,6 +29,7 @@ class SettingsActivity : BaseActivity() {
         binding.aboutRow.setOnClickListener {
             startActivity(Intent(this, AboutActivity::class.java))
         }
+        binding.lockRow.setOnClickListener { showLockSetup() }
         binding.clearDataRow.setOnClickListener { confirmClear() }
 
         binding.notificationsSwitch.isChecked = Prefs.notificationsEnabled
@@ -45,6 +49,50 @@ class SettingsActivity : BaseActivity() {
             val msg = if (checked) getString(R.string.discoverable_on) else getString(R.string.discoverable_off)
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    // ---------------- v4.1: app lock ----------------
+
+    private fun showLockSetup() {
+        if (AppLock.isEnabled(this)) {
+            AlertDialog.Builder(this)
+                .setTitle(getString(R.string.app_lock))
+                .setItems(
+                    arrayOf(
+                        getString(R.string.disable),
+                        getString(R.string.change_pin),
+                        getString(
+                            if (AppLock.useBiometric(this)) R.string.bio_off else R.string.bio_on
+                        )
+                    )
+                ) { _, w ->
+                    when (w) {
+                        0 -> AppLock.disable(this)
+                        1 -> askPin { AppLock.setPin(this, it) }
+                        2 -> AppLock.setBiometric(this, !AppLock.useBiometric(this))
+                    }
+                }
+                .show()
+        } else {
+            askPin { AppLock.setPin(this, it) }
+        }
+    }
+
+    private fun askPin(done: (String) -> Unit) {
+        val et = EditText(this).apply {
+            inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
+            filters = arrayOf(InputFilter.LengthFilter(4))
+        }
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.set_pin))
+            .setView(et)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                val pin = et.text.toString()
+                if (pin.length == 4) done(pin)
+                else Toast.makeText(this, R.string.pin_4_digits, Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     override fun onResume() {

@@ -13,6 +13,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.airwave.app.databinding.ItemMsgMineBinding
@@ -61,6 +64,82 @@ class MessageAdapter(private val context: Context) : BaseAdapter() {
 
     /** Tap the reactions row to remove my own reaction. */
     var onReactionsClick: ((AirWaveBle.ChatMessage) -> Unit)? = null
+
+    // ---- v4.0 voice notes ----
+    var onVoiceClick: ((AirWaveBle.ChatMessage) -> Unit)? = null
+    private var voicePlayingId: String? = null
+    private var voicePosMs: Int = 0
+    private var voiceDurMs: Int = 0
+
+    fun setVoiceState(id: String?, playing: Boolean, posMs: Int, durMs: Int) {
+        voicePlayingId = if (playing) id else null
+        voicePosMs = posMs
+        voiceDurMs = durMs
+        notifyDataSetChanged()
+    }
+
+    private fun bindVoice(
+        play: ImageButton, bar: ProgressBar, dur: TextView,
+        msg: AirWaveBle.ChatMessage
+    ) {
+        val playing = msg.voiceId != null && voicePlayingId == msg.voiceId
+        play.setImageResource(if (playing) R.drawable.ic_pause else R.drawable.ic_play)
+        dur.text = if (playing && voiceDurMs > 0)
+            "${VoiceNotes.fmt(voicePosMs / 1000)} / ${VoiceNotes.fmt(msg.voiceDurationSec)}"
+        else
+            VoiceNotes.fmt(msg.voiceDurationSec)
+        if (msg.voiceTotal > 0 && msg.voiceReceived < msg.voiceTotal) {
+            bar.max = msg.voiceTotal
+            bar.progress = msg.voiceReceived
+        } else if (playing && voiceDurMs > 0) {
+            bar.max = voiceDurMs
+            bar.progress = voicePosMs
+        } else {
+            bar.max = 100
+            bar.progress = 0
+        }
+        play.setOnClickListener { onVoiceClick?.invoke(msg) }
+    }
+
+    // ---- v4.1 files + polls ----
+    var onFileClick: ((AirWaveBle.ChatMessage) -> Unit)? = null
+    var onPollVote: ((AirWaveBle.ChatMessage, Int) -> Unit)? = null
+
+    private fun bindFile(
+        icon: ImageButton, name: TextView, size: TextView,
+        msg: AirWaveBle.ChatMessage
+    ) {
+        name.text = msg.fileName.ifBlank { "file" }
+        val prog = if (msg.fileTotal > 0 && msg.fileReceived < msg.fileTotal)
+            " · ${msg.fileReceived}/${msg.fileTotal}" else ""
+        size.text = humanSize(msg.fileSize) + prog
+        icon.setOnClickListener { onFileClick?.invoke(msg) }
+    }
+
+    private fun humanSize(b: Long): String = when {
+        b >= 1048576 -> "%.1f MB".format(b / 1048576.0)
+        b >= 1024 -> "%.0f KB".format(b / 1024.0)
+        else -> "$b B"
+    }
+
+    private fun bindPoll(
+        question: TextView, optsBox: LinearLayout,
+        msg: AirWaveBle.ChatMessage
+    ) {
+        question.text = msg.question
+        optsBox.removeAllViews()
+        msg.options.forEachIndexed { idx, opt ->
+            val count = msg.votes.count { it.value == idx }
+            val voted = msg.votes[AirWaveBle.myName] == idx
+            val tv = TextView(context).apply {
+                text = (if (voted) "● " else "○ ") + "$opt — $count"
+                textSize = 15f
+                setPadding(8, 14, 8, 14)
+                setOnClickListener { onPollVote?.invoke(msg, idx) }
+            }
+            optsBox.addView(tv)
+        }
+    }
 
     fun setMessages(m: List<AirWaveBle.ChatMessage>) {
         messages = m
@@ -240,9 +319,26 @@ class MessageAdapter(private val context: Context) : BaseAdapter() {
                 b.msgText.maxWidth = bubbleTextMaxWidth
                 b.imgCaption.maxWidth = bubbleTextMaxWidth
                 setHighlighted(b.msgText, msg.text)
-                b.msgText.visibility = if (msg.isImage) View.GONE else View.VISIBLE
+                // v4.1: media/disappearing-aware bubble layout
+                val isMedia = msg.isImage || msg.isVoice || msg.isFile || msg.isPoll
+                b.msgText.visibility = if (isMedia) View.GONE else View.VISIBLE
+                b.voiceRow.visibility = if (msg.isVoice) View.VISIBLE else View.GONE
+                b.fileRow.visibility = if (msg.isFile) View.VISIBLE else View.GONE
+                b.pollBox.visibility = if (msg.isPoll) View.VISIBLE else View.GONE
+                if (msg.isVoice) bindVoice(b.voicePlay, b.voiceProgress, b.voiceDuration, msg)
+                if (msg.isFile) bindFile(b.fileIcon, b.fileName, b.fileSize, msg)
+                if (msg.isPoll) bindPoll(b.pollQuestion, b.pollOptions, msg)
                 b.msgTime.text = time
-                b.tickText.text = if (msg.delivered) "✓✓" else "✓"
+                // v4.1: seen ticks (blue when the peer has read)
+                if (msg.delivered) {
+                    b.tickText.text = "✓✓"
+                    b.tickText.setTextColor(
+                        if (msg.seen) 0xFF4C9CF5.toInt() else 0xD9FFFFFF.toInt()
+                    )
+                } else {
+                    b.tickText.text = "✓"
+                    b.tickText.setTextColor(0xD9FFFFFF.toInt())
+                }
                 b.tickText.visibility = if (showTicks) View.VISIBLE else View.GONE
                 bindQuote(b.quoteBox, b.quoteSender, b.quoteText, msg.replyTo)
                 bindImage(b.msgImage, b.imgProgress, b.imgProgressText, b.imgCaption, msg)
@@ -274,7 +370,15 @@ class MessageAdapter(private val context: Context) : BaseAdapter() {
                 b.senderName.visibility = if (msg.sender.isBlank()) View.GONE else View.VISIBLE
                 b.senderName.setTextColor(AvatarUtil.colorFor(msg.sender))
                 setHighlighted(b.msgText, msg.text)
-                b.msgText.visibility = if (msg.isImage) View.GONE else View.VISIBLE
+                // v4.1: media/disappearing-aware bubble layout
+                val isMedia = msg.isImage || msg.isVoice || msg.isFile || msg.isPoll
+                b.msgText.visibility = if (isMedia) View.GONE else View.VISIBLE
+                b.voiceRow.visibility = if (msg.isVoice) View.VISIBLE else View.GONE
+                b.fileRow.visibility = if (msg.isFile) View.VISIBLE else View.GONE
+                b.pollBox.visibility = if (msg.isPoll) View.VISIBLE else View.GONE
+                if (msg.isVoice) bindVoice(b.voicePlay, b.voiceProgress, b.voiceDuration, msg)
+                if (msg.isFile) bindFile(b.fileIcon, b.fileName, b.fileSize, msg)
+                if (msg.isPoll) bindPoll(b.pollQuestion, b.pollOptions, msg)
                 b.msgTime.text = time
                 bindQuote(b.quoteBox, b.quoteSender, b.quoteText, msg.replyTo)
                 bindImage(b.msgImage, b.imgProgress, b.imgProgressText, b.imgCaption, msg)

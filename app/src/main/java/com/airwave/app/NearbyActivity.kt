@@ -47,9 +47,12 @@ class NearbyActivity : BaseActivity(), AirWaveBle.Listener {
                 }
                 startActivity(intent)
             } else {
-                // 1-to-1 chat
+                // 1-to-1 chat — v4.0: resolve the stable contact so the
+                // existing thread opens instead of a duplicate.
+                val contactId = AirWaveBle.ensureContact(peer.address, peer.name)
                 AirWaveBle.connect(peer.address)
                 val intent = Intent(this, ChatActivity::class.java).apply {
+                    putExtra("contact_id", contactId)
                     putExtra("peer_name", peer.name)
                     putExtra("peer_address", peer.address)
                 }
@@ -83,9 +86,9 @@ class NearbyActivity : BaseActivity(), AirWaveBle.Listener {
     }
 
     override fun onDestroy() {
-        // v3.2.7 (A5): never leave a dead activity registered as the BLE
-        // listener — every other listener activity has this guard.
-        if (AirWaveBle.listener === this) AirWaveBle.listener = null
+        // v3.2.5: release the shared listener slot so a destroyed activity
+        // can never swallow message callbacks meant for another screen.
+        if (AirWaveBle.listener == this) AirWaveBle.listener = null
         super.onDestroy()
     }
 

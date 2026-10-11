@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.kapt'
 }
 
 android {
@@ -11,8 +12,8 @@ android {
         applicationId "com.airwave.app"
         minSdk 26
         targetSdk 34
-        versionCode 13
-        versionName "3.2.7"
+        versionCode 14
+        versionName "4.1.0"
     }
 
     buildTypes {
@@ -31,6 +32,11 @@ android {
         viewBinding true
         buildConfig true
     }
+
+    packaging {
+        // v4.1: BouncyCastle + jspecify both ship META-INF/versions/9 entries.
+        resources.excludes += 'META-INF/versions/**'
+    }
 }
 
 dependencies {
@@ -40,4 +46,13 @@ dependencies {
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'com.google.zxing:core:3.5.3'
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    // v4.0: persistent chat storage (Room) + background DB writes (coroutines)
+    implementation 'androidx.room:room-runtime:2.6.1'
+    implementation 'androidx.room:room-ktx:2.6.1'
+    kapt 'androidx.room:room-compiler:2.6.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    // v4.1: E2E crypto + app lock
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.78.1'
+    implementation 'androidx.security:security-crypto:1.1.0'
+    implementation 'androidx.biometric:biometric:1.1.0'
 }

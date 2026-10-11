@@ -1,12 +1,18 @@
 package com.airwave.app
 
+import android.Manifest
+import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.media.MediaRecorder
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.OpenableColumns
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
@@ -19,15 +25,21 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.airwave.app.databinding.ActivityGroupChatBinding
 import java.io.File
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
+
+    private companion object {
+        const val REQ_VOICE = 61
+    }
 
     private lateinit var binding: ActivityGroupChatBinding
     private lateinit var adapter: MessageAdapter
@@ -40,6 +52,39 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
     private var lastTypingSent = 0L
     private var typingStateSent = false
     private var pendingReply: AirWaveBle.ReplyInfo? = null
+
+    // ---- v4.0 voice notes ----
+    private var voiceRecorder: MediaRecorder? = null
+    private var voicePath: String? = null
+    private var voiceStartMs = 0L
+    private val recordTick = object : Runnable {
+        override fun run() {
+            val s = ((System.currentTimeMillis() - voiceStartMs) / 1000).toInt()
+            binding.recordTimer.text = VoiceNotes.fmt(s)
+            if (s >= VoiceNotes.MAX_SEC) stopVoiceRecord(send = true)
+            else binding.recordTimer.postDelayed(this, 500)
+        }
+    }
+
+    // ---- v4.1: files / forward ----
+    private var pendingForwardId: String? = null
+
+    private val pickFile =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri ?: return@registerForActivityResult
+            val info = cacheIncomingFile(uri) ?: return@registerForActivityResult
+            AirWaveBle.sendFile(convId, info.first, info.second, info.third)
+        }
+
+    private val forwardPick =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { res ->
+            if (res.resultCode == Activity.RESULT_OK) {
+                val to = res.data?.getStringExtra("to_conv")
+                val mid = pendingForwardId
+                if (to != null && mid != null) AirWaveBle.forwardMessage(convId, mid, to)
+            }
+            pendingForwardId = null
+        }
 
     // v3.0: gallery picker
     private val pickImage =
@@ -78,6 +123,19 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
         binding.replyClose.setOnClickListener { clearReply() }
         // v3.0
         binding.imageButton.setOnClickListener { pickImage.launch("image/*") }
+        // Adapter must be created before any adapter.* access below.
+        adapter = MessageAdapter(this)
+        // v4.0 voice notes
+        binding.micButton.setOnClickListener { onMicTap() }
+        binding.recordStop.setOnClickListener { stopVoiceRecord(send = true) }
+        adapter.onVoiceClick = { msg -> onVoiceClick(msg) }
+        // v4.1
+        binding.imageButton.setOnClickListener { showAttachChooser() }
+        adapter.onFileClick = { msg -> openFile(msg) }
+        adapter.onPollVote = { msg, idx ->
+            val pid = msg.pollId
+            if (pid != null) AirWaveBle.votePoll(convId, pid, idx)
+        }
         binding.searchButton.setOnClickListener { toggleSearch() }
         binding.pinButton.setOnClickListener { showPinned() }
         binding.searchClose.setOnClickListener { toggleSearch() }
@@ -91,7 +149,6 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
             }
         })
 
-        adapter = MessageAdapter(this)
         adapter.showTicks = false
         adapter.onItemLongClick = { showMessageOptions(it) }
         adapter.onRetryClick = { AirWaveBle.resendMessage(convId, it.id); render() }
@@ -146,6 +203,7 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
         render()
         renderMembers(AirWaveBle.groupMembers())
     }
+
 
     override fun onPause() {
         super.onPause()
@@ -202,6 +260,151 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
         }
     }
 
+    // ---------------- v4.0 voice notes ----------------
+
+    private fun onMicTap() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.RECORD_AUDIO), REQ_VOICE
+            )
+            return
+        }
+        startVoiceRecord()
+    }
+
+    private fun startVoiceRecord() {
+        val path = VoiceNotes.newPath(this)
+        val r = VoiceNotes.startRecording(this, path) ?: run {
+            Toast.makeText(this, getString(R.string.voice_failed), Toast.LENGTH_SHORT).show()
+            return
+        }
+        voiceRecorder = r
+        voicePath = path
+        voiceStartMs = System.currentTimeMillis()
+        binding.recordBar.visibility = View.VISIBLE
+        binding.inputRow.visibility = View.GONE
+        binding.recordTimer.post(recordTick)
+    }
+
+    private fun stopVoiceRecord(send: Boolean) {
+        binding.recordTimer.removeCallbacks(recordTick)
+        VoiceNotes.stopRecording(voiceRecorder)
+        voiceRecorder = null
+        binding.recordBar.visibility = View.GONE
+        binding.inputRow.visibility = View.VISIBLE
+        val path = voicePath
+        voicePath = null
+        if (send && path != null) {
+            val secs = VoiceNotes.durationSec(path)
+            if (secs < 1) {
+                File(path).delete()
+                Toast.makeText(this, getString(R.string.voice_too_short), Toast.LENGTH_SHORT).show()
+            } else {
+                AirWaveBle.sendVoiceNote(convId, path, secs)
+            }
+        } else if (path != null) {
+            File(path).delete()
+        }
+    }
+
+    private fun onVoiceClick(msg: AirWaveBle.ChatMessage) {
+        val id = msg.voiceId ?: return
+        VoiceNotes.Player.toggle(
+            id, msg.voicePath,
+            onTick = { pos, dur -> adapter.setVoiceState(id, true, pos, dur) },
+            onDone = { adapter.setVoiceState(null, false, 0, 0) }
+        )
+    }
+
+    // ---------------- v4.1: attach chooser / files / forward / disappearing / polls ----------------
+
+    private fun showAttachChooser() {
+        AlertDialog.Builder(this)
+            .setItems(
+                arrayOf(getString(R.string.attach_photo), getString(R.string.attach_file))
+            ) { _, w ->
+                if (w == 0) pickImage.launch("image/*") else pickFile.launch("*/*")
+            }
+            .show()
+    }
+
+    /** Copy a content:// URI into cache so BLE can read it. Returns (path, name, mime). */
+    private fun cacheIncomingFile(uri: Uri): Triple<String, String, String>? {
+        return try {
+            val cr = contentResolver
+            val name = cr.query(uri, null, null, null, null)?.use { c ->
+                val i = c.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                if (c.moveToFirst() && i >= 0) c.getString(i) else null
+            } ?: "file"
+            val mime = cr.getType(uri) ?: "*/*"
+            val tmp = File(cacheDir, "send_${System.currentTimeMillis()}_$name")
+            cr.openInputStream(uri)?.use { ins ->
+                FileOutputStream(tmp).use { ins.copyTo(it) }
+            }
+            Triple(tmp.absolutePath, name, mime)
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    private fun openFile(msg: AirWaveBle.ChatMessage) {
+        val f = msg.filePath?.let { File(it) }?.takeIf { it.exists() } ?: return
+        val uri = FileProvider.getUriForFile(this, "$packageName.fileprovider", f)
+        val i = Intent(Intent.ACTION_VIEW)
+            .setDataAndType(uri, msg.mime.ifBlank { "*/*" })
+            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        try {
+            startActivity(Intent.createChooser(i, getString(R.string.open_file)))
+        } catch (_: Exception) {
+            Toast.makeText(this, getString(R.string.file_failed), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun showDisappearingDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.disappearing))
+            .setItems(
+                arrayOf(
+                    getString(R.string.disappear_off),
+                    getString(R.string.disappear_24h),
+                    getString(R.string.disappear_7d)
+                )
+            ) { _, w ->
+                AirWaveBle.setDisappearing(
+                    convId,
+                    when (w) {
+                        1 -> 86400
+                        2 -> 604800
+                        else -> 0
+                    }
+                )
+            }
+            .show()
+    }
+
+    private fun showPollDialog() {
+        val q = EditText(this).apply { hint = getString(R.string.poll_question) }
+        val o = EditText(this).apply {
+            hint = getString(R.string.poll_options_hint)
+            minLines = 3
+        }
+        val lay = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(48, 24, 48, 0)
+            addView(q); addView(o)
+        }
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.create_poll))
+            .setView(lay)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                AirWaveBle.createPoll(convId, q.text.toString(), o.text.toString().lines())
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
     // ---------------- reply bar ----------------
 
     private fun startReply(msg: AirWaveBle.ChatMessage) {
@@ -229,6 +432,11 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
             }
         }
         items += getString(R.string.react) to { showReactDialog(msg) }
+        // v4.1: forward
+        items += getString(R.string.forward) to {
+            pendingForwardId = msg.id
+            forwardPick.launch(Intent(this, ForwardActivity::class.java))
+        }
         items += getString(
             if (msg.pinned) R.string.unpin_message else R.string.pin_message
         ) to {
@@ -287,7 +495,13 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
             return
         }
         val labels = pinned.map {
-            val body = if (it.isImage) "📷 ${it.caption.ifBlank { "Photo" }}" else it.text
+            val body = when {
+                it.isPoll -> "📊 ${it.question}"
+                it.isFile -> "📎 ${it.fileName}"
+                it.isVoice -> "🎤 ${VoiceNotes.fmt(it.voiceDurationSec)}"
+                it.isImage -> "📷 ${it.caption.ifBlank { "Photo" }}"
+                else -> it.text
+            }
             "${it.sender}: $body"
         }.toTypedArray()
         AlertDialog.Builder(this)
@@ -309,6 +523,9 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
             for (m in msgs) {
                 val body = when {
                     m.system -> m.text
+                    m.isPoll -> "📊 [poll] ${m.question}"
+                    m.isFile -> "📎 [file] ${m.fileName}"
+                    m.isVoice -> "🎤 [voice note ${VoiceNotes.fmt(m.voiceDurationSec)}]"
                     m.isImage -> "📷 [image] ${m.caption}"
                     else -> m.text
                 }
@@ -400,10 +617,19 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
         val muted = AirWaveBle.isMuted(convId)
         popup.menu.add(0, 6, 0, getString(if (muted) R.string.unmute_chat else R.string.mute_chat))
         popup.menu.add(0, 7, 0, getString(R.string.export_chat))
+        // v4.1: disappearing + polls
+        val dz = AirWaveBle.disappearSecs(convId)
+        popup.menu.add(
+            0, 8, 0,
+            getString(R.string.disappearing) + if (dz > 0) " (${dz / 86400}d)" else ""
+        )
+        popup.menu.add(0, 9, 0, getString(R.string.create_poll))
         popup.menu.add(0, 2, 0, getString(R.string.leave_group))
         popup.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 1 -> confirmClearChat()
+                8 -> showDisappearingDialog()
+                9 -> showPollDialog()
                 2 -> confirmLeave()
                 4 -> showRenameGroup()
                 5 -> showAvatarColorPicker()
@@ -545,6 +771,22 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
     override fun onDestroy() {
         // v3.2.5: never leave a dead activity registered as the BLE listener.
         if (AirWaveBle.listener === this) AirWaveBle.listener = null
+        // v4.0: abandon any in-flight recording and stop playback.
+        if (voiceRecorder != null) stopVoiceRecord(send = false)
+        VoiceNotes.Player.stop()
         super.onDestroy()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQ_VOICE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startVoiceRecord()
+            } else {
+                Toast.makeText(this, getString(R.string.mic_needed), Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

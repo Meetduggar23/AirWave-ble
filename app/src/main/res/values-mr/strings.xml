@@ -93,6 +93,39 @@
     <string name="no_peers_sub">दुसऱ्या फोनवर ब्लूटूथ चालू आहे आणि तो दृश्यमान आहे याची खात्री करा</string>
     <string name="camera_needed">QR कोड स्कॅन करण्यासाठी कॅमेरा परवानगी आवश्यक आहे</string>
 
+    <!-- v4.0: voice notes -->
+    <string name="voice_note">व्हॉइस नोट</string>
+    <string name="voice_recording">रेकॉर्डिंग…</string>
+    <string name="voice_failed">व्हॉइस नोट अयशस्वी</string>
+    <string name="voice_too_short">व्हॉइस नोट खूप लहान आहे</string>
+    <string name="mic_needed">व्हॉइस नोट रेकॉर्ड करण्यासाठी मायक्रोफोन प्रवेश आवश्यक आहे</string>
+    <string name="receiving_voice">व्हॉइस नोट येत आहे (%1$d/%2$d)</string>
+    <string name="stop_recording">थांबवा आणि पाठवा</string>
+    <string name="torch">टॉर्च</string>
+
+    <!-- v4.1 -->
+    <string name="attach_photo">फोटो</string>
+    <string name="attach_file">फाईल</string>
+    <string name="open_file">फाईल उघडा</string>
+    <string name="file_failed">फाईल अयशस्वी</string>
+    <string name="forward">फॉरवर्ड</string>
+    <string name="forward_to">पुढे पाठवा…</string>
+    <string name="disappearing">नाहीसे होणारे संदेश</string>
+    <string name="disappear_off">बंद</string>
+    <string name="disappear_24h">24 तास</string>
+    <string name="disappear_7d">7 दिवस</string>
+    <string name="create_poll">पोल तयार करा</string>
+    <string name="poll_question">प्रश्न</string>
+    <string name="poll_options_hint">पर्याय (एका ओळीत एक, 2–5)</string>
+    <string name="app_lock">अ‍ॅप लॉक</string>
+    <string name="set_pin">4 अंकी PIN सेट करा</string>
+    <string name="change_pin">PIN बदला</string>
+    <string name="pin_4_digits">बरोबर 4 अंक टाका</string>
+    <string name="bio_on">बायोमेट्रिक अनलॉक चालू</string>
+    <string name="bio_off">बायोमेट्रिक अनलॉक बंद</string>
+    <string name="disable">बंद करा</string>
+    <string name="e2e_on">E2E एन्क्रिप्टेड</string>
+
     <!-- v2.0: chat -->
     <string name="no_messages">अद्याप संदेश नाहीत</string>
     <string name="reply">उत्तर द्या</string>
@@ -211,4 +244,6 @@
     <string name="about_privacy_title">प्रायव्हसी</string>
     <string name="about_privacy_body">खाते नाही, फोन नंबर नाही, अ‍ॅनालिटिक्स नाही. चॅट फक्त सेशनपर्यंत मेमरीमध्ये राहतात आणि निघून गेल्यावर नाहीशा होतात.</string>
     <string name="version_fmt">आवृत्ती %1$s</string>
+    <string name="service_running">एअरवेव्ह सुरू आहे</string>
+
 </resources>

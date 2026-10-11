@@ -93,6 +93,39 @@
     <string name="no_peers_sub">ખાતરી કરો કે બીજા ફોનમાં બ્લૂટૂથ ચાલુ છે અને તે દેખાઈ રહ્યું છે</string>
     <string name="camera_needed">QR કોડ સ્કેન કરવા માટે કૅમેરા પરવાનગી જરૂરી છે</string>
 
+    <!-- v4.0: voice notes -->
+    <string name="voice_note">વૉઇસ નોટ</string>
+    <string name="voice_recording">રેકોર્ડિંગ…</string>
+    <string name="voice_failed">વૉઇસ નોટ નિષ્ફળ</string>
+    <string name="voice_too_short">વૉઇસ નોટ ખૂબ ટૂંકો છે</string>
+    <string name="mic_needed">વૉઇસ નોટ રેકોર્ડ કરવા માટે માઇક્રોફોન ઍક્સેસ જરૂરી છે</string>
+    <string name="receiving_voice">વૉઇસ નોટ મળી રહ્યો છે (%1$d/%2$d)</string>
+    <string name="stop_recording">રોકીને મોકલો</string>
+    <string name="torch">ટોર્ચ</string>
+
+    <!-- v4.1 -->
+    <string name="attach_photo">ફોટો</string>
+    <string name="attach_file">ફાઇલ</string>
+    <string name="open_file">ફાઇલ ખોલો</string>
+    <string name="file_failed">ફાઇલ નિષ્ફળ</string>
+    <string name="forward">ફોરવર્ડ</string>
+    <string name="forward_to">પર ફોરવર્ડ કરો…</string>
+    <string name="disappearing">અદ્રશ્ય થતા સંદેશા</string>
+    <string name="disappear_off">બંધ</string>
+    <string name="disappear_24h">24 કલાક</string>
+    <string name="disappear_7d">7 દિવસ</string>
+    <string name="create_poll">પોલ બનાવો</string>
+    <string name="poll_question">પ્રશ્ન</string>
+    <string name="poll_options_hint">વિકલ્પો (એક લાઇન દીઠો, 2–5)</string>
+    <string name="app_lock">એપ લોક</string>
+    <string name="set_pin">4 અંકનો PIN સેટ કરો</string>
+    <string name="change_pin">PIN બદલો</string>
+    <string name="pin_4_digits">બરાબર 4 અંક દાખલ કરો</string>
+    <string name="bio_on">બાયોમેટ્રિક અનલોક ચાલુ</string>
+    <string name="bio_off">બાયોમેટ્રિક અનલોક બંધ</string>
+    <string name="disable">બંધ કરો</string>
+    <string name="e2e_on">E2E એન્ક્રિપ્ટેડ</string>
+
     <!-- v2.0: chat -->
     <string name="no_messages">હજુ કોઈ સંદેશ નથી</string>
     <string name="reply">જવાબ આપો</string>
@@ -211,4 +244,6 @@
     <string name="about_privacy_title">પ્રાઇવસી</string>
     <string name="about_privacy_body">એકાઉન્ટ નહીં, ફોન નંબર નહીં, એનાલિટિક્સ નહીં. ચેટ ફક્ત સેશન સુધી મેમરીમાં રહે છે અને જતાં જ ડીલ થઈ જાય છે.</string>
     <string name="version_fmt">વર્ઝન %1$s</string>
+    <string name="service_running">એરવેવ ચાલી રહી છે</string>
+
 </resources>

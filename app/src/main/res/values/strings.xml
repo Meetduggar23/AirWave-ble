@@ -93,6 +93,39 @@
     <string name="no_peers_sub">Make sure the other phone has Bluetooth on and is discoverable</string>
     <string name="camera_needed">Camera permission is needed to scan QR codes</string>
 
+    <!-- v4.0: voice notes -->
+    <string name="voice_note">Voice note</string>
+    <string name="voice_recording">Recording…</string>
+    <string name="voice_failed">Voice note failed</string>
+    <string name="voice_too_short">Voice note too short</string>
+    <string name="mic_needed">Microphone access is needed to record voice notes</string>
+    <string name="receiving_voice">Receiving voice note (%1$d/%2$d)</string>
+    <string name="stop_recording">Stop and send</string>
+    <string name="torch">Torch</string>
+
+    <!-- v4.1: files, forward, disappearing, polls, app lock, E2E -->
+    <string name="attach_photo">Photo</string>
+    <string name="attach_file">File</string>
+    <string name="open_file">Open file</string>
+    <string name="file_failed">File failed</string>
+    <string name="forward">Forward</string>
+    <string name="forward_to">Forward to…</string>
+    <string name="disappearing">Disappearing messages</string>
+    <string name="disappear_off">Off</string>
+    <string name="disappear_24h">24 hours</string>
+    <string name="disappear_7d">7 days</string>
+    <string name="create_poll">Create poll</string>
+    <string name="poll_question">Question</string>
+    <string name="poll_options_hint">Options (one per line, 2–5)</string>
+    <string name="app_lock">App lock</string>
+    <string name="set_pin">Set 4-digit PIN</string>
+    <string name="change_pin">Change PIN</string>
+    <string name="pin_4_digits">Enter exactly 4 digits</string>
+    <string name="bio_on">Enable biometric unlock</string>
+    <string name="bio_off">Disable biometric unlock</string>
+    <string name="disable">Disable</string>
+    <string name="e2e_on">E2E encrypted</string>
+
     <!-- v2.0: chat -->
     <string name="no_messages">No messages yet</string>
     <string name="reply">Reply</string>
@@ -211,4 +244,6 @@
     <string name="about_privacy_title">Privacy</string>
     <string name="about_privacy_body">No accounts, no phone number, no analytics. Chats live only in memory for the session and disappear when you leave.</string>
     <string name="version_fmt">Version %1$s</string>
+    <string name="service_running">AirWave is running</string>
+
 </resources>

@@ -4,73 +4,87 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import com.google.zxing.integration.android.IntentIntegrator
+import com.journeyapps.barcodescanner.BarcodeCallback
+import com.journeyapps.barcodescanner.BarcodeResult
+import com.journeyapps.barcodescanner.DecoratedBarcodeView
 
-/** Scans an AirWave QR code (person or group) and jumps straight into the chat. */
+/**
+ * v4.0 fixed: embedded scanner.
+ * The old IntentIntegrator external-activity flow (initiateScan +
+ * onActivityResult) failed on several devices. The camera now runs inside
+ * this activity via DecoratedBarcodeView; results come through
+ * BarcodeCallback — no onActivityResult involved.
+ */
 class QrScanActivity : BaseActivity() {
 
     companion object {
         private const val REQ_CAMERA = 50
     }
 
+    private lateinit var barcodeView: DecoratedBarcodeView
+    private var torchOn = false
+    private var handled = false
+
+    private val callback = BarcodeCallback { result: BarcodeResult? ->
+        val text = result?.text
+        if (!handled && !text.isNullOrBlank()) {
+            handled = true
+            barcodeView.pause()
+            handlePayload(text)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) ==
+        setContentView(R.layout.activity_qr_scan)
+        barcodeView = findViewById(R.id.barcodeView)
+        barcodeView.decodeContinuous(callback)
+        findViewById<View>(R.id.torchButton).setOnClickListener {
+            torchOn = !torchOn
+            if (torchOn) barcodeView.setTorchOn() else barcodeView.setTorchOff()
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) !=
             PackageManager.PERMISSION_GRANTED
         ) {
-            startScan()
-        } else {
             ActivityCompat.requestPermissions(
                 this, arrayOf(Manifest.permission.CAMERA), REQ_CAMERA
             )
         }
     }
 
-    private fun startScan() {
-        IntentIntegrator(this)
-            .setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
-            .setPrompt(getString(R.string.scan_qr_prompt))
-            .setBeepEnabled(false)
-            // v3.2.6: portrait scanner (default CaptureActivity is landscape).
-            .setCaptureActivity(PortraitScannerActivity::class.java)
-            .initiateScan()
+    override fun onResume() {
+        super.onResume()
+        barcodeView.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        barcodeView.pause()
     }
 
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<out String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQ_CAMERA) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startScan()
-            } else {
-                Toast.makeText(this, getString(R.string.camera_needed), Toast.LENGTH_SHORT).show()
-                finish()
-            }
-        }
-    }
-
-    @Deprecated("zxing scanner result")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        if (result == null) {
-            super.onActivityResult(requestCode, resultCode, data)
-            return
-        }
-        val contents = result.contents
-        if (contents == null) {
+        if (requestCode == REQ_CAMERA &&
+            (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED)
+        ) {
+            Toast.makeText(this, getString(R.string.camera_needed), Toast.LENGTH_SHORT).show()
             finish()
-            return
         }
-        handlePayload(contents)
+        // Granted: onResume() restarts the preview.
     }
 
     private fun openChat(peer: AirWaveBle.Peer) {
+        // v4.0: stable contact — reopens the existing thread if there is one.
+        val contactId = AirWaveBle.ensureContact(peer.address, peer.name)
         AirWaveBle.connect(peer.address)
         startActivity(Intent(this, ChatActivity::class.java).apply {
+            putExtra("contact_id", contactId)
             putExtra("peer_name", peer.name)
             putExtra("peer_address", peer.address)
         })

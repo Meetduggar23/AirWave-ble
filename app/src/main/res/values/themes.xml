@@ -10,6 +10,10 @@
         <item name="colorOnSurfaceVariant">@color/text_secondary</item>
         <item name="android:windowAnimationStyle">@style/AirWaveWindowAnim</item>
         <item name="dialogCornerRadius">16dp</item>
+        <!-- v4.1 fix: pin alert dialogs to the compact Material dialog theme —
+             without this the onboarding lang/theme pickers rendered fullscreen
+             on some devices. -->
+        <item name="alertDialogTheme">@style/ThemeOverlay.Material3.Dialog.Alert</item>
     </style>
 
     <style name="AirWaveWindowAnim">

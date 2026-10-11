@@ -88,6 +88,39 @@
     <string name="no_peers_title">अभी कोई आस-पास यूज़र नहीं</string>
     <string name="no_peers_sub">सुनिश्चित करें कि दूसरे फोन में ब्लूटूथ ऑन है और वह दिख रहा है</string>
     <string name="camera_needed">QR स्कैन के लिए कैमरा अनुमति ज़रूरी है</string>
+
+    <!-- v4.0: voice notes -->
+    <string name="voice_note">वॉयस नोट</string>
+    <string name="voice_recording">रिकॉर्डिंग…</string>
+    <string name="voice_failed">वॉयस नोट विफल</string>
+    <string name="voice_too_short">वॉयस नोट बहुत छोटा है</string>
+    <string name="mic_needed">वॉयस नोट रिकॉर्ड करने के लिए माइक्रोफ़ोन एक्सेस ज़रूरी है</string>
+    <string name="receiving_voice">वॉयस नोट प्राप्त हो रहा है (%1$d/%2$d)</string>
+    <string name="stop_recording">रोकें और भेजें</string>
+    <string name="torch">टॉर्च</string>
+
+    <!-- v4.1 -->
+    <string name="attach_photo">फ़ोटो</string>
+    <string name="attach_file">फ़ाइल</string>
+    <string name="open_file">फ़ाइल खोलें</string>
+    <string name="file_failed">फ़ाइल विफल</string>
+    <string name="forward">फ़ॉरवर्ड</string>
+    <string name="forward_to">इस पर फ़ॉरवर्ड करें…</string>
+    <string name="disappearing">गायब होने वाले संदेश</string>
+    <string name="disappear_off">बंद</string>
+    <string name="disappear_24h">24 घंटे</string>
+    <string name="disappear_7d">7 दिन</string>
+    <string name="create_poll">पोल बनाएं</string>
+    <string name="poll_question">प्रश्न</string>
+    <string name="poll_options_hint">विकल्प (एक प्रति लाइन, 2–5)</string>
+    <string name="app_lock">ऐप लॉक</string>
+    <string name="set_pin">4 अंकों का पिन सेट करें</string>
+    <string name="change_pin">पिन बदलें</string>
+    <string name="pin_4_digits">बिल्कुल 4 अंक दर्ज करें</string>
+    <string name="bio_on">बायोमेट्रिक अनलॉक चालू करें</string>
+    <string name="bio_off">बायोमेट्रिक अनलॉक बंद करें</string>
+    <string name="disable">बंद करें</string>
+    <string name="e2e_on">E2E एन्क्रिप्टेड</string>
     <string name="no_messages">अभी कोई संदेश नहीं</string>
     <string name="reply">जवाब दें</string>
     <string name="copy">कॉपी</string>
@@ -179,4 +212,6 @@
     <string name="about_privacy_title">प्राइवेसी</string>
     <string name="about_privacy_body">कोई अकाउंट नहीं, कोई फ़ोन नंबर नहीं, कोई एनालिटिक्स नहीं। चैट सिर्फ़ सेशन तक मेमोरी में रहती हैं और जाते हुए मिट जाती हैं।</string>
     <string name="version_fmt">वर्शन %1$s</string>
+    <string name="service_running">एयर वेव चल रहा है</string>
+
 </resources>

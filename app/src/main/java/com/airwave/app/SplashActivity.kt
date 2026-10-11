@@ -22,14 +22,30 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        // v4.1: app-lock gate — PIN screen first, skip everything else.
+        // A lock-storage failure must NEVER kill the launch.
+        try {
+            if (AppLock.shouldLock(this)) {
+                startActivity(Intent(this, LockActivity::class.java))
+                finish()
+                return
+            }
+        } catch (_: Exception) {
+            // Proceed unlocked; the lock stays available in Settings.
+        }
+
         playEntrance()
 
         handler.postDelayed({
-            navigated = true
-            val next = if (Prefs.onboarded) MainActivity::class.java else OnboardingActivity::class.java
-            startActivity(Intent(this, next))
-            finish()
+            navigateNext()
         }, 1100)
+    }
+
+    private fun navigateNext() {
+        navigated = true
+        val next = if (Prefs.onboarded) MainActivity::class.java else OnboardingActivity::class.java
+        startActivity(Intent(this, next))
+        finish()
     }
 
     /** v3.2.6: logo pops in with a glow ring pulse, wordmark + tagline fade up after. */
@@ -101,12 +117,7 @@ class SplashActivity : BaseActivity() {
         super.onResume()
         // If we were paused mid-countdown, never strand the user on the splash.
         if (animators.isEmpty() && !navigated && !isFinishing) {
-            handler.postDelayed({
-                navigated = true
-                val next = if (Prefs.onboarded) MainActivity::class.java else OnboardingActivity::class.java
-                startActivity(Intent(this, next))
-                finish()
-            }, 400)
+            navigateNext()
         }
     }
 }

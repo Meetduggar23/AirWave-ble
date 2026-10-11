@@ -43,7 +43,6 @@ class MainActivity : BaseActivity(), AirWaveBle.Listener {
         }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        routeFromNotification(intent)
 
         AirWaveBle.setName(Prefs.name)
         if (Prefs.name.isBlank()) askForName()
@@ -73,10 +72,6 @@ class MainActivity : BaseActivity(), AirWaveBle.Listener {
         }
         binding.qrButton.setOnClickListener {
             startActivity(Intent(this, QrActivity::class.java))
-        }
-        // v3.2.6: scanner shortcut in the top-right corner.
-        binding.scanButton.setOnClickListener {
-            startActivity(Intent(this, QrScanActivity::class.java))
         }
 
         // Drawer
@@ -125,6 +120,9 @@ class MainActivity : BaseActivity(), AirWaveBle.Listener {
                 })
             } else {
                 startActivity(Intent(this, ChatActivity::class.java).apply {
+                    // v4.0: pass the thread id — ChatActivity derives the
+                    // stable contact from it, so the existing chat reopens.
+                    putExtra("conv_id", summary.convId)
                     putExtra("peer_name", summary.title)
                     putExtra("peer_address", summary.peerAddress)
                 })
@@ -136,37 +134,8 @@ class MainActivity : BaseActivity(), AirWaveBle.Listener {
         binding.drawerLayout.closeDrawer(GravityCompat.START)
     }
 
-    /** v3.2.5: tapping a message notification jumps straight into that chat. */
-    private fun routeFromNotification(intent: Intent?) {
-        val convId = intent?.getStringExtra(NotificationHelper.EXTRA_CONV_ID) ?: return
-        val canonical = AirWaveBle.canonicalConvId(convId)
-        if (canonical.startsWith("group:")) {
-            val gid = canonical.removePrefix("group:")
-            startActivity(Intent(this, GroupChatActivity::class.java).apply {
-                putExtra("group_id", gid)
-                putExtra("is_host", AirWaveBle.hostingGroupId == gid)
-            })
-        } else {
-            val address = canonical.removePrefix("${AirWaveBle.DM}:")
-            startActivity(Intent(this, ChatActivity::class.java).apply {
-                putExtra("peer_name", AirWaveBle.nameFor(address))
-                putExtra("peer_address", address)
-            })
-        }
-    }
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        routeFromNotification(intent)
-        refreshChats()
-    }
-
     override fun onResume() {
         super.onResume()
-        // First-run onboarding redirect: onCreate called finish() before binding
-        // was inflated, but the system still delivers onResume. Bail out so the
-        // lateinit binding is never touched (UninitializedPropertyAccessException).
-        if (!::binding.isInitialized) return
         AirWaveBle.listener = this
         AirWaveBle.setName(Prefs.name)
         binding.greeting.text = getString(R.string.hello_user, Prefs.name.ifBlank { "AirWave" })
@@ -179,6 +148,13 @@ class MainActivity : BaseActivity(), AirWaveBle.Listener {
         binding.bluetoothToggle.isChecked = AirWaveBle.isOnline()
         refreshStatus()
         refreshChats()
+    }
+
+    override fun onDestroy() {
+        // v3.2.5: release the shared listener slot so a destroyed activity
+        // can never swallow message callbacks meant for another screen.
+        if (AirWaveBle.listener == this) AirWaveBle.listener = null
+        super.onDestroy()
     }
 
     private fun refreshStatus() {
@@ -231,9 +207,7 @@ class MainActivity : BaseActivity(), AirWaveBle.Listener {
         val input = EditText(this).apply {
             inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS
             hint = getString(R.string.enter_name)
-            // v3.2.7 (A27): density-scaled instead of raw pixels.
-            val d = resources.displayMetrics.density
-            setPadding((16 * d).toInt(), (10 * d).toInt(), (16 * d).toInt(), (10 * d).toInt())
+            setPadding(48, 32, 48, 32)
         }
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.welcome_title))
@@ -353,10 +327,4 @@ class MainActivity : BaseActivity(), AirWaveBle.Listener {
         runOnUiThread { refreshChats() }
     override fun onMessageUpdated(convId: String) = runOnUiThread { refreshChats() }
     override fun onUnreadChanged() = runOnUiThread { refreshChats() }
-
-    override fun onDestroy() {
-        // v3.2.5: never leave a dead activity registered as the BLE listener.
-        if (AirWaveBle.listener === this) AirWaveBle.listener = null
-        super.onDestroy()
-    }
 }

@@ -93,6 +93,39 @@
     <string name="no_peers_sub">অন্য ফোনে ব্লুটুথ চালু এবং দৃশ্যমান আছে কিনা দেখুন</string>
     <string name="camera_needed">QR কোড স্ক্যান করতে ক্যামেরার অনুমতি দরকার</string>
 
+    <!-- v4.0: voice notes -->
+    <string name="voice_note">ভয়েস নোট</string>
+    <string name="voice_recording">রেকর্ডিং…</string>
+    <string name="voice_failed">ভয়েস নোট ব্যর্থ হয়েছে</string>
+    <string name="voice_too_short">ভয়েস নোট খুব ছোট</string>
+    <string name="mic_needed">ভয়েস নোট রেকর্ড করতে মাইক্রোফোন অ্যাক্সেস প্রয়োজন</string>
+    <string name="receiving_voice">ভয়েস নোট আসছে (%1$d/%2$d)</string>
+    <string name="stop_recording">থামান এবং পাঠান</string>
+    <string name="torch">টর্চ</string>
+
+    <!-- v4.1 -->
+    <string name="attach_photo">ফটো</string>
+    <string name="attach_file">ফাইল</string>
+    <string name="open_file">ফাইল খুলুন</string>
+    <string name="file_failed">ফাইল ব্যর্থ</string>
+    <string name="forward">ফরওয়ার্ড</string>
+    <string name="forward_to">পাঠান…</string>
+    <string name="disappearing">অদৃশ্যমান বার্তা</string>
+    <string name="disappear_off">বন্ধ</string>
+    <string name="disappear_24h">২৪ ঘণ্টা</string>
+    <string name="disappear_7d">৭ দিন</string>
+    <string name="create_poll">পোল তৈরি করুন</string>
+    <string name="poll_question">প্রশ্ন</string>
+    <string name="poll_options_hint">বিকল্প (প্রতি লাইনে একটি, ২–৫)</string>
+    <string name="app_lock">অ্যাপ লক</string>
+    <string name="set_pin">৪ ডিজিটের পিন সেট করুন</string>
+    <string name="change_pin">পিন পরিবর্তন</string>
+    <string name="pin_4_digits">ঠিক ৪ ডিজিট লিখুন</string>
+    <string name="bio_on">বায়োমেট্রিক আনলক চালু</string>
+    <string name="bio_off">বায়োমেট্রিক আনলক বন্ধ</string>
+    <string name="disable">নিষ্ক্রিয়</string>
+    <string name="e2e_on">E2E এনক্রিপ্টেড</string>
+
     <!-- v2.0: chat -->
     <string name="no_messages">এখনও কোনো বার্তা নেই</string>
     <string name="reply">উত্তর</string>
@@ -211,4 +244,6 @@
     <string name="about_privacy_title">প্রাইভেসি</string>
     <string name="about_privacy_body">কোনো অ্যাকাউন্ট নেই, ফোন নম্বর নেই, অ্যানালিটিক্স নেই। চ্যাট শুধু সেশন পর্যন্ত মেমোরিতে থাকে এবং চলে গেলে মুছে যায়।</string>
     <string name="version_fmt">ভার্সন %1$s</string>
+    <string name="service_running">এয়ারওয়েভ চলছে</string>
+
 </resources>

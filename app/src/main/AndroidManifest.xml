@@ -16,10 +16,15 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <!-- For scanning AirWave QR codes -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <!-- v4.0: voice notes -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- For image sharing via gallery (API 33+ granular, older fallback) -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
+    <!-- v4.0: foreground keep-alive service for background messaging -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
 
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
 
@@ -38,7 +43,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:exported="false" android:launchMode="singleTop" />
+        <activity android:name=".MainActivity" android:exported="false" />
         <activity android:name=".NearbyActivity" android:exported="false" />
         <activity android:name=".ChatActivity" android:exported="false" />
         <activity android:name=".GroupChatActivity" android:exported="false" />
@@ -46,21 +51,19 @@
         <activity android:name=".SettingsActivity" android:exported="false" />
         <activity android:name=".QrActivity" android:exported="false" />
         <activity android:name=".AboutActivity" android:exported="false" />
-        <!-- v3.2.6: scanner locked to portrait via PortraitScannerActivity
-             (zxing's own CaptureActivity is sensor-landscape). -->
-        <activity
-            android:name=".QrScanActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".PortraitScannerActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:stateNotNeeded="true" />
+        <!-- v4.1: app lock gate + forwarded-message picker -->
+        <activity android:name=".LockActivity" android:exported="false" />
+        <activity android:name=".ForwardActivity" android:exported="false" />
+        <activity android:name=".QrScanActivity" android:exported="false" />
         <!-- v3.0 new screens -->
         <activity android:name=".ImageViewerActivity" android:exported="false" />
         <activity android:name=".OnboardingActivity" android:exported="false" />
         <activity android:name=".HistoryActivity" android:exported="false" />
+        <!-- v4.0: foreground keep-alive for real-time background messaging -->
+        <service
+            android:name=".BleService"
+            android:exported="false"
+            android:foregroundServiceType="connectedDevice" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

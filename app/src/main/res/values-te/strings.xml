@@ -93,6 +93,39 @@
     <string name="no_peers_sub">మరో ఫోన్‌లో బ్లూటూత్ ఆన్‌లో ఉందని మరియు కనిపించేలా ఉందని నిర్ధారించుకోండి</string>
     <string name="camera_needed">QR కోడ్‌లను స్కాన్ చేయడానికి కెమెరా అనుమతి అవసరం</string>
 
+    <!-- v4.0: voice notes -->
+    <string name="voice_note">వాయిస్ నోట్</string>
+    <string name="voice_recording">రికార్డింగ్…</string>
+    <string name="voice_failed">వాయిస్ నోట్ విఫలమైంది</string>
+    <string name="voice_too_short">వాయిస్ నోట్ చాలా చిన్నది</string>
+    <string name="mic_needed">వాయిస్ నోట్‌లు రికార్డ్ చేయడానికి మైక్రోఫోన్ యాక్సెస్ అవసరం</string>
+    <string name="receiving_voice">వాయిస్ నోట్ అందుతోంది (%1$d/%2$d)</string>
+    <string name="stop_recording">ఆపి పంపండి</string>
+    <string name="torch">టార్చ్</string>
+
+    <!-- v4.1 -->
+    <string name="attach_photo">ఫోటో</string>
+    <string name="attach_file">ఫైల్</string>
+    <string name="open_file">ఫైల్ తెరవండి</string>
+    <string name="file_failed">ఫైల్ విఫలమైంది</string>
+    <string name="forward">ఫార్వర్డ్</string>
+    <string name="forward_to">కు పంపండి…</string>
+    <string name="disappearing">అదిశలవుతున్న సందేశాలు</string>
+    <string name="disappear_off">ఆఫ్</string>
+    <string name="disappear_24h">24 గంటలు</string>
+    <string name="disappear_7d">7 రోజులు</string>
+    <string name="create_poll">పోల్ సృష్టించండి</string>
+    <string name="poll_question">ప్రశ్న</string>
+    <string name="poll_options_hint">ఎంపికలు (ఒక్కో లైనుకు, 2–5)</string>
+    <string name="app_lock">యాప్ లాక్</string>
+    <string name="set_pin">4 అంకెల PIN సెట్</string>
+    <string name="change_pin">PIN మార్చు</string>
+    <string name="pin_4_digits">ఖచ్చితంగా 4 అంకెలు</string>
+    <string name="bio_on">బయోమెట్రిక్ అన్‌లాక్ ఆన్</string>
+    <string name="bio_off">బయోమెట్రిక్ అన్‌లాక్ ఆఫ్</string>
+    <string name="disable">డిసేబుల్</string>
+    <string name="e2e_on">E2E ఎన్‌క్రిప్టెడ్</string>
+
     <!-- v2.0: chat -->
     <string name="no_messages">ఇంకా సందేశాలు లేవు</string>
     <string name="reply">ప్రత్యుత్తరం</string>
@@ -211,4 +244,6 @@
     <string name="about_privacy_title">గోప్యత</string>
     <string name="about_privacy_body">ఖాతా లేదు, ఫోన్ నంబర్ లేదు, అనలిటిక్స్ లేదు. చాట్‌లు సెషన్ వరకు మాత్రమే మెమరీలో ఉంటాయి, వెళ్లగానే తొలగిపోతాయి.</string>
     <string name="version_fmt">వెర్షన్ %1$s</string>
+    <string name="service_running">ఎయిర్‌వేవ్ నడుస్తోంది</string>
+
 </resources>
