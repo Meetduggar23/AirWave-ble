@@ -73,6 +73,9 @@ class MainActivity : BaseActivity(), AirWaveBle.Listener {
         binding.qrButton.setOnClickListener {
             startActivity(Intent(this, QrActivity::class.java))
         }
+        binding.scanButton.setOnClickListener {
+            startActivity(Intent(this, QrScanActivity::class.java))
+        }
 
         // Drawer
         binding.menuButton.setOnClickListener {

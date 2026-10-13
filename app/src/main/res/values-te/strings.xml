@@ -38,7 +38,7 @@
     <string name="identity_title">మీ AirWave గుర్తింపు</string>
     <string name="available_nearby">దగ్గరలో అందుబాటులో</string>
     <string name="session_identity">సెషన్ గుర్తింపు</string>
-    <string name="session_identity_text">AirWave కు ఖాతా అవసరం లేదు. ఇమెయిల్, పాస్‌వర్డ్ లేదా ఆన్‌లైన్ ప్రొఫైల్ లేదు — ఈ సెషన్ కోసం మీరు ఎంచుకున్న పేరు మాత్రమే. చాట్‌లు తాత్కాలికం, సేవ్ చేయబడవు.</string>
+    <string name="session_identity_text">AirWave కు ఖాతా అవసరం లేదు. ఇమెయిల్, పాస్‌వర్డ్ లేదా ఆన్‌లైన్ ప్రొఫైల్ లేదు — మీరు ఎంచుకున్న పేరు మాత్రమే. చాట్‌లు మీ ఫోన్‌లోనే ఉంటాయి, ఎక్కడికీ పంపబడవు.</string>
     <string name="change_name">పేరు మార్చండి</string>
     <string name="unnamed">పేరులేని</string>
     <string name="enter_name">మీ పేరు నమోదు చేయండి</string>
@@ -54,7 +54,7 @@
     <string name="discoverable_on">మీరు దగ్గరలోని యూజర్లకు కనిపిస్తున్నారు</string>
     <string name="discoverable_off">మీరు దగ్గరలోని యూజర్ల నుండి దాగి ఉన్నారు</string>
     <string name="session_only">సెషన్-మాత్రమే చాట్</string>
-    <string name="session_only_summary">చాట్‌లు తాత్కాలికం, ఎప్పుడూ సేవ్ చేయబడవు</string>
+    <string name="session_only_summary">చాట్‌లు మీ ఫోన్‌లోనే ఉంటాయి</string>
     <string name="clear_data">సెషన్ డేటాను క్లియర్ చేయండి</string>
     <string name="clear_confirm">ఈ సెషన్ నుండి అన్ని చాట్‌లు మరియు కనుగొన్న యూజర్లను తొలగించాలా?</string>
     <string name="session_cleared">సెషన్ డేటా క్లియర్ చేయబడింది</string>
@@ -242,7 +242,7 @@
     <string name="about_how_2">సమీపంలోని వ్యక్తిపై ట్యాప్ చేయండి లేదా వారి QR కోడ్‌ను స్కాన్ చేయండి</string>
     <string name="about_how_3">ఒక్కరితో ఒక్కరు లేదా గ్రూప్ చేసి చాట్ చేయండి — గ్రూప్ హోస్ట్ సందేశాలు పంపుతాడు కాబట్టి అందరూ సింక్‌లో ఉంటారు</string>
     <string name="about_privacy_title">గోప్యత</string>
-    <string name="about_privacy_body">ఖాతా లేదు, ఫోన్ నంబర్ లేదు, అనలిటిక్స్ లేదు. చాట్‌లు సెషన్ వరకు మాత్రమే మెమరీలో ఉంటాయి, వెళ్లగానే తొలగిపోతాయి.</string>
+    <string name="about_privacy_body">ఖాతా లేదు, ఫోన్ నంబర్ లేదు, అనలిటిక్స్ లేదు. చాట్‌లు ఈ ఫోన్‌లోనే ఉంటాయి — ఎక్కడికీ అప్‌లోడ్ కావు. కావాలంటే అదృశ్య సందేశాలు ఆన్ చేయండి.</string>
     <string name="version_fmt">వెర్షన్ %1$s</string>
     <string name="service_running">ఎయిర్‌వేవ్ నడుస్తోంది</string>
 

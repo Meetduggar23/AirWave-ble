@@ -38,7 +38,7 @@
     <string name="identity_title">Your AirWave Identity</string>
     <string name="available_nearby">Available nearby</string>
     <string name="session_identity">Session identity</string>
-    <string name="session_identity_text">AirWave does not require an account. There is no email, password or online profile — just the name you chose for this session. Chats are temporary and are not saved.</string>
+    <string name="session_identity_text">AirWave does not require an account. There is no email, password or online profile — just the name you chose. Chats stay on your phone only and are never sent anywhere.</string>
     <string name="change_name">Change Name</string>
     <string name="unnamed">Unnamed</string>
     <string name="enter_name">Enter your name</string>
@@ -54,7 +54,7 @@
     <string name="discoverable_on">You are discoverable to nearby users</string>
     <string name="discoverable_off">You are hidden from nearby users</string>
     <string name="session_only">Session-only chat</string>
-    <string name="session_only_summary">Chats are temporary and are never saved</string>
+    <string name="session_only_summary">Chats stay on your phone only</string>
     <string name="clear_data">Clear Session Data</string>
     <string name="clear_confirm">Delete all chats and discovered users from this session?</string>
     <string name="session_cleared">Session data cleared</string>
@@ -108,6 +108,9 @@
     <string name="attach_file">File</string>
     <string name="open_file">Open file</string>
     <string name="file_failed">File failed</string>
+    <string name="qr_failed">QR failed</string>
+    <string name="file_placeholder">File</string>
+    <string name="image_placeholder">Photo</string>
     <string name="forward">Forward</string>
     <string name="forward_to">Forward to…</string>
     <string name="disappearing">Disappearing messages</string>
@@ -242,7 +245,7 @@
     <string name="about_how_2">Tap a nearby person or scan their QR code to connect</string>
     <string name="about_how_3">Chat one-to-one or create a group — the group host relays messages so everyone stays in sync</string>
     <string name="about_privacy_title">Privacy</string>
-    <string name="about_privacy_body">No accounts, no phone number, no analytics. Chats live only in memory for the session and disappear when you leave.</string>
+    <string name="about_privacy_body">No accounts, no phone number, no analytics. Chats stay on this phone only — nothing is uploaded anywhere. Disappearing messages can auto-delete them.</string>
     <string name="version_fmt">Version %1$s</string>
     <string name="service_running">AirWave is running</string>
 

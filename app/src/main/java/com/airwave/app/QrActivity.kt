@@ -28,7 +28,7 @@ class QrActivity : BaseActivity() {
         if (bmp != null) {
             binding.qrImage.setImageBitmap(bmp)
         } else {
-            Toast.makeText(this, "QR failed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.qr_failed), Toast.LENGTH_SHORT).show()
         }
     }
 }

@@ -110,6 +110,7 @@ class MessageAdapter(private val context: Context) : BaseAdapter() {
         msg: AirWaveBle.ChatMessage
     ) {
         name.text = msg.fileName.ifBlank { "file" }
+        icon.setImageResource(R.drawable.ic_attach)
         val prog = if (msg.fileTotal > 0 && msg.fileReceived < msg.fileTotal)
             " · ${msg.fileReceived}/${msg.fileTotal}" else ""
         size.text = humanSize(msg.fileSize) + prog
@@ -226,7 +227,8 @@ class MessageAdapter(private val context: Context) : BaseAdapter() {
             if (c > 1) "$e$c" else e
         }
         val span = SpannableString(summary)
-        if (msg.reactions.containsKey(msg.sender) || msg.reactions.isNotEmpty()) {
+        // Tapping the row removes MY reaction — only tappable when I reacted.
+        if (msg.reactions.containsKey(AirWaveBle.myName)) {
             span.setSpan(object : ClickableSpan() {
                 override fun onClick(widget: View) {
                     onReactionsClick?.invoke(msg)

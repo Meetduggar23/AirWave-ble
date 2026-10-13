@@ -38,7 +38,7 @@
     <string name="identity_title">तुमची AirWave ओळख</string>
     <string name="available_nearby">जवळपास उपलब्ध</string>
     <string name="session_identity">सत्र ओळख</string>
-    <string name="session_identity_text">AirWave ला खाते आवश्यक नाही. ईमेल, पासवर्ड किंवा ऑनलाइन प्रोफाइल नाही — फक्त या सत्रासाठी तुम्ही निवडलेले नाव. चॅट तात्पुरते असतात आणि जतन केले जात नाहीत.</string>
+    <string name="session_identity_text">AirWave ला खाते लागत नाही. ईमेल, पासवर्ड किंवा ऑनलाइन प्रोफाइल नाही — फक्त तुम्ही निवडलेले नाव. चॅट फक्त तुमच्या फोनमध्ये राहतात, कुठेही पाठवले जात नाहीत.</string>
     <string name="change_name">नाव बदला</string>
     <string name="unnamed">निनावी</string>
     <string name="enter_name">तुमचे नाव प्रविष्ट करा</string>
@@ -54,7 +54,7 @@
     <string name="discoverable_on">तुम्ही जवळच्या वापरकर्त्यांना दृश्यमान आहात</string>
     <string name="discoverable_off">तुम्ही जवळच्या वापरकर्त्यांपासून लपलेले आहात</string>
     <string name="session_only">फक्त-सत्र चॅट</string>
-    <string name="session_only_summary">चॅट तात्पुरते असतात आणि कधीही जतन केले जात नाहीत</string>
+    <string name="session_only_summary">चॅट फक्त तुमच्या फोनमध्ये राहतात</string>
     <string name="clear_data">सत्र डेटा साफ करा</string>
     <string name="clear_confirm">या सत्रातील सर्व चॅट आणि सापडलेले वापरकर्ते हटवायचे?</string>
     <string name="session_cleared">सत्र डेटा साफ केला</string>
@@ -242,7 +242,7 @@
     <string name="about_how_2">जवळच्या व्यक्तीवर टॅप करा किंवा त्यांचा QR कोड स्कॅन करा</string>
     <string name="about_how_3">एकेकाशी किंवा ग्रुप बनवून चॅट करा — ग्रुप होस्ट संदेश पोहोचवतो म्हणून सर्वजण सिंकमध्ये राहतात</string>
     <string name="about_privacy_title">प्रायव्हसी</string>
-    <string name="about_privacy_body">खाते नाही, फोन नंबर नाही, अ‍ॅनालिटिक्स नाही. चॅट फक्त सेशनपर्यंत मेमरीमध्ये राहतात आणि निघून गेल्यावर नाहीशा होतात.</string>
+    <string name="about_privacy_body">खाते नाही, फोन नंबर नाही, अ‍ॅनालिटिक्स नाही. चॅट फक्त या फोनमध्ये राहतात — कुठेही अपलोड होत नाहीत. हवे असल्यास आपोआप मिटणारे संदेश चालू करा.</string>
     <string name="version_fmt">आवृत्ती %1$s</string>
     <string name="service_running">एअरवेव्ह सुरू आहे</string>
 

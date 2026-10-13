@@ -16,6 +16,7 @@ import android.provider.OpenableColumns
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -57,6 +58,7 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
     private var voiceRecorder: MediaRecorder? = null
     private var voicePath: String? = null
     private var voiceStartMs = 0L
+    private var holdVoice = false
     private val recordTick = object : Runnable {
         override fun run() {
             val s = ((System.currentTimeMillis() - voiceStartMs) / 1000).toInt()
@@ -73,7 +75,9 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri ?: return@registerForActivityResult
             val info = cacheIncomingFile(uri) ?: return@registerForActivityResult
-            AirWaveBle.sendFile(convId, info.first, info.second, info.third)
+            if (!AirWaveBle.sendFile(convId, info.first, info.second, info.third)) {
+                Toast.makeText(this, getString(R.string.file_failed), Toast.LENGTH_SHORT).show()
+            }
         }
 
     private val forwardPick =
@@ -121,12 +125,12 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
         binding.groupQrButton.setOnClickListener { showGroupQr() }
         binding.overflowButton.setOnClickListener { showOverflow(it) }
         binding.replyClose.setOnClickListener { clearReply() }
-        // v3.0
-        binding.imageButton.setOnClickListener { pickImage.launch("image/*") }
+        // Attach button (paperclip): the chooser is set further below.
+        binding.imageButton.setImageResource(R.drawable.ic_attach)
         // Adapter must be created before any adapter.* access below.
         adapter = MessageAdapter(this)
-        // v4.0 voice notes
-        binding.micButton.setOnClickListener { onMicTap() }
+        // Voice is now hold-to-record on the send button; hide the old mic key.
+        binding.micButton.visibility = View.GONE
         binding.recordStop.setOnClickListener { stopVoiceRecord(send = true) }
         adapter.onVoiceClick = { msg -> onVoiceClick(msg) }
         // v4.1
@@ -167,7 +171,34 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
         binding.messagesList.adapter = adapter
 
         binding.messageEdit.addTextChangedListener(typingWatcher)
+        // Hold the send button (empty text) to record a voice note; release
+        // for a Send / Cancel choice. A normal tap still sends typed text.
+        binding.sendButton.setOnTouchListener { _, ev ->
+            when (ev.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    if (binding.messageEdit.text.isNullOrEmpty()) {
+                        holdVoice = true
+                        onMicTap()
+                        true
+                    } else false
+                }
+                MotionEvent.ACTION_UP -> {
+                    if (holdVoice) {
+                        holdVoice = false
+                        finishHoldRecord()
+                        true
+                    } else false
+                }
+                MotionEvent.ACTION_CANCEL -> {
+                    holdVoice = false
+                    if (voiceRecorder != null) stopVoiceRecord(send = false)
+                    true
+                }
+                else -> false
+            }
+        }
         binding.sendButton.setOnClickListener { send() }
+        updateSendIcon()
         // v3.2.7 (A6): the keyboard's "Send" action now actually sends — the
         // input declares imeOptions=actionSend but nothing handled it.
         binding.messageEdit.setOnEditorActionListener { _, actionId, _ ->
@@ -199,6 +230,16 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
         AirWaveBle.listener = this
         AirWaveBle.foregroundConv = convId
         AirWaveBle.markRead(convId)
+        // v4.1: lazy reconnect like 1-to-1 chats — redial the host when the
+        // link dropped but the host is still nearby. Hosts need no link.
+        if (!isHost) {
+            val host = AirWaveBle.groupHostAddress
+            if (!host.isNullOrEmpty() && !AirWaveBle.hasLinkTo(host) &&
+                AirWaveBle.isPeerDiscovered(host)
+            ) {
+                AirWaveBle.connect(host)
+            }
+        }
         renderGroupHeader()
         render()
         renderMembers(AirWaveBle.groupMembers())
@@ -219,6 +260,7 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         override fun afterTextChanged(s: Editable?) {
+            updateSendIcon()
             val typing = !s.isNullOrEmpty()
             val now = System.currentTimeMillis()
             if (typing != typingStateSent || now - lastTypingSent > 2500) {
@@ -227,6 +269,13 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
                 AirWaveBle.sendTyping(convId, typing)
             }
         }
+    }
+
+    /** WhatsApp-style input key: mic when the box is empty, send once typing. */
+    private fun updateSendIcon() {
+        binding.sendButton.setImageResource(
+            if (binding.messageEdit.text.isNullOrEmpty()) R.drawable.ic_mic else R.drawable.ic_send
+        )
     }
 
     private fun send() {
@@ -307,6 +356,37 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
         } else if (path != null) {
             File(path).delete()
         }
+    }
+
+    /**
+     * Hold-to-record release: stop the clip and offer Send / Cancel instead
+     * of auto-sending like the tap-to-record flow.
+     */
+    private fun finishHoldRecord() {
+        binding.recordTimer.removeCallbacks(recordTick)
+        VoiceNotes.stopRecording(voiceRecorder)
+        voiceRecorder = null
+        binding.recordBar.visibility = View.GONE
+        binding.inputRow.visibility = View.VISIBLE
+        val path = voicePath
+        voicePath = null
+        if (path == null) return // e.g. permission was requested; nothing recorded
+        val secs = VoiceNotes.durationSec(path)
+        if (secs < 1) {
+            File(path).delete()
+            Toast.makeText(this, getString(R.string.voice_too_short), Toast.LENGTH_SHORT).show()
+            return
+        }
+        AlertDialog.Builder(this)
+            .setMessage("Send voice note (${VoiceNotes.fmt(secs)})?")
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                AirWaveBle.sendVoiceNote(convId, path, secs)
+            }
+            .setNegativeButton(android.R.string.cancel) { _, _ ->
+                File(path).delete()
+            }
+            .setOnCancelListener { File(path).delete() }
+            .show()
     }
 
     private fun onVoiceClick(msg: AirWaveBle.ChatMessage) {

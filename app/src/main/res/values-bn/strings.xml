@@ -38,7 +38,7 @@
     <string name="identity_title">আপনার AirWave পরিচয়</string>
     <string name="available_nearby">কাছাকাছি উপলব্ধ</string>
     <string name="session_identity">সেশন পরিচয়</string>
-    <string name="session_identity_text">AirWave-এর জন্য কোনো অ্যাকাউন্ট লাগে না। ইমেইল, পাসওয়ার্ড বা অনলাইন প্রোফাইল নেই — শুধু এই সেশনের জন্য আপনার বেছে নেওয়া নাম। চ্যাটগুলো অস্থায়ী এবং সংরক্ষিত হয় না।</string>
+    <string name="session_identity_text">AirWave-এ অ্যাকাউন্ট লাগে না। ইমেইল, পাসওয়ার্ড বা অনলাইন প্রোফাইল নেই — শুধু আপনার বেছে নেওয়া নাম। চ্যাট শুধু আপনার ফোনে থাকে, কোথাও পাঠানো হয় না।</string>
     <string name="change_name">নাম পরিবর্তন করুন</string>
     <string name="unnamed">নামহীন</string>
     <string name="enter_name">আপনার নাম লিখুন</string>
@@ -54,7 +54,7 @@
     <string name="discoverable_on">আপনি কাছাকাছি ব্যবহারকারীদের কাছে দৃশ্যমান</string>
     <string name="discoverable_off">আপনি কাছাকাছি ব্যবহারকারীদের থেকে লুকানো</string>
     <string name="session_only">শুধু সেশনের চ্যাট</string>
-    <string name="session_only_summary">চ্যাট অস্থায়ী এবং কখনো সংরক্ষিত হয় না</string>
+    <string name="session_only_summary">চ্যাট শুধু আপনার ফোনে থাকে</string>
     <string name="clear_data">সেশনের ডেটা মুছুন</string>
     <string name="clear_confirm">এই সেশনের সব চ্যাট ও খোঁজা ব্যবহারকারী মুছে যাবে?</string>
     <string name="session_cleared">সেশনের ডেটা মুছে ফেলা হয়েছে</string>
@@ -242,7 +242,7 @@
     <string name="about_how_2">কাছের কারও উপর ট্যাপ করুন বা তাদের QR কোড স্ক্যান করুন</string>
     <string name="about_how_3">একে একে বা গ্রুপ বানিয়ে চ্যাট করুন — গ্রুপ হোস্ট মেসেজ পৌঁছে দেয় যাতে সবাই সিঙ্কে থাকে</string>
     <string name="about_privacy_title">প্রাইভেসি</string>
-    <string name="about_privacy_body">কোনো অ্যাকাউন্ট নেই, ফোন নম্বর নেই, অ্যানালিটিক্স নেই। চ্যাট শুধু সেশন পর্যন্ত মেমোরিতে থাকে এবং চলে গেলে মুছে যায়।</string>
+    <string name="about_privacy_body">কোনো অ্যাকাউন্ট নেই, ফোন নম্বর নেই, অ্যানালিটিক্স নেই। চ্যাট শুধু এই ফোনে থাকে — কোথাও আপলোড হয় না। চাইলে মুছে যাওয়া বার্তা চালু করুন।</string>
     <string name="version_fmt">ভার্সন %1$s</string>
     <string name="service_running">এয়ারওয়েভ চলছে</string>
 

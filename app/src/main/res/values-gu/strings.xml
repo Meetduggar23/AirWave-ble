@@ -38,7 +38,7 @@
     <string name="identity_title">તમારી AirWave ઓળખ</string>
     <string name="available_nearby">નજીકમાં ઉપલબ્ધ</string>
     <string name="session_identity">સત્ર ઓળખ</string>
-    <string name="session_identity_text">AirWave ને એકાઉન્ટની જરૂર નથી. કોઈ ઈમેલ, પાસવર્ડ કે ઓનલાઇન પ્રોફાઇલ નથી — માત્ર આ સત્ર માટે તમે પસંદ કરેલું નામ. ચેટ્સ અસ્થાયી છે અને સાચવવામાં આવતી નથી.</string>
+    <string name="session_identity_text">AirWave ને એકાઉન્ટની જરૂર નથી. કોઈ ઈમેલ, પાસવર્ડ કે ઓનલાઇન પ્રોફાઇલ નથી — માત્ર તમે પસંદ કરેલું નામ. ચેટ્સ માત્ર તમારા ફોનમાં રહે છે, ક્યાંય મોકલાતી નથી.</string>
     <string name="change_name">નામ બદલો</string>
     <string name="unnamed">અનામી</string>
     <string name="enter_name">તમારું નામ દાખલ કરો</string>
@@ -54,7 +54,7 @@
     <string name="discoverable_on">તમે નજીકના વપરાશકર્તાઓને દેખાઈ રહ્યા છો</string>
     <string name="discoverable_off">તમે નજીકના વપરાશકર્તાઓથી છુપાયેલા છો</string>
     <string name="session_only">ફક્ત-સત્ર ચેટ</string>
-    <string name="session_only_summary">ચેટ્સ અસ્થાયી છે અને ક્યારેય સાચવવામાં આવતી નથી</string>
+    <string name="session_only_summary">ચેટ્સ માત્ર તમારા ફોનમાં રહે છે</string>
     <string name="clear_data">સત્ર ડેટા સાફ કરો</string>
     <string name="clear_confirm">આ સત્રની બધી ચેટ્સ અને શોધાયેલા વપરાશકર્તાઓ કાઢી નાખવા છે?</string>
     <string name="session_cleared">સત્ર ડેટા સાફ થયો</string>
@@ -242,7 +242,7 @@
     <string name="about_how_2">નજીકની વ્યક્તિ પર ટેપ કરો અથવા તેમનો QR કોડ સ્કેન કરો</string>
     <string name="about_how_3">એક-એક કરીને કે જૂથ બનાવીને ચેટ કરો — જૂથ હોસ્ટ સંદેશા પહોંચાડે છે જેથી બધા સિંકમાં રહે</string>
     <string name="about_privacy_title">પ્રાઇવસી</string>
-    <string name="about_privacy_body">એકાઉન્ટ નહીં, ફોન નંબર નહીં, એનાલિટિક્સ નહીં. ચેટ ફક્ત સેશન સુધી મેમરીમાં રહે છે અને જતાં જ ડીલ થઈ જાય છે.</string>
+    <string name="about_privacy_body">કોઈ એકાઉન્ટ નહીં, કોઈ ફોન નંબર નહીં, કોઈ એનાલિટિક્સ નહીં. ચેટ્સ માત્ર આ ફોનમાં રહે છે — ક્યાંય અપલોડ થતી નથી. જોઈએ તો અદૃશ્ય થતા સંદેશા ચાલુ કરો.</string>
     <string name="version_fmt">વર્ઝન %1$s</string>
     <string name="service_running">એરવેવ ચાલી રહી છે</string>
 

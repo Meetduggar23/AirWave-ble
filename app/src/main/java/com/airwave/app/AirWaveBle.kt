@@ -106,6 +106,9 @@ object AirWaveBle {
     private const val T_POLL_VOTE = "POLL_VOTE"     // POLL_VOTE|sender|group|pollId|optIdx
     private const val POLL_SEP = "\u001F"
     private const val FILE_MAX_BYTES = 5 * 1024 * 1024
+    // Files are bigger than photos/voice: ~360KB base64 fits 1000 chunks,
+    // a 5MB file needs ~19.5k. Both sides enforce the same ceiling.
+    private const val FILE_MAX_CHUNKS = 20000
     private const val T_REACT = "REACT"
     private const val T_PIN = "PIN"
     private const val T_GNAME = "GNAME"
@@ -284,6 +287,9 @@ object AirWaveBle {
         private set
     private var joinedGroupId: String? = null
     private var pendingJoinGroup: String? = null
+    /** BLE address of the joined group's host (member side), for redial. */
+    var groupHostAddress: String? = null
+        private set
     private var clientPeerAddress: String? = null
 
     /** Conversation currently open on screen; suppresses notifications for it. */
@@ -606,6 +612,7 @@ object AirWaveBle {
         hostingGroupId = null
         joinedGroupId = null
         pendingJoinGroup = null
+        groupHostAddress = null
         peers.clear()
         conversations.clear()
         unread.clear()
@@ -669,6 +676,7 @@ object AirWaveBle {
 
     fun joinGroup(peer: Peer) {
         pendingJoinGroup = peer.groupId
+        groupHostAddress = peer.address
         peer.groupId?.let { gid ->
             groupRoles.getOrPut(gid) { mutableMapOf() }[myName] = "member"
             logHistory("Joining group $gid")
@@ -692,6 +700,7 @@ object AirWaveBle {
             }
             joinedGroupId = null
             pendingJoinGroup = null
+            groupHostAddress = null
             disconnectClient()
         }
         if (gid != null) logHistory("Left group $gid")
@@ -1076,7 +1085,7 @@ object AirWaveBle {
         val safeMime = s(mime.take(60)).ifBlank { "*/*" }
         val b64 = Base64.encodeToString(encBytes(convId, bytes), Base64.NO_WRAP)
         val chunks = b64.chunked(IMG_CHUNK)
-        if (chunks.isEmpty() || chunks.size > IMG_MAX_CHUNKS) return false
+        if (chunks.isEmpty() || chunks.size > FILE_MAX_CHUNKS) return false
         val saved = try {
             val f = File(filesDir(), "$fileId-$safeName")
             FileOutputStream(f).use { it.write(bytes) }
@@ -1154,7 +1163,7 @@ object AirWaveBle {
             }
             msg.filePath = path
             msg.fileReceived = t.total
-            if (path == null) msg.text = "(file)"
+            if (path == null) msg.text = appContext.getString(R.string.file_placeholder)
             listener?.onMessageUpdated(t.convId)
             logHistory("Received file ${t.name} from ${msg.sender}")
         } else if (msg != null) {
@@ -1820,7 +1829,7 @@ object AirWaveBle {
                 if (parts.size != 9) return
                 val fileId = parts[3]
                 val total = parts[4].toIntOrNull() ?: return
-                if (total <= 0 || total > IMG_MAX_CHUNKS) return
+                if (total <= 0 || total > FILE_MAX_CHUNKS) return
                 val senderTime = parts[5].toLongOrNull() ?: now()
                 val conv = if (group == DM) dmConvFromDevice(device, sender) else groupConv(group)
                 if (!incomingFiles.containsKey(fileId)) {
@@ -1975,7 +1984,7 @@ object AirWaveBle {
             }
             msg.imagePath = path
             msg.imgReceived = t.total
-            if (path == null) msg.text = "(image)"
+            if (path == null) msg.text = appContext.getString(R.string.image_placeholder)
             listener?.onMessageUpdated(t.convId)
             logHistory("Received image from ${msg.sender}")
         } else if (msg != null) {
@@ -2006,7 +2015,7 @@ object AirWaveBle {
             }
             msg.voicePath = path
             msg.voiceReceived = t.total
-            if (path == null) msg.text = "(voice note)"
+            if (path == null) msg.text = appContext.getString(R.string.voice_note)
             listener?.onMessageUpdated(t.convId)
             logHistory("Received voice note from ${msg.sender}")
         } else if (msg != null) {
@@ -2446,7 +2455,7 @@ object AirWaveBle {
                 if (parts.size != 9) return
                 val fileId = parts[3]
                 val total = parts[4].toIntOrNull() ?: return
-                if (total <= 0 || total > IMG_MAX_CHUNKS) return
+                if (total <= 0 || total > FILE_MAX_CHUNKS) return
                 val senderTime = parts[5].toLongOrNull() ?: now()
                 val conv = if (group == DM) dmConvFromDevice(gatt.device, sender) else groupConv(group)
                 if (!incomingFiles.containsKey(fileId)) {

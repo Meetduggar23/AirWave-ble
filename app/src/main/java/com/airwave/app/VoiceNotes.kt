@@ -115,7 +115,7 @@ object VoiceNotes {
                         }
                     }
                 }
-                handler.post(tick!!)
+                tick?.let { handler.post(it) }
             } catch (_: Exception) {
                 stop()
                 onDone()

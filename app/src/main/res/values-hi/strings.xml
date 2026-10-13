@@ -38,7 +38,7 @@
     <string name="identity_title">आपकी AirWave पहचान</string>
     <string name="available_nearby">आस-पास उपलब्ध</string>
     <string name="session_identity">सेशन पहचान</string>
-    <string name="session_identity_text">AirWave में अकाउंट की ज़रूरत नहीं। कोई ईमेल, पासवर्ड या ऑनलाइन प्रोफ़ाइल नहीं — सिर्फ़ इस सेशन के लिए चुना हुआ नाम। चैट अस्थायी हैं और सेव नहीं होतीं।</string>
+    <string name="session_identity_text">AirWave में अकाउंट की ज़रूरत नहीं। कोई ईमेल, पासवर्ड या ऑनलाइन प्रोफ़ाइल नहीं — सिर्फ़ आपका चुना हुआ नाम। चैट सिर्फ़ आपके फ़ोन में रहती हैं, कहीं भेजी नहीं जातीं।</string>
     <string name="change_name">नाम बदलें</string>
     <string name="unnamed">बेनाम</string>
     <string name="enter_name">अपना नाम लिखें</string>
@@ -54,7 +54,7 @@
     <string name="discoverable_on">आप आस-पास के यूज़रों को दिख रहे हैं</string>
     <string name="discoverable_off">आप आस-पास के यूज़रों से छिपे हैं</string>
     <string name="session_only">सिर्फ़ सेशन चैट</string>
-    <string name="session_only_summary">चैट अस्थायी हैं और कभी सेव नहीं होतीं</string>
+    <string name="session_only_summary">चैट सिर्फ़ आपके फ़ोन में रहती हैं</string>
     <string name="clear_data">सेशन डेटा साफ़ करें</string>
     <string name="clear_confirm">इस सेशन के सभी चैट और खोजे गए यूज़र हटाएं?</string>
     <string name="session_cleared">सेशन डेटा साफ़ हो गया</string>
@@ -210,7 +210,7 @@
     <string name="about_how_2">किसी पास के इंसान पर टैप करें या उनका QR कोड स्कैन करें</string>
     <string name="about_how_3">एक-एक करके या ग्रुप बनाकर चैट करें — ग्रुप होस्ट मैसेज आगे भेजता है ताकि सब सिंक में रहें</string>
     <string name="about_privacy_title">प्राइवेसी</string>
-    <string name="about_privacy_body">कोई अकाउंट नहीं, कोई फ़ोन नंबर नहीं, कोई एनालिटिक्स नहीं। चैट सिर्फ़ सेशन तक मेमोरी में रहती हैं और जाते हुए मिट जाती हैं।</string>
+    <string name="about_privacy_body">कोई अकाउंट नहीं, कोई फ़ोन नंबर नहीं, कोई एनालिटिक्स नहीं। चैट सिर्फ़ इस फ़ोन में रहती हैं — कहीं अपलोड नहीं होतीं। चाहें तो ग़ायब होने वाले संदेश चालू करें।</string>
     <string name="version_fmt">वर्शन %1$s</string>
     <string name="service_running">एयर वेव चल रहा है</string>
 

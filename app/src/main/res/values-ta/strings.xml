@@ -38,7 +38,7 @@
     <string name="identity_title">உங்கள் AirWave அடையாளம்</string>
     <string name="available_nearby">அருகில் கிடைக்கும்</string>
     <string name="session_identity">அமர்வு அடையாளம்</string>
-    <string name="session_identity_text">AirWave-க்குக் கணக்கு தேவையில்லை. மின்னஞ்சல், கடவுச்சொல் அல்லது ஆன்லைன் சுயவிவரம் இல்லை — இந்த அமர்வுக்கு நீங்கள் தேர்ந்த பெயர் மட்டுமே. அரட்டைகள் தற்காலிகமானவை, சேமிக்கப்படமாட்டா.</string>
+    <string name="session_identity_text">AirWave-க்குக் கணக்கு தேவையில்லை. மின்னஞ்சல், கடவுச்சொல் அல்லது ஆன்லைன் சுயவிவரம் இல்லை — நீங்கள் தேர்ந்த பெயர் மட்டுமே. அரட்டைகள் உங்கள் தொலைபேசியில் மட்டுமே இருக்கும், எங்கும் அனுப்பப்படமாட்டா.</string>
     <string name="change_name">பெயரை மாற்று</string>
     <string name="unnamed">பெயரிடப்படாத</string>
     <string name="enter_name">உங்கள் பெயரை உள்ளிடவும்</string>
@@ -54,7 +54,7 @@
     <string name="discoverable_on">அருகிலுள்ள பயனர்களுக்கு நீங்கள் தெரிவீர்கள்</string>
     <string name="discoverable_off">அருகிலுள்ள பயனர்களிடமிருந்து நீங்கள் மறைக்கப்பட்டுள்ளீர்கள்</string>
     <string name="session_only">அமர்வு-மட்டும் அரட்டை</string>
-    <string name="session_only_summary">அரட்டைகள் தற்காலிகமானவை, ஒருபோதும் சேமிக்கப்படாது</string>
+    <string name="session_only_summary">அரட்டைகள் உங்கள் தொலைபேசியில் மட்டுமே இருக்கும்</string>
     <string name="clear_data">அமர்வு தரவை அழி</string>
     <string name="clear_confirm">இந்த அமர்வின் அனைத்து அரட்டைகளையும் கண்டறியப்பட்ட பயனர்களையும் நீக்கவா?</string>
     <string name="session_cleared">அமர்வு தரவு அழிக்கப்பட்டது</string>
@@ -242,7 +242,7 @@
     <string name="about_how_2">அருகிலுள்ள ஒருவரைத் தட்டவும் அல்லது அவர்களின் QR குறியீட்டை ஸ்கேன் செய்யவும்</string>
     <string name="about_how_3">ஒருவருடன் ஒருவர் அல்லது குழுவாக அரட்டையடியுங்கள் — குழு தொகுப்பாளர் செய்திகளை மறுபகிர்வு செய்வதால் அனைவரும் ஒத்திசைவில் இருப்பார்கள்</string>
     <string name="about_privacy_title">தனியுரிமை</string>
-    <string name="about_privacy_body">கணக்கு இல்லை, தொலைபேசி எண் இல்லை, அனலிடிக்ஸ் இல்லை. அரட்டைகள் அமர்வு முடியும் வரை மட்டுமே நினைவகத்தில் இருக்கும், வெளியேறியதும் அழிந்துவிடும்.</string>
+    <string name="about_privacy_body">கணக்கு இல்லை, தொலைபேசி எண் இல்லை, பகுப்பாய்வு இல்லை. அரட்டைகள் இந்தத் தொலைபேசியில் மட்டுமே இருக்கும் — எங்கும் பதிவேற்றப்படமாட்டா. விரும்பினால் மறையும் செய்திகளை இயக்கவும்.</string>
     <string name="version_fmt">பதிப்பு %1$s</string>
     <string name="service_running">ஏர்வேவ் இயங்குகிறது</string>
 
