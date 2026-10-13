@@ -115,6 +115,9 @@ object AirWaveBle {
     private const val T_GAVATAR = "GAVATAR"
     private const val T_ROLE = "ROLE"
     private const val T_KICK = "KICK"
+    // ---- v4.1: group roster (host -> members) ----
+    //   ROSTER|sender|group|name1\x1Fname2... (POLL_SEP-joined, like polls)
+    private const val T_ROSTER = "ROSTER"
     const val DM = "dm"
 
     private val SERVICE_UUID: UUID = UUID.fromString("12345678-1234-5678-9abc-def012345678")
@@ -545,6 +548,20 @@ object AirWaveBle {
     }
     fun messages(convId: String): List<ChatMessage> = conversations[convId]?.toList() ?: emptyList()
     fun groupMembers(): List<String> = listOf(myName) + memberNames.values
+
+    // ---- v4.1: member lists for non-hosts ----
+    // Members never hear each other's HELLOs, so the host broadcasts its
+    // member list (ROSTER). Last roster per group; members render this.
+    private val groupRosters = LinkedHashMap<String, List<String>>()
+
+    /** Member list for a group screen: live names on the host, last roster on members. */
+    fun displayMembers(groupId: String): List<String> =
+        if (hostingGroupId == groupId) groupMembers()
+        else groupRosters[groupId] ?: groupMembers()
+
+    /** Live BLE address for a group member name (host side), else null. */
+    fun addressForMemberName(name: String): String? =
+        memberNames.entries.firstOrNull { it.value.equals(name, ignoreCase = true) }?.key
 
     /** Best-known display name for a device address (handshake name, else scan name). */
     fun nameFor(address: String): String =
@@ -1417,6 +1434,7 @@ object AirWaveBle {
             .toByteArray(Charsets.UTF_8)
         transport(groupId, "", frame)
         logHistory("$targetName is now $r in group $groupId")
+        broadcastRoster(groupId)
     }
 
     fun sendKick(groupId: String, targetName: String) {
@@ -1434,6 +1452,7 @@ object AirWaveBle {
             }
         }
         logHistory("$targetName was removed from group $groupId")
+        broadcastRoster(groupId)
     }
 
     // ---------------- v3.0: presence, mute, history ----------------
@@ -1670,6 +1689,7 @@ object AirWaveBle {
                 if (gid != null && group == gid) {
                     sysToGroup(gid, "$sender ${appContext.getString(R.string.joined_group)}")
                     listener?.onMembersChanged(gid, groupMembers())
+                    broadcastRoster(gid)
                 }
                 // Lets any open chat refresh the peer's display name.
                 listener?.onConnectionChanged(canonicalAddress(device.address), true)
@@ -2033,15 +2053,25 @@ object AirWaveBle {
         val gid = hostingGroupId ?: return
         sysToGroup(gid, "$name ${appContext.getString(R.string.left_group)}")
         listener?.onMembersChanged(gid, groupMembers())
+        broadcastRoster(gid)
     }
 
-    private fun sysToGroup(groupId: String, text: String) {
-        val sys = frame(T_SYS, "AirWave", groupId, text).toByteArray(Charsets.UTF_8)
+    private fun sysToGroup(groupId: String, text: String) {        val sys = frame(T_SYS, "AirWave", groupId, text).toByteArray(Charsets.UTF_8)
         addMessage(
             groupConv(groupId),
             ChatMessage("AirWave", text, mine = false, time = now(), system = true)
         )
         notifyAll(sys, exclude = null)
+    }
+
+    /**
+     * Host -> members: who is in the group, so member screens can list (and
+     * DM) everyone. Additive frame; older builds ignore it.
+     */
+    private fun broadcastRoster(gid: String) {
+        if (hostingGroupId != gid) return
+        val blob = groupMembers().joinToString(POLL_SEP) { s(it) }
+        notifyAll("$T_ROSTER|${s(myName)}|${s(gid)}|$blob".toByteArray(Charsets.UTF_8), exclude = null)
     }
 
     private fun notifyAll(bytes: ByteArray, exclude: BluetoothDevice?) {
@@ -2569,6 +2599,16 @@ object AirWaveBle {
                     logHistory("Removed from group $group")
                     listener?.onKicked(group)
                 }
+            }
+            // ---- v4.1 roster (member side; host broadcast) ----
+            T_ROSTER -> {
+                if (parts.size != 4) return
+                if (!isHostFrame(gatt.device.address, group)) return
+                val names = parts[3].split(POLL_SEP).map { it.take(40) }
+                    .filter { it.isNotBlank() }.distinct().take(25)
+                if (names.isEmpty()) return
+                groupRosters[group] = names
+                listener?.onMembersChanged(group, names)
             }
         }
     }

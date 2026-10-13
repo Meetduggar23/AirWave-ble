@@ -46,7 +46,7 @@ class MessageAdapter(private val context: Context) : BaseAdapter() {
      *  so the cap is applied to the stretchable TextViews inside the bubble.) */
     private val bubbleTextMaxWidth: Int
         get() = (context.resources.displayMetrics.widthPixels * 0.78).toInt() -
-            (28 * density).toInt()
+                (28 * density).toInt()
 
     private val density = context.resources.displayMetrics.density
 
@@ -64,6 +64,9 @@ class MessageAdapter(private val context: Context) : BaseAdapter() {
 
     /** Tap the reactions row to remove my own reaction. */
     var onReactionsClick: ((AirWaveBle.ChatMessage) -> Unit)? = null
+
+    /** v4.2: tap a sender's name in a group message (WhatsApp-style -> DM). */
+    var onSenderClick: ((AirWaveBle.ChatMessage) -> Unit)? = null
 
     // ---- v4.0 voice notes ----
     var onVoiceClick: ((AirWaveBle.ChatMessage) -> Unit)? = null
@@ -162,7 +165,7 @@ class MessageAdapter(private val context: Context) : BaseAdapter() {
         } else {
             messages.filter {
                 it.text.contains(query, ignoreCase = true) ||
-                    it.caption.contains(query, ignoreCase = true)
+                        it.caption.contains(query, ignoreCase = true)
             }
         }
         notifyDataSetChanged()
@@ -371,6 +374,8 @@ class MessageAdapter(private val context: Context) : BaseAdapter() {
                 b.senderName.text = msg.sender
                 b.senderName.visibility = if (msg.sender.isBlank()) View.GONE else View.VISIBLE
                 b.senderName.setTextColor(AvatarUtil.colorFor(msg.sender))
+                // v4.2: tap sender name -> WhatsApp-style DM/profile options.
+                b.senderName.setOnClickListener { onSenderClick?.invoke(msg) }
                 setHighlighted(b.msgText, msg.text)
                 // v4.1: media/disappearing-aware bubble layout
                 val isMedia = msg.isImage || msg.isVoice || msg.isFile || msg.isPoll

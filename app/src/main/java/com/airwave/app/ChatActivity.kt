@@ -793,4 +793,16 @@ class ChatActivity : BaseActivity(), AirWaveBle.Listener {
             }
         }
     }
+
+    /**
+     * v4.2: WhatsApp-like — tap a chat on the home list and it connects
+     * by itself when the peer is discovered. No need to visit Nearby first.
+     */
+    override fun onPeerFound(peer: AirWaveBle.Peer) {
+        if (peerAddress.isNotEmpty() && peer.address == peerAddress &&
+            !AirWaveBle.hasLinkTo(peerAddress)
+        ) {
+            runOnUiThread { AirWaveBle.connect(peerAddress) }
+        }
+    }
 }

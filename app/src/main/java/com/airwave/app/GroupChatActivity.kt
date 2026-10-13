@@ -155,6 +155,8 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
 
         adapter.showTicks = false
         adapter.onItemLongClick = { showMessageOptions(it) }
+        // v4.2: tap a sender's name in the group -> WhatsApp-style DM options.
+        adapter.onSenderClick = { msg -> onSenderTap(msg) }
         adapter.onRetryClick = { AirWaveBle.resendMessage(convId, it.id); render() }
         adapter.onImageClick = {
             startActivity(Intent(this, ImageViewerActivity::class.java).apply {
@@ -242,7 +244,7 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
         }
         renderGroupHeader()
         render()
-        renderMembers(AirWaveBle.groupMembers())
+        renderMembers(AirWaveBle.displayMembers(groupId))
     }
 
 
@@ -659,32 +661,6 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
             .show()
     }
 
-    /** Long-press a member chip: promote/demote/remove (admins only). */
-    private fun showMemberAdminDialog(name: String) {
-        if (!amIAdmin() || name == AirWaveBle.myName) return
-        val role = AirWaveBle.groupRoleOf(groupId, name)
-        val items = mutableListOf<Pair<String, () -> Unit>>()
-        items += getString(
-            if (role == "admin") R.string.demote_admin else R.string.make_admin
-        ) to {
-            AirWaveBle.sendRole(groupId, name, if (role == "admin") "member" else "admin")
-            renderMembers(AirWaveBle.groupMembers())
-        }
-        items += getString(R.string.remove_member) to {
-            AlertDialog.Builder(this)
-                .setMessage(getString(R.string.remove_member_confirm, name))
-                .setPositiveButton(getString(R.string.remove_member)) { _, _ ->
-                    AirWaveBle.sendKick(groupId, name)
-                }
-                .setNegativeButton(getString(R.string.cancel), null)
-                .show()
-        }
-        AlertDialog.Builder(this)
-            .setTitle(name)
-            .setItems(items.map { it.first }.toTypedArray()) { _, which -> items[which].second() }
-            .show()
-    }
-
     // ---------------- overflow ----------------
 
     private fun showOverflow(anchor: View) {
@@ -753,6 +729,86 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
 
     // ---------------- members ----------------
 
+    /**
+     * v4.1: open a personal 1-to-1 chat with a group member.
+     * v4.2: SAFETY — the BLE layer has a single GATT client. If I am a
+     * member (not host) and the target is another member (not my host),
+     * dialing them would CLOSE my group link. Warn first; host->member
+     * and member->host are always safe.
+     */
+    private fun openMemberChat(name: String) {
+        if (name == AirWaveBle.myName) return
+        val addr = AirWaveBle.addressForMemberName(name)
+            ?: AirWaveBle.peersList().filter { it.name.equals(name, ignoreCase = true) }
+                .takeIf { it.size == 1 }?.get(0)?.address ?: ""
+        if (addr.isEmpty()) {
+            Toast.makeText(
+                this, "$name is not nearby right now.", Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+        val hostAddr = AirWaveBle.groupHostAddress
+        val risky = !isHost && addr != hostAddr && !AirWaveBle.hasLinkTo(addr)
+        if (risky) {
+            AlertDialog.Builder(this)
+                .setTitle(name)
+                .setMessage(
+                    "Messaging $name directly will disconnect you from this group. Continue?"
+                )
+                .setPositiveButton("Message") { _, _ -> launchDm(addr, name) }
+                .setNegativeButton("Cancel", null)
+                .show()
+        } else {
+            launchDm(addr, name)
+        }
+    }
+
+    /** Open the 1-to-1 thread. ChatActivity lazy-connects if the peer is nearby. */
+    private fun launchDm(addr: String, name: String) {
+        val contactId = AirWaveBle.ensureContact(addr, name)
+        startActivity(Intent(this, ChatActivity::class.java).apply {
+            putExtra("contact_id", contactId)
+            putExtra("peer_name", name)
+            putExtra("peer_address", addr)
+        })
+    }
+
+    /** v4.2: tap a sender's name inside a group message -> member options. */
+    private fun onSenderTap(msg: AirWaveBle.ChatMessage) {
+        val name = msg.sender
+        if (name.isBlank() || name == AirWaveBle.myName) return
+        showMemberOptions(name)
+    }
+
+    /**
+     * v4.2: WhatsApp-style member sheet. Everyone gets "Message";
+     * admins also get promote/demote/remove here.
+     */
+    private fun showMemberOptions(name: String) {
+        val items = mutableListOf<Pair<String, () -> Unit>>()
+        items += "Message $name" to { openMemberChat(name) }
+        if (amIAdmin() && name != AirWaveBle.myName) {
+            val role = AirWaveBle.groupRoleOf(groupId, name)
+            items += (if (role == "admin") "Demote admin" else "Make admin") to {
+                AirWaveBle.sendRole(groupId, name, if (role == "admin") "member" else "admin")
+                renderMembers(AirWaveBle.displayMembers(groupId))
+            }
+            items += "Remove $name" to {
+                AlertDialog.Builder(this)
+                    .setMessage("Remove $name from the group?")
+                    .setPositiveButton("Remove") { _, _ ->
+                        AirWaveBle.sendKick(groupId, name)
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
+            }
+        }
+        AlertDialog.Builder(this)
+            .setTitle(name)
+            .setItems(items.map { it.first }.toTypedArray()) { _, which -> items[which].second() }
+            .show()
+    }
+
     private fun renderMembers(members: List<String>) {
         binding.membersRow.removeAllViews()
         binding.memberCount.text = getString(R.string.members_count, members.size)
@@ -774,8 +830,15 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
                 background = ContextCompat.getDrawable(context, R.drawable.bg_chip)
                 gravity = Gravity.CENTER
             }
-            if (amIAdmin() && name != AirWaveBle.myName) {
-                chip.setOnLongClickListener { showMemberAdminDialog(name); true }
+            // v4.2: long-press a member chip -> WhatsApp-style options
+            // (Message for everyone; admin actions for admins).
+            if (name != AirWaveBle.myName) {
+                chip.setOnLongClickListener { showMemberOptions(name); true }
+            }
+            // v4.1: tap a member chip to open a personal 1-to-1 chat,
+            // WhatsApp-style. Self has no DM thread.
+            if (name != AirWaveBle.myName) {
+                chip.setOnClickListener { openMemberChat(name) }
             }
             val lp = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -833,7 +896,7 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
         if (groupId == this.groupId) {
             runOnUiThread {
                 renderGroupHeader()
-                renderMembers(AirWaveBle.groupMembers())
+                renderMembers(AirWaveBle.displayMembers(groupId))
             }
         }
     }
@@ -845,6 +908,18 @@ class GroupChatActivity : BaseActivity(), AirWaveBle.Listener {
                 Toast.makeText(this, getString(R.string.kicked_from_group), Toast.LENGTH_LONG).show()
                 finish()
             }
+        }
+    }
+
+    /**
+     * v4.2: WhatsApp-like — auto-reconnect to the group host when they are
+     * discovered, so tapping the group on the home list just works.
+     */
+    override fun onPeerFound(peer: AirWaveBle.Peer) {
+        if (isHost) return
+        val host = AirWaveBle.groupHostAddress
+        if (!host.isNullOrEmpty() && peer.address == host && !AirWaveBle.hasLinkTo(host)) {
+            runOnUiThread { AirWaveBle.connect(host) }
         }
     }
 
