@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="app/src/main/java/com/airwave/app/appicon2 (1).png" width="140" alt="AirWave logo">
+  <img src="app/src/main/res/drawable-nodpi/appicon2.png" width="140" alt="AirWave logo">
 </p>
 
 <h1 align="center">AirWave</h1>
