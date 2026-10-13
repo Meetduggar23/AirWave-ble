@@ -247,6 +247,7 @@
     <string name="about_privacy_title">Privacy</string>
     <string name="about_privacy_body">No accounts, no phone number, no analytics. Chats stay on this phone only — nothing is uploaded anywhere. Disappearing messages can auto-delete them.</string>
     <string name="version_fmt">Version %1$s</string>
+    <string name="about_credit">Designed and developed by Meet and Daksh</string>
     <string name="service_running">AirWave is running</string>
 
 </resources>
