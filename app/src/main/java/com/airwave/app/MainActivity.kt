@@ -111,11 +111,9 @@ class MainActivity : BaseActivity(), AirWaveBle.Listener {
             startActivity(Intent(this, HistoryActivity::class.java))
         }
 
-        // Chats list
+        // Chats list — tap a row to open it (WhatsApp-style).
         chatsAdapter = ChatConvAdapter()
-        binding.chatsList.adapter = chatsAdapter
-        binding.chatsList.setOnItemClickListener { _, _, position, _ ->
-            val summary = chatsAdapter.getItem(position)
+        chatsAdapter.onChatClick = { summary ->
             if (summary.isGroup) {
                 startActivity(Intent(this, GroupChatActivity::class.java).apply {
                     putExtra("group_id", summary.groupId)
@@ -131,6 +129,7 @@ class MainActivity : BaseActivity(), AirWaveBle.Listener {
                 })
             }
         }
+        binding.chatsList.adapter = chatsAdapter
     }
 
     private fun closeDrawer() {
@@ -289,6 +288,11 @@ class MainActivity : BaseActivity(), AirWaveBle.Listener {
         private var summaries: List<AirWaveBle.ConvSummary> = emptyList()
         private val timeFmt = SimpleDateFormat("HH:mm", Locale.getDefault())
 
+        /** v4.2: row tap -> open chat. Set on the row view itself because
+         * ListView's OnItemClickListener silently fails when item layouts
+         * contain clickable/focusable children. */
+        var onChatClick: ((AirWaveBle.ConvSummary) -> Unit)? = null
+
         fun setSummaries(s: List<AirWaveBle.ConvSummary>) {
             summaries = s
             notifyDataSetChanged()
@@ -317,6 +321,8 @@ class MainActivity : BaseActivity(), AirWaveBle.Listener {
             b.chatTime.text = timeFmt.format(Date(s.time))
             b.chatBadge.visibility = if (s.unread > 0) View.VISIBLE else View.GONE
             b.chatBadge.text = s.unread.toString()
+            // v4.2: tap the row itself to open the chat.
+            b.root.setOnClickListener { onChatClick?.invoke(s) }
             return b.root
         }
     }
